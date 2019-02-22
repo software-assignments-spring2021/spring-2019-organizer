@@ -12,7 +12,7 @@ Feedback from Tutor: Not sure about the difficulty of this project. However, inp
 <p>Backend: Node JS, Python Flask</p>
 <p>Other alternatives: MongoDB </p>
 
-<h6>IConclusion: </h6>
+<h6>Conclusion: </h6>
 <p>We came to a conclusion that we should test the feasibility of scrapping NYU Classes, if the plan doesn’t workout, we are still deciding for another alternative. </p>
 
 
