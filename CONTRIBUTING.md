@@ -8,10 +8,6 @@
 <p>2. Divide and assign task to individuals and merge them back when there is a bug free contribution
 <p>3. When making a pull request and merging to branch, make sure at least one other teammate review and approve the code
 
-<h5>Centralized workflow</h5>
-
-<p>All changes are committed into master after at least one other teammate review and approve the code</p>
-
 <h2>How we will work together:</h2>
 
 <p>1. Rotating Product Owner and Scrum Master roles</p>
