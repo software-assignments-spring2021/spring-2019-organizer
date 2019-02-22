@@ -5,15 +5,15 @@ Feedback from Professor: It may be hard to access and crawl the data from the we
 Feedback from Tutor: Not sure about the difficulty of this project. However, inputting due dates manually is disturbing.
 
 
-Feasibility of scrapping NYU Classes - Pending
-Alternative - Pending
+<p>Feasibility of scrapping NYU Classes - Pending</p>
+<p>Alternative - Pending</p>
 
-Front End: React JS
-Backend: Node JS, Python Flask
-Other alternatives: MongoDB 
+<p>Front End: React JS</p>
+<p>Backend: Node JS, Python Flask</p>
+<p>Other alternatives: MongoDB </p>
 
-Interview Conclusion: 
-We came to a conclusion that we should test the feasibility of scrapping NYU Classes, if the plan doesn’t workout, we are still deciding for another alternative. 
+<h6>IConclusion: </h6>
+<p>We came to a conclusion that we should test the feasibility of scrapping NYU Classes, if the plan doesn’t workout, we are still deciding for another alternative. </p>
 
 
 ## End-user observation
