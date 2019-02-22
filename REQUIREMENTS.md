@@ -3,7 +3,7 @@
 Feedback from Professor: It may be hard to access and crawl the data from the websites that we want to access. Also keeping track of the duration time may be annoying, but the idea of giving recommendations is favorable. 
 
 Feedback from Tutor: Not sure about the difficulty of this project. However, inputting due dates manually is disturbing.
-
+<p>  </p>
 
 <p>Feasibility of scrapping NYU Classes - Pending</p>
 <p>Alternative - Pending</p>
