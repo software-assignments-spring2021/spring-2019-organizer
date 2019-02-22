@@ -4,6 +4,18 @@ Feedback from Professor: It may be hard to access and crawl the data from the we
 
 Feedback from Tutor: Not sure about the difficulty of this project. However, inputting due dates manually is disturbing.
 
+
+Feasibility of scrapping NYU Classes - Pending
+Alternative - Pending
+
+Front End: React JS
+Backend: Node JS, Python Flask
+Other alternatives: MongoDB 
+
+Interview Conclusion: 
+We came to a conclusion that we should test the feasibility of scrapping NYU Classes, if the plan doesn’t workout, we are still deciding for another alternative. 
+
+
 ## End-user observation
 
 Persona:
