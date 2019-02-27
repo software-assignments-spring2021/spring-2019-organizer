@@ -22,15 +22,10 @@ can be. We would like to develop a tool in which help students focus and spend m
   <p>Additional links will be avaialble when they are added in the future. Thank you for your interest </p> 
   
   <h2>Authors</h2>
-https://github.com/aqlangela - automatic!
-[Angela](https://github.com/aqlangela)
 
-http://github.com - automatic!
+[Angela](https://github.com/aqlangela)
 [Eric](https://github.com/Zerichen)
-http://github.com - automatic!
 [Mark](https://github.com/Mark-Zeng)
-http://github.com - automatic!
 [Michael](https://github.com/MichaelZhangty)
-http://github.com - automatic!
 [Junno](https://github.com/jq488)
 
