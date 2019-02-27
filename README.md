@@ -11,7 +11,7 @@ can be. We would like to develop a tool in which help students focus and spend m
  
  
   <h2>How to contribute</h2>
-  <p>Please refer to the [Contributing.MD](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md) regarding for more info </p> 
+  <p>Please refer to the [CONTRIBUTING.MD](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md) regarding for more info </p> 
   
   
   <h2>Building and Testing</h2>
