@@ -15,13 +15,18 @@ can be. We would like to develop a tool in which help students focus and spend m
 [CONTRIBUTING.md](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md)
   
   
-  ###Building and Testing
+ <h2>Building and Testing</h2>
   
    Node JS
+   
    React JS
+   
    HTML CSS
+   
    Python
+   
    Python Flask
+   
    MongoDB
    
    
