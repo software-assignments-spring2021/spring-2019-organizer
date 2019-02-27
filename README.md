@@ -20,3 +20,7 @@ can be. We would like to develop a tool in which help students focus and spend m
    
   <h2>Additional Links</h2>
   <p>Additional links will be avaialble when they are added in the future. Thank you for your interest </p> 
+  
+    <h2>Authors</h2>
+  https://github.com/aqlangela - automatic!
+[Angela](https://github.com/aqlangela)
