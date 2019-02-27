@@ -23,7 +23,7 @@ can be. We would like to develop a tool in which help students focus and spend m
   
   <h2>Authors</h2>
 
-[Angela](https://github.com/aqlangela)
+[Angela Luo](https://github.com/aqlangela)
 
 [Eric Chen](https://github.com/Zerichen)
 
