@@ -16,7 +16,13 @@ can be. We would like to develop a tool in which help students focus and spend m
   
   
   <h2>Building and Testing</h2>
-   <p>This section will be available after it is built </p> 
+  
+   Node JS
+   React JS
+   HTML CSS
+   Python
+   Python Flask
+   MongoDB
    
    
   <h2>Additional Links</h2>
