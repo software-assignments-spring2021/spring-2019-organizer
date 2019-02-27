@@ -25,11 +25,11 @@ can be. We would like to develop a tool in which help students focus and spend m
 
 [Angela](https://github.com/aqlangela)
 
-[Eric](https://github.com/Zerichen)
+[Eric Chen](https://github.com/Zerichen)
 
-[Mark](https://github.com/Mark-Zeng)
+[Mark Zeng](https://github.com/Mark-Zeng)
 
-[Michael](https://github.com/MichaelZhangty)
+[Michael Zhang](https://github.com/MichaelZhangty)
 
-[Junno](https://github.com/jq488)
+[Junno Yau](https://github.com/jq488)
 
