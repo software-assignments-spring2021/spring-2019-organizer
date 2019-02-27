@@ -12,7 +12,7 @@ can be. We would like to develop a tool in which help students focus and spend m
  
   <h2>How to contribute</h2>
   <p>Please refer to the following link regarding for more contributing information </p> 
-[CONTRIBUTING.md](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md) 
+[CONTRIBUTING.md](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md)
   
   
   <h2>Building and Testing</h2>
