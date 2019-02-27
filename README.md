@@ -24,6 +24,7 @@ can be. We would like to develop a tool in which help students focus and spend m
   <h2>Authors</h2>
 https://github.com/aqlangela - automatic!
 [Angela](https://github.com/aqlangela)
+
 http://github.com - automatic!
 [Eric](https://github.com/Zerichen)
 http://github.com - automatic!
