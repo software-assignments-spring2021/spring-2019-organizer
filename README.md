@@ -21,6 +21,10 @@ can be. We would like to develop a tool in which help students focus and spend m
   <h2>Additional Links</h2>
   <p>Additional links will be avaialble when they are added in the future. Thank you for your interest </p> 
   
-    <h2>Authors</h2>
-  https://github.com/aqlangela - automatic!
+  <h2>Authors</h2>
 [Angela](https://github.com/aqlangela)
+[Eric](https://github.com/Zerichen)
+[Mark](https://github.com/Mark-Zeng)
+[Michael](https://github.com/MichaelZhangty)
+[Junno](https://github.com/jq488)
+
