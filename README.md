@@ -15,7 +15,7 @@ can be. We would like to develop a tool in which help students focus and spend m
 [CONTRIBUTING.md](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md)
   
   
-  <h2>Building and Testing</h2>
+  ###Building and Testing
   
    Node JS
    React JS
