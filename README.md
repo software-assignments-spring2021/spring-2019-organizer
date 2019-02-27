@@ -24,8 +24,12 @@ can be. We would like to develop a tool in which help students focus and spend m
   <h2>Authors</h2>
 
 [Angela](https://github.com/aqlangela)
+
 [Eric](https://github.com/Zerichen)
+
 [Mark](https://github.com/Mark-Zeng)
+
 [Michael](https://github.com/MichaelZhangty)
+
 [Junno](https://github.com/jq488)
 
