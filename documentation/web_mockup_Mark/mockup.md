@@ -3,14 +3,14 @@
 <p> Opacity used is 87% and 60%, pallete used is attached as pallete.pdf </p>
 
 ### home page
-![home page](documentation/web_mockup_Mark/home_page.png)
+![home page](home_page.png)
 
 > Notes:
 
 * a click on the calendar jumps to a specific day with assignments listed
 
 ### courses page & tags page
-![home page](documentation/web_mockup_Mark/my_courses.png)
+![home page](my_courses.png)
 
 > Notes:
 
@@ -19,7 +19,7 @@
 * a user could bring his favorite tags to the sidebar by going to `add favorite tags`
 
 ### records page
-![home page](documentation/web_mockup_Mark/records.png)
+![home page](records.png)
 
 > Notes:
 
