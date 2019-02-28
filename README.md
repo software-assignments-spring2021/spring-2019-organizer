@@ -2,7 +2,7 @@
 
 
 <h2>Description</h2>
-  <p>Organizer is a tool that tracks down students' assignments from NYU Classes and organize them into a website so students do not neccessarily have to log in to NYU Classes and check for assignments for each of the class. Another goal is is to provide an efficient time estimation of similar taks in the future based on assignments' histories. We are still coming up with the ideas of the ways to analysis students' assignments based on their times spent, levels of difficulty and their daily habits. We understand that studying in New York is an unforgettable experience. We want to organize students' times efficiently so students can make the best ouf ot their time.</p>
+  <p>Organizer is a tool that tracks down students' assignments from NYU Classes and organize them into a website so students do not neccessarily have to log in to NYU Classes and check for assignments for each of the class. Another goal is is to provide an efficient time estimation of similar taks in the future based on assignments' histories. We are still coming up with the ideas of the ways to analysis students' assignments based on their times spent, levels of difficulty and their daily habits. We understand that studying in New York is an unforgettable experience. We want to organize students' times efficiently so students can make the best out of their times in NYC.</p>
   
   
  <h2>History</h2>
