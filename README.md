@@ -18,7 +18,11 @@
   
    Node JS
    
+   Express
+   
    React JS
+   
+   Passport.js
    
    HTML CSS
    
@@ -27,6 +31,8 @@
    Python Flask
    
    MongoDB
+   
+   MERN stack
    
    
   <h2>Additional Links</h2>
