@@ -2,11 +2,11 @@
 
 <h2>Work Flows</h2>
 
-<h5>Trunk-based workflow</h5>
+<h5>Feature based workflow</h5>
 
-<p>1. Each person create their own working branch 
-<p>2. Divide and assign task to individuals and merge them back when there is a bug free contribution
-<p>3. When making a pull request and merging to branch, make sure at least one other teammate review and approve the code
+    1. Assign tasks/spikes amoung team members, assign code reviewers
+    2. Each task/spike has its independent branch
+    3. Upon completion of a task/spike, at least one member should review the code and make sure it works properly. Then code could be merged into the trunk.
 
 <h2>How we will work together:</h2>
 

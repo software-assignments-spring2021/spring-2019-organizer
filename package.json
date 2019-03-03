@@ -1,0 +1,28 @@
+{
+  "name": "organizer",
+  "version": "1.0.0",
+  "description": "<h1>Organizer</h1>",
+  "main": ".eslintrc.js",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.14.1",
+    "eslint-plugin-mocha": "^5.3.0",
+    "express": "^4.16.4",
+    "hbs": "^4.0.2",
+    "mongoose": "^5.4.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyu-software-engineering/organizer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nyu-software-engineering/organizer/issues"
+  },
+  "homepage": "https://github.com/nyu-software-engineering/organizer#readme"
+}
