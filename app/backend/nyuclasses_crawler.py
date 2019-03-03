@@ -60,6 +60,9 @@ def wait_for(conditionFunc):
 if wait_for(passDUO):
     print(driver.page_source)
 
+
+
+
 # Closing the chrome testing window 
 driver.close()
 driver.quit()
