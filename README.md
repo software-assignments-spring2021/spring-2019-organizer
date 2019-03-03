@@ -10,8 +10,7 @@
  
  
   <h2>How to contribute</h2>
-  <p>Please refer to the following link regarding for more contributing information </p> 
-[CONTRIBUTING.md](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md)
+  <p>Please refer to the following link regarding for more contributing information </p>
   
   
  <h2>Building and Testing</h2>
