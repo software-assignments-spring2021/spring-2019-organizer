@@ -6,8 +6,8 @@ from selenium.common.exceptions import StaleElementReferenceException, NoSuchEle
 import time
 
 url = 'http://newclasses.nyu.edu'
-netid = "tz904"
-password = "885600JJjj!"
+netid = ""
+password = ""
 
 driver = webdriver.Chrome()
 driver.get(url)
