@@ -44,6 +44,7 @@ function findMax(l) {
     }
 }
 
+
 /* a function that returns a new
 function with args1 fixed*/
 function bundleFunc(fn, ...args1) {
@@ -52,9 +53,31 @@ function bundleFunc(fn, ...args1) {
     };
 }
 
+function tolowercase(l) {
+    if(l === undefined ||
+        !(typeof(l) === "string")) {
+        return NaN;
+    } else {
+        const newstring = l.toLowerCase();
+        return newstring;
+    }
+}
+
+function touppercase(l) {
+    if(l === undefined ||
+        !(typeof(l) === "string")) {
+        return NaN;
+    } else {
+        const newstring = l.toUpperCase();
+        return newstring;
+}
+}
+
 
 //add functions to exports
 module.exports = {
     findMax:findMax,
-    bundleFunc:bundleFunc
+    bundleFunc:bundleFunc,
+    tolowercase:tolowercase,
+    touppercase:touppercase
 };
