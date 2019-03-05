@@ -2,7 +2,18 @@
 const assert = require("assert");
 const utils = require("../src/utils");
 
+/*a test function*/
+function testFunc1(a, b, c) {
+    return a + b + c;
+}
+const f1 = utils.bundleFunc(testFunc1, 1, 2);
+function testFunc2(a, b, c, d) {
+    return a + b + c + d;
+}
+const f2 = utils.bundleFunc(testFunc2, 2, 3);
+
 describe('utility functions', function() {
+
     describe('findMax()', function() {
         it('return NaN if no arguments were passed in', function() {
             assert.equal(isNaN(utils.findMax()), true);
@@ -19,22 +30,22 @@ describe('utility functions', function() {
     });
 
     describe('findMin()', function() {
-        it('return NaN if no arguments were passed in', function() {
-            assert.equal(isNaN(utils.findMin()), true);
-        });
-        it('return NaN if argument is not an Array', function() {
-            assert.equal(isNaN(utils.findMin(3)), true);
-        });
-        it('return NaN if argument is not an Array', function() {
-            assert.equal(isNaN(utils.findMin({})), true);
-        });
-        it('return NaN if argument is not an Array of numbers', function() {
-            assert.equal(isNaN(utils.findMin(['test', 1])), true);
-        });
-        it('return min if argument is an Array', function() {
-            assert.equal(utils.findMin([3, 19, 12]), 3);
-        });
-    });
+          it('return NaN if no arguments were passed in', function() {
+              assert.equal(isNaN(utils.findMin()), true);
+          });
+          it('return NaN if argument is not an Array', function() {
+              assert.equal(isNaN(utils.findMin(3)), true);
+          });
+          it('return NaN if argument is not an Array', function() {
+              assert.equal(isNaN(utils.findMin({})), true);
+          });
+          it('return NaN if argument is not an Array of numbers', function() {
+              assert.equal(isNaN(utils.findMin(['test', 1])), true);
+          });
+          it('return min if argument is an Array', function() {
+              assert.equal(utils.findMin([3, 19, 12]), 3);
+          });
+      });
 
     describe('find()', function() {
         it('return false if no arguments were passed in', function() {

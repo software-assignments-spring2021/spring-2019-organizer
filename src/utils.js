@@ -16,10 +16,12 @@ unit-testing:
     5. touppercase
     6. text parsing
     7. find() find an item in an array
+    8. sum
+    9
     
-    High Order Functions:
+    Higher Order Functions:
     1. bundle 2 functions:
-    2. ...
+
 */
 
 /* returns the minimum of an array
@@ -76,6 +78,39 @@ function findMax(l) {
     }
 }
 
+/* write a function that returns the text 
+into array and remove the white space of the 
+text */
+function textParsing(t) {
+    if ((t === undefined) || !(typeof t === "string")) {
+        return undefined;
+    } else {
+        let newt = t.trim();
+        newt = newt.split(" ");
+        return newt;
+    }
+}
+
+/* write a function that returns an array 
+that eliminate all the number which are less 
+than 0 */
+function filter(array) {
+    if (array === undefined || !(array instanceof Array)) {
+        return undefined;
+    } else {
+        const newArray = array.filter( n => n > 0);
+        return newArray;
+    }
+}
+
+/* a function that returns a new
+function with args1 fixed*/
+function bundleFunc(fn, ...args1) {
+    return function (...args) {
+        return fn(...args1, ...args);
+    };
+}
+
 function tolowercase(l) {
     if(l === undefined ||
         !(typeof(l) === "string")) {
@@ -93,12 +128,17 @@ function touppercase(l) {
     } else {
         const newstring = l.toUpperCase();
         return newstring;
+    }
 }
+
 }
 
 //add functions to exports
 module.exports = {
     findMax:findMax,
+    textParsing:textParsing,
+    filter:filter,
+    bundleFunc:bundleFunc,
     tolowercase:tolowercase,
     touppercase:touppercase,
     findMin: findMin,
