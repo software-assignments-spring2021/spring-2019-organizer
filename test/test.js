@@ -1,6 +1,7 @@
 /* this is a file of unit tests*/
 const assert = require("assert");
 const utils = require("../src/utils");
+const expect = require("chai").expect;
 
 /*a test function*/
 function testFunc1(a, b, c) {
@@ -142,4 +143,38 @@ describe('utility functions', function() {
             assert.equal(utils.touppercase("HelloWorld"), "HELLOWORLD");
         });
     });
+    describe('sum()', function() {
+        it('return NaN if no arguments were passed in', function() {
+            assert.equal(isNaN(utils.sum()), true);
+        });
+        it('return NaN if argument is not an Array', function() {
+            assert.equal(isNaN(utils.sum({})), true);
+        });
+        it('return Nan if argument is not a number or a string', function() {
+            assert.equal(isNaN(utils.sum(["ab", "a", 12])), true);
+        });
+        it('should not add non-array', function() {
+            expect(utils.sum(([1,2,3].isarray)== (true)));
+        });
+        it('return sum if argument the input is correct as whole number', function() {
+            assert.equal((utils.sum([3, 2, 12])), 17);
+        });
+        it('return sum even there is only one element', function() {
+            assert.equal((utils.sum([3])), 3);
+        });
+        it('return sum even if an element from the input is negative', function() {
+            assert.equal((utils.sum([3, -1, 12])), 14);
+        });
+
+    });
+    describe('parlindrome()', function() {
+
+        it('return true if it is a palindrome', function() {
+            var result = utils.palindrome("aba")
+            expect(result).to.equal(true)
+        });
+        it('return true if it is not a palindrome', function() {
+            var result = utils.palindrome("abaa")
+            expect(result).to.equal(false)
+        });
 });
