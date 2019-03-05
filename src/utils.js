@@ -44,10 +44,31 @@ function findMax(l) {
     }
 }
 
+function tolowercase(l) {
+    if(l === undefined ||
+        !(typeof(l) === "string")) {
+        return NaN;
+    } else {
+        const newstring = l.toLowerCase();
+        return newstring;
+    }
+}
+
+function touppercase(l) {
+    if(l === undefined ||
+        !(typeof(l) === "string")) {
+        return NaN;
+    } else {
+        const newstring = l.toUpperCase();
+        return newstring;
+}
+}
 
 
 
 //add functions to exports
 module.exports = {
-    findMax:findMax
+    findMax:findMax,
+    tolowercase:tolowercase,
+    touppercase:touppercase
 };
