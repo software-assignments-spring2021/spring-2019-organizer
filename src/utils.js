@@ -16,11 +16,11 @@ unit-testing:
     5. touppercase
     6. text parsing
     7. find() find an item in an array
+    8. sum
+    9
     
-    High Order Functions:
+    Higher Order Functions:
     1. bundle 2 functions:
-    2. ...
-
 */
 
 
@@ -44,6 +44,15 @@ function findMax(l) {
     }
 }
 
+
+/* a function that returns a new
+function with args1 fixed*/
+function bundleFunc(fn, ...args1) {
+    return function (...args) {
+        return fn(...args1, ...args);
+    };
+}
+
 function tolowercase(l) {
     if(l === undefined ||
         !(typeof(l) === "string")) {
@@ -65,10 +74,10 @@ function touppercase(l) {
 }
 
 
-
 //add functions to exports
 module.exports = {
     findMax:findMax,
+    bundleFunc:bundleFunc,
     tolowercase:tolowercase,
     touppercase:touppercase
 };
