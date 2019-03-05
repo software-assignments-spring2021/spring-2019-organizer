@@ -20,10 +20,42 @@ unit-testing:
     High Order Functions:
     1. bundle 2 functions:
     2. ...
-
 */
 
+/* returns the minimum of an array
+returns NaN if no  */
+function findMin(l) {
+    if (l === undefined || !(l instanceof Array)) {
+        return NaN;
+    } else {
+        let min = l[0];
+        let num;
+        for (num of l) {
+            if (!(typeof num === 'number')) {
+                return NaN;
+            }
+            if (num < min) {
+                min = num;
+            }
+        }
+        return min;
+    }
+}
 
+/* returns true if the desired element is in an array
+false otherwise */
+function find(element, l) {
+    if (element === undefined || l === undefined || !(l instanceof Array)) {
+        return false;
+    } else {
+        for (let i = 0; i < l.length; i++) {
+            if (element === l[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
 
 /* write a function that returns the maximum
 of an array. Return nan if argument is not an 
@@ -44,10 +76,9 @@ function findMax(l) {
     }
 }
 
-
-
-
 //add functions to exports
 module.exports = {
+    findMin: findMin,
+    find: find,
     findMax:findMax
 };
