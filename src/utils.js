@@ -101,6 +101,7 @@ function touppercase(l) {
 module.exports = {
     findMax:findMax,
     textParsing:textParsing,
+    filter:filter,
     bundleFunc:bundleFunc,
     tolowercase:tolowercase,
     touppercase:touppercase
