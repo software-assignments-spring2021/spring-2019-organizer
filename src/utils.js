@@ -44,6 +44,39 @@ function findMax(l) {
     }
 }
 
+function findMin(l) {
+    if (l === undefined || !(l instanceof Array)) {
+        return NaN;
+    } else {
+        let min = l[0];
+        let num;
+        for (num of l) {
+            if (!(typeof num === 'number')) {
+                return NaN;
+            }
+            if (num < min) {
+                min = num;
+            }
+        }
+        return min;
+    }
+}
+
+/* returns true if the desired element is in an array
+false otherwise */
+function find(element, l) {
+    if (element === undefined || l === undefined || !(l instanceof Array)) {
+        return false;
+    } else {
+        for (let i = 0; i < l.length; i++) {
+            if (element === l[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 /* write a function that returns the text 
 into array and remove the white space of the 
 text */
@@ -104,5 +137,7 @@ module.exports = {
     filter:filter,
     bundleFunc:bundleFunc,
     tolowercase:tolowercase,
-    touppercase:touppercase
+    touppercase:touppercase,
+    findMin: findMin,
+    find: find
 };
