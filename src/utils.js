@@ -129,6 +129,39 @@ function touppercase(l) {
         return newstring;
     }
 }
+/* a function that returns the sum from an array */
+function sum(l){
+    if(l === undefined ||
+        !(l instanceof Array)) {
+        return NaN;
+    }
+    else {
+        var sum = 0
+        let eachChar;
+        for (eachChar of l)
+            sum = sum + eachChar
+        }
+    return sum
+}
+
+/* a function return true if the string is palindrome and false else */
+function palindrome(str) {
+    //removing unwanted character
+    if (typeof str != "string"){
+        throw ("not str")
+    }
+    var removing = /[\W_]/g;
+    var lowStr = str.toLowerCase().replace(removing, '');
+    var reverseStr = lowStr.split('').reverse().join('');
+    if (reverseStr === lowStr) {
+        return true;
+    } // "i am a man, nam, a, ma, i"
+    else{
+        return false;
+    }
+}
+
+
 
 //add functions to exports
 module.exports = {
@@ -140,4 +173,6 @@ module.exports = {
     touppercase:touppercase,
     findMin: findMin,
     find: find
+    sum: sum
+    parlindrome: parlindrome
 };
