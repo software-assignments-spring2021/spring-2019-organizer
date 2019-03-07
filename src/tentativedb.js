@@ -37,3 +37,18 @@ const record = new mongoose.Schema({
 mongoose.model('User', user);
 mongoose.model('Homework', homework);
 mongoose.model('Record', record);
+
+//connect to mongodb
+let dbconf = 'mongodb://localhost/Organizer';
+
+if(process.env.NODE_ENV === 'PRO') {
+    //if in the Production mode 
+    const fs = require('fs');
+    const path = require('path');
+    const fn = path.join(__dirname, 'config.json');
+    const data = fs.readFileSync(fn);
+    const conf = JSON.parse(data);
+    dbconf = conf.dbconf;
+}
+
+mongoose.connect(dbconf, {useNewUrlParser: true});
