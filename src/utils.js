@@ -143,12 +143,14 @@ function sum(l){
         }
     return sum
 }
+console.log(([1,2,3].isarray)== (true));
+console.log(sum(([1,2,3].isarray)== (true)));
 
 /* a function return true if the string is palindrome and false else */
 function palindrome(str) {
     //removing unwanted character
     if (typeof str != "string"){
-        throw ("not str")
+        throw ("not str");
     }
     var removing = /[\W_]/g;
     var lowStr = str.toLowerCase().replace(removing, '');
@@ -172,7 +174,7 @@ module.exports = {
     tolowercase:tolowercase,
     touppercase:touppercase,
     findMin: findMin,
-    find: find
-    sum: sum
-    parlindrome: parlindrome
+    find: find,
+    sum: sum,
+    palindrome: palindrome
 };
