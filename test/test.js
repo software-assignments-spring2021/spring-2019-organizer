@@ -171,16 +171,16 @@ describe('utility functions', function() {
     describe('parlindrome()', function() {
 
         it('return true if it is a palindrome', function() {
-            var result = utils.palindrome("aba")
-            expect(result).to.equal(true)
+            const result = utils.palindrome("aba");
+            expect(result).to.equal(true);
         });
         it('return false if it is not a palindrome', function() {
-            var result = utils.palindrome("abaa")
-            expect(result).to.equal(false)
+            const result = utils.palindrome("abaa");
+            expect(result).to.equal(false);
         });
         it('return true if it is not a palindrome', function() {
-            var result = utils.palindrome("kdfoejf")
-            expect(result).to.equal(false)
+            const result = utils.palindrome("kdfoejf");
+            expect(result).to.equal(false);
         });
     });
 });
