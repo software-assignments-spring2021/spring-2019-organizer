@@ -20,7 +20,7 @@
   
    <p>1. Clone the repository to your local machine.</p>
    <p>2. Install Node JS and npm</p>
-   <p>3. Make sure you have npm installed by running the following command</p>:  
+   <p>3. Make sure you have npm installed by running the following command</p>  
    
    "*$ npm install*"
    
@@ -33,7 +33,9 @@
    install istanbul if you haven't for test coverage: "*npm install nyc --save-dev*"
   
   For unit testing, make sure following steps 1-4 in the building instructions and run the following command
+  
   *$ npm test* 
+  
   To see test coverage, run the following command line:
  
   
