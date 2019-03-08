@@ -14,25 +14,31 @@
   
   [CONTRIBUBTING.md](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md)
   
- <h2>Building and Testing</h2>
+ <h2>Building and Testing </h2>
+ 
+<h4>Building Instructions<h/4>
   
-   Node JS
+   <p>1. Clone the repository to your local machine.</p>
+   <p>2. Install Node JS and npm</p>
+   <p>3. Make sure you have npm installed by running the following command</p>:  
    
-   Express
+   "*$ npm install*"
    
-   React JS
+   <p>4. Switch the directory to the repository folder</p>
    
-   Passport.js
+ 
    
-   HTML CSS
-   
-   Python
-   
-   Python Flask
-   
-   MongoDB
-   
-   MERN stack
+<h4>Testing <h/4>
+  
+   install istanbul if you haven't for test coverage: "*npm install nyc --save-dev*"
+  
+  For unit testing, make sure following steps 1-4 in the building instructions and run the following command
+  *$ npm test* 
+  To see test coverage, run the following command line:
+ 
+  
+  "*$ npm run test-with-coverage*"
+  
    
    
   <h2>Additional Links</h2>
