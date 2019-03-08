@@ -16,7 +16,7 @@
   
  <h2>Building and Testing </h2>
  
-<h4>Building Instructions<h/4>
+<h4>Building Instructions</h4>
   
    <p>1. Clone the repository to your local machine.</p>
    <p>2. Install Node JS and npm</p>
@@ -28,13 +28,13 @@
    
  
    
-<h4>Testing <h/4>
+<h4>Testing </h4>
   
    install istanbul if you haven't for test coverage: "*npm install nyc --save-dev*"
   
   For unit testing, make sure following steps 1-4 in the building instructions and run the following command
   
-  *$ npm test* 
+  "*$ npm test* "
   
   To see test coverage, run the following command line:
  
