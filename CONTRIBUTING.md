@@ -34,6 +34,7 @@
 
 <h2>Standup Meeting Times</h2>
 
-<p>Tue/Thur: 1:45 - 2PM in person</p>
+<p>Tue: 1:45 - 2PM in person</p>
 <p>Wed: 6:00 - 6:15PM in person</p>
-<p>Sun: 12 - 12:15PM in person</p>
+<p>Fri: 7:00 - 7:15PM in person</p>
+<p>Sun: 2 - 2:15PM in person</p>
