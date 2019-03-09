@@ -13,11 +13,8 @@
     "mongoose": "^5.4.15"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
     "mocha": "^6.0.2",
-    "nyc": "^13.3.0",
-    "react": "^16.8.4",
-    "reactdom": "^2.0.0"
+    "nyc": "^13.3.0"
   },
   "scripts": {
     "test": "mocha",
