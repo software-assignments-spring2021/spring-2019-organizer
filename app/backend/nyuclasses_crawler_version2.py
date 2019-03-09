@@ -126,18 +126,34 @@ def main(content,clasname):
 def get_page_content(url):
     url = driver.page_source
 
+
+# change the things inside title to your classname(need to be exactly the name)
 shadowHostnew = driver.find_element_by_css_selector('.link-container[title="Artificial Intelligence, Section 001"]')
-print(shadowHostnew)
 actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
 actionChain1.perform()
+assignments = driver.find_elements_by_css_selector('a.Mrphs-toolsNav__menuitem--link ')
+for j in range(len(assignments)):
+    if j != 8:
+        assignmentsnew = driver.find_elements_by_css_selector('a.Mrphs-toolsNav__menuitem--link ')
+        actionChain2 = webdriver.ActionChains(driver).move_to_element(assignmentsnew[j]).click()
+        actionChain2.perform()
 
+'''
+# these following is to click through all the courses in your website
+shadowHostnews = driver.find_elements_by_css_selector('a.link-container')
+print(shadowHostnews)
+for i in range(len(shadowHostnews)):
+    shadowHostnews2 = driver.find_elements_by_css_selector('a.link-container')
+    actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnews2[i]).click()
+    actionChain1.perform()
+'''
 
-content = driver.page_source
-classname = "Artificial Intelligence"
+#content = driver.page_source
+#classname = "Artificial Intelligence"
 #classname = "AIT"
-links = find_class_link(classname,content)
-print(links)
-main(content,classname)
+#links = find_class_link(classname,content)
+#print(links)
+#main(content,classname)]
 
 driver.close()
 driver.quit()
