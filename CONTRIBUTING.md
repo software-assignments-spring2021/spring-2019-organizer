@@ -2,11 +2,11 @@
 
 <h2>Work Flows</h2>
 
-<h5>Feature based workflow</h5>
+<h3>Feature based workflow</h3>
 
-    1. Assign tasks/spikes amoung team members, assign code reviewers
-    2. Each task/spike has its independent branch
-    3. Upon completion of a task/spike, at least one member should review the code and make sure it works properly. Then code could be merged into the trunk.
+1. Assign tasks/spikes amoung team members, assign code reviewers
+2. Each task/spike has its independent branch
+3. Upon completion of a task/spike, at least one member should review the code and make sure it works properly. Then code could be merged into the trunk.
 
 <h2>How we will work together:</h2>
 
@@ -28,9 +28,8 @@
 
 <h2>Definition of done</h2>
 
-<p>1. Realize the requirements </p>
-<p>2. Complete peer code review</p>
-<p>3. Notify team members in slack when done and about to push</p>
+1. Realize the requirements
+2. Communicate with team members on WeChat when done and to get code reviewed
 
 <h2>Standup Meeting Times</h2>
 
