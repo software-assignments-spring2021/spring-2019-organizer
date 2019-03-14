@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from './components/Sidebar';
+import TimeBlock from './components/TimeBlock';
 import './App.css';
 
 class App extends Component {
@@ -7,7 +8,9 @@ class App extends Component {
     return (
       <div className="App">
         <body>
+          <TimeBlock />
           <Sidebar />
+          
         </body>
       </div>
     );
