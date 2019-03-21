@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-om';
-import Sidebar from '../src/components/Sidebar.js';
+import ReactDOM from 'react-dom';
+import Sidebar from '../components/Sidebar.js';
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
