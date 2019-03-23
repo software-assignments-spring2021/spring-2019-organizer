@@ -8,7 +8,7 @@ const dotStyle = {
     base: {
         width: '100px',
         height: '30px',
-        top: 5,
+        top: 80,
         borderRadius: '10%',
         textAlign: 'center',
         position: 'absolute',
@@ -59,7 +59,7 @@ class EventDot extends React.Component {
                 style={this.getStyle(this.dotType, 
                 this.props.position)}
             >
-                March 23
+                {this.props.label}
             </li>
         );
     }
@@ -67,7 +67,8 @@ class EventDot extends React.Component {
 }
 
 EventDot.propTypes = {
-    position: PropTypes.number.isRequired
+    position: PropTypes.number.isRequired,
+    label: PropTypes.string.isRequired
 };
 
 export default Radium(EventDot);

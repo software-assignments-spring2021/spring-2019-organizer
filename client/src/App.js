@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Sidebar from './components/Sidebar';
-import EventDot from './components/Timeline/EventDot';
+import Events from './components/Timeline/Events';
 import './App.css';
+const testArray = ['March 23', "April 2", "May 19"];
 
 class App extends Component {
   render() {
     return (
       <div className="App">
           <Sidebar />
-          <EventDot position='200px'/>
+          <Events eventArray={testArray}/>
       </div>
     );
   }
