@@ -12,6 +12,15 @@
   font-size: 30px;
 }
 
+.active {
+  pointer-events: none;
+  background-color: #FFFFFF;
+}
+
+.active .sidebarlink {
+  color: #57068C;
+}
+
 .sidebaritem {
   padding: 10px;
 }
@@ -28,4 +37,8 @@
 .sidebaritem:hover .sidebarlink {
   text-decoration: none;
   color: #57068C;
+}
+
+.sidebarlink.active {
+  background-color: #57068C;
 }
