@@ -6,8 +6,8 @@ from selenium.common.exceptions import StaleElementReferenceException, NoSuchEle
 import time
 
 url = 'http://newclasses.nyu.edu'
-netid = ""
-password = ""
+netid = "tz904"
+password = "885600JJjj!"
 
 driver = webdriver.Chrome()
 driver.get(url)
@@ -56,88 +56,129 @@ def wait_for(condition_function):
     )
 
 if wait_for(passDUO):
-    print(driver.page_source)
+    page = driver.page_source
 
-
+originalsource = driver.page_source
 # find the link of class according to class names and the page content
-def find_class_link(classname, page):
-        links = []
-        end_index = page.find(classname)
-        start_index = end_index - 200
-        page = page[start_index:end_index]
-        try:
-            while '<a class="link-container" href=' in page and len(links) < 10:
-                start_link = page.find('<a class="link-container" href=') + 28
-                start_url = page.find('"', start_link) + 1
-                end_url = page.find('"', start_url) - 1
-                url = page[start_url: end_url + 1]
-                if 'http' not in url:
-                    url = urljoin(classname, url)
-                    print(url)
-                links.append(url)
-                page = page[(end_url + 1):]
-            return links
+def find_class_names(page):
+    names = []
+    try:
+        while '<a class="link-container" href=' in page and len(names) < 10:
+            start_link = page.find('<a class="link-container" href=') + 28
+            start_url = page.find('"', start_link) + 1
+            end_url = page.find('"', start_url) - 1
+            starttitle = page.find('"',end_url) + 1
+            starttitle = page.find('"',starttitle) + 1
+            endtitle = page.find('"',starttitle) - 1
+            name = page[starttitle: endtitle + 1]
+            names.append(name)
+            page = page[endtitle::]
+        return names
 
-        except:
+    except:
 
-            return "The name you searched does not exist in this page"
+        return "The name you searched does not exist in this page"
+namelst = find_class_names(originalsource)
+
+def chooselink(namelst):
+    print(namelst)
+    classtouse = input("choose the class name from list ")
+    shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classtouse +'"]')
+    actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+    actionChain1.perform()
+
+chooselink(namelst)
+# now we are on the class page
+newpage = driver.page_source
+print(len('Mrphs-toolsNav__menuitem--link'));
+def find_tag_names(page):
+    names = []
+    try:
+        while 'Mrphs-toolsNav__menuitem--link' in page:
+            start_link = page.find('Mrphs-toolsNav__menuitem--link ') + 30
+            start_url = page.find('"', start_link) + 1
+            end_url = page.find('"', start_url) - 1
+            starttitle = page.find('"',end_url) + 1
+            starttitle = page.find('"',starttitle) + 1
+            starttitle = page.find('"', starttitle) + 1
+            endtitle = page.find('"',starttitle) - 1
+            name = page[starttitle: endtitle + 1]
+            names.append(name)
+            page = page[endtitle::]
+        return names
+
+    except:
+
+        return "The name you searched does not exist in this page"
+taglst = find_tag_names(newpage)
+for i in range(len(taglst)):
+    if taglst[i] == 'Tests &amp; Quizzes ':
+        taglst[i] = "Tests & Quizzes "
+def choosetag(taglst):
+    print(taglst)
+    tagtouse = input("choose the tag name from list ")
+    shadowHostnew = driver.find_element_by_css_selector('.Mrphs-toolsNav__menuitem--link[title="'+ tagtouse +'"]')
+    actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+    actionChain1.perform()
+
+choosetag(taglst)
 
 
-# count the number of assignment basing on the content of one class
-def count_number_assignment(page):
-    content = page.split()
-    a = content.count('headers="status">')
-    return a
+def find_all_quizs(page):
+    quizs = []
+    quizs.append(['Title', 'Time limit', 'Due Date'])
+    try:
+        while 'SUBMITTED ASSESMENTS' in page:
+            currentquiz = []
+            start_link = page.find("assessmentDueDateHeader") + 30
+            start_url = page.find('return false', start_link) + 1
+            start_name = page.find('>', start_url) + 1
+            end_name = page.find('<', start_name) - 1
+            title = page[start_name: end_name + 1]
+            # find the time
+            start_time = page.find('<span class="currentSort">',end_name) + 24
+            #print(page[start_time:start_time+26])
+            start_time = page.find('>',start_time) + 1
+            end_time = page.find('<',start_time) - 1
+            time = page[start_time:end_time + 1]
+            # find the due day
+            start_due = page.find('<td>',end_time) + 4
+            end_due = page.find('</td>',start_due) - 1
+            due = page[start_due:end_due+1]
+            currentquiz.append(title)
+            currentquiz.append(time)
+            currentquiz.append(due)
+            quizs.append(currentquiz)
+            page = page[end_due::]
+            return quizs
+    except:
 
-# count the number of annoucement basing on the content of one class
-def count_number_announcement(page):
-    content = page.split()
-    a = content.count('headers="subject"')
-    return a
+        return "The name you searched does not exist in this page"
 
-# count the number of annoucement basing on the content of one class
-def count_number_quiz(page):
-    content = page.split()
-    a = content.count('class="validate">*</span></td>')
-    return a
+newpage = driver.page_source
+quizlst = find_all_quizs(newpage)
+for i in quizlst:
+        print(i)
 
-# count number for quiz, assignment, announcement of the class
-def main(content,clasname):
-        dic = {}
-        dic_tag_link = {}
-        tag = ["Assignment","Announcement","Quiz"]
-        class_link = find_class_link(clasname,content)
-        for i in range(len(tag)):
-            dic_tag_link[tag[i]] = find_tag_link(tag[i],content)
-        for j in dic_tag_link.keys():
-            link = dic_tag_link[j]
-            content_j = get_page_content(link)
-            if j == "Assignment":
-                num = count_number_assignment(content_j)
-            elif j == "Announcement":
-                num = count_number_announcement(content_j)
-            elif j == "Quiz":
-                num = count_number_quiz(content_j)
-            dic[j] = num
-        print(dic_tag_link)
-        print(dic)
-
+'''
 # get the source content basing on url
 def get_page_content(url):
     url = driver.page_source
 
+# choose the classes
+def findclassestag():
+    lstofclasses = driver.find_elements_by_css_selector('.link-container')
+    print(lstofclasses)
+#findclassestag()
 
 # change the things inside title to your classname(need to be exactly the name)
-shadowHostnew = driver.find_element_by_css_selector('.link-container[title="Artificial Intelligence, Section 001"]')
-actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
-actionChain1.perform()
-assignments = driver.find_elements_by_css_selector('a.Mrphs-toolsNav__menuitem--link ')
-for j in range(len(assignments)):
-    if j != 8:
-        assignmentsnew = driver.find_elements_by_css_selector('a.Mrphs-toolsNav__menuitem--link ')
-        actionChain2 = webdriver.ActionChains(driver).move_to_element(assignmentsnew[j]).click()
-        actionChain2.perform()
 
+# choose the classes
+def findclassestag():
+    lstofclasses = driver.find_elements_by_css_selector('.link-container')
+    print(lstofclasses)
+
+'''
 '''
 # these following is to click through all the courses in your website
 shadowHostnews = driver.find_elements_by_css_selector('a.link-container')
@@ -155,8 +196,8 @@ for i in range(len(shadowHostnews)):
 #print(links)
 #main(content,classname)]
 
-driver.close()
-driver.quit()
+#driver.close()
+#driver.quit()
 print('Finish')
 
 # def findShadow(element):
@@ -173,3 +214,35 @@ print('Finish')
 # print(shadowROOT)
 # pushBtn = shadowROOT.find_element_by_css_selector('button[tabindex="2"]')
 # pushBtn.click()
+'''
+def find_class_link(classname, page):
+    links = []
+    end_index = page.find(classname)
+    start_index = end_index - 200
+    page = page[start_index:end_index]
+    try:
+        while '<a class="link-container" href=' in page and len(links) < 10:
+            start_link = page.find('<a class="link-container" href=') + 28
+            start_url = page.find('"', start_link) + 1
+            end_url = page.find('"', start_url) - 1
+            url = page[start_url: end_url + 1]
+            if 'http' not in url:
+                url = urljoin(classname, url)
+                print(url)
+            links.append(url)
+            page = page[(end_url + 1):]
+        return links
+
+    except:
+
+    return "The name you searched does not exist in this page"
+shadowHostnew = driver.find_element_by_css_selector('.link-container[title="Artificial Intelligence, Section 001"]')
+actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+actionChain1.perform()
+assignments = driver.find_elements_by_css_selector('a.Mrphs-toolsNav__menuitem--link ')
+for j in range(len(assignments)):
+    if j != 8:
+        assignmentsnew = driver.find_elements_by_css_selector('a.Mrphs-toolsNav__menuitem--link ')
+        actionChain2 = webdriver.ActionChains(driver).move_to_element(assignmentsnew[j]).click()
+        actionChain2.perform()
+        '''
