@@ -20,32 +20,35 @@
 <h4>Development Code Building and Testing</h4>
   
    1. Clone our repository
-   2. Please be aware of our file structure:
+   2. Please be aware of our directory structure:
       <pre>
       .
       ├── client
       │   ├── public
       │   └── src
+      │       ├── __tests__
+      │       ├── components
+      │       └── css
       ├── documentation
       │   ├── web_mockup_Mark
       │   └── wireframe
       └── server
          ├── crawler
+         │   └── scripts
          ├── src
          └── test
       </pre>
    3. Go to client directory or server directory and install or dependencies by running <code>npm install</code>
    4. To build our app:
       1. From client directory: 
-         * To build: <code>npm build</code>
+         * To build: <code>npm run build</code>
          * To run: <code>npm start</code>
   
 <h4>Testing</h4>
-  
-   We use <code>mocha.js</code> for code testing and <code>istanbul.js</code> for code testing coverage.
+   To run frontend tests, make sure you are in `client` directory.
   
   * Run unit tests: <code>npm test</code>
-  * Run unit-test-coverage: <code>npm run test-with-coverage</code>
+  * Run unit-test-coverage: <code>npm test -- --coverage</code>(notice the double dashes in the middle)
   
    
   <h2>Additional Links</h2>
