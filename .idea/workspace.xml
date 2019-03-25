@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c4c4df39-b2ef-433e-8c8b-8b42f8cf6b75" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/crawler/nyuclasses_crawler_version2.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/crawler/nyuclasses_crawler_version2.py" afterDir="false" />
-    </list>
+    <list default="true" id="c4c4df39-b2ef-433e-8c8b-8b42f8cf6b75" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +18,8 @@
       <file leaf-file-name="nyuclasses_crawler_version2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/crawler/nyuclasses_crawler_version2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="247" selection-end-column="11" />
+            <state relative-caret-position="75">
+              <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -766,7 +763,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4037901" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.4037901" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -824,8 +821,8 @@
     <entry file="file://$PROJECT_DIR$/app/backend/nyuclasses_crawler_version2.py" />
     <entry file="file://$PROJECT_DIR$/server/crawler/nyuclasses_crawler_version2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="247" selection-end-column="11" />
+        <state relative-caret-position="75">
+          <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
