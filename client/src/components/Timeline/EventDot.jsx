@@ -67,7 +67,7 @@ class EventDot extends React.Component {
 }
 
 EventDot.propTypes = {
-    position: PropTypes.number.isRequired,
+    position: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
 };
 
