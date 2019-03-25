@@ -1,5 +1,6 @@
 <h1>Organizer</h1>
 
+![build](https://travis-ci.com/nyu-software-engineering/organizer.svg?branch=master)
 
 <h2>Description</h2>
   <p>Organizer is a web application that tracks down students' assignments from NYU Classes and organize them into a website so students do not neccessarily have to log in to NYU Classes and check for assignments for each of their courses. The web app also intends to provide insights on students' performance on doing different assignments. Additionally, it provides a time prediction on finishing upcoming tasks. This application is designed to help students make the most out of their time.</p>
