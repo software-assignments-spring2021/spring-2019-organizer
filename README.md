@@ -7,7 +7,7 @@
   
   
  <h2>History</h2>
- <p>As NYU students who are aware of how time consuming tracking down all assignments from NYU Classes can be. We would like to develop a tool to help students organize upcoming assignments so that they do not have to constantly log into NYUClasses and check for new published assignments.</p>
+ <p>As NYU students who are aware of how time consuming tracking down all assignments from NYU Classes can be. We would like to develop a tool to help students organize upcoming assignments so that they do not have to constantly log into NYUClasses and check for new published assignments. </p>
  
  
   <h2>How to contribute</h2>
