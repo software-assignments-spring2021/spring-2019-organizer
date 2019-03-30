@@ -1,12 +1,13 @@
 <h1>Organizer</h1>
 
+![build](https://travis-ci.com/nyu-software-engineering/organizer.svg?branch=master)
 
 <h2>Description</h2>
-  <p>Organizer is a tool that tracks down students' assignments from NYU Classes and organize them into a website so students do not neccessarily have to log in to NYU Classes and check for assignments for each of the class. Another goal is is to provide an efficient time estimation of similar taks in the future based on assignments' histories. We are still coming up with the ideas of the ways to analysis students' assignments based on their times spent, levels of difficulty and their daily habits. We understand that studying in New York is an unforgettable experience. We want to organize students' times efficiently so students can make the best out of their times in NYC.</p>
+  <p>Organizer is a web application that tracks down students' assignments from NYU Classes and organize them into a website so students do not neccessarily have to log in to NYU Classes and check for assignments for each of their courses. The web app also intends to provide insights on students' performance on doing different assignments. Additionally, it provides a time prediction on finishing upcoming tasks. This application is designed to help students make the most out of their time.</p>
   
   
  <h2>History</h2>
- <p>We are a group of NYU students who are annoyed by how time consuming that tracking down of all assignments from NYU Classes can be. We would like to develop a tool in which help students focus and spend more time in studying rather than constantly worrying about new assignments being published on NYU Classes (school website). This project is also an idea that we would like to pursue during the class of Agile Software Development by Professor Amos Bloomberg.</p> 
+ <p>As NYU students who are aware of how time consuming tracking down all assignments from NYU Classes can be. We would like to develop a tool to help students organize upcoming assignments so that they do not have to constantly log into NYUClasses and check for new published assignments.</p>
  
  
   <h2>How to contribute</h2>
@@ -14,29 +15,50 @@
   
   [CONTRIBUBTING.md](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md)
   
- <h2>Building and Testing</h2>
+ <h2>Building and Testing </h2>
+ 
+<h4>Development Code Building and Testing</h4>
   
-   Node JS
-   
-   Express
-   
-   React JS
-   
-   Passport.js
-   
-   HTML CSS
-   
-   Python
-   
-   Python Flask
-   
-   MongoDB
-   
-   MERN stack
-   
+   1. Clone our repository
+   2. Please be aware of our directory structure:
+      <pre>
+      .
+      ├── client
+      │   ├── public
+      │   └── src
+      │       ├── __tests__
+      │       ├── components
+      │       └── css
+      ├── documentation
+      │   ├── web_mockup_Mark
+      │   └── wireframe
+      └── server
+         ├── crawler
+         │   └── scripts
+         ├── src
+         └── test
+      </pre>
+   3. Go to client directory (`cd client`) or server directory and install or dependencies by running <code>npm install</code>
+   4. Please **DO NOT USE** `npm audit fix`
+   5. To build our app:
+      1. From client directory: 
+         * To build: <code>npm run build</code>
+         * To run: <code>npm start</code>
+  
+<h4>Testing</h4>
+   To run frontend tests, make sure you are in `client` directory.
+  
+  * Run unit tests: <code>npm test</code>
+  * Run unit-test-coverage: <code>npm test -- --coverage</code>(notice the double dashes in the middle)
+  
    
   <h2>Additional Links</h2>
-  <p>Additional links will be avaialble when they are added in the future. Thank you for your interest </p> 
+  
+  Links to our webpage mock-ups and wireframes:
+
+  [mock-ups](documentation/web_mockup_Mark/mockup.md)
+
+  [wireframe](documentation/wireframe)
   
   <h2>Authors</h2>
 
