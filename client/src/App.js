@@ -9,8 +9,7 @@ class App extends Component {
       <div className="App">
         <body>
           <TimeBlock />
-          <Sidebar />
-          
+          <Sidebar />         
         </body>
       </div>
     );
