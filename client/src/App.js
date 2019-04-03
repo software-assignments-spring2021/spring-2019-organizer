@@ -13,7 +13,6 @@ class App extends Component {
           <Sidebar />
           <Events eventArray={testArray}/>
           <TimeBlock />
-        </body>
       </div>
     );
   }
