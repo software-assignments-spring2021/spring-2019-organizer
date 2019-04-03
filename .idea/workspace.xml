@@ -20,8 +20,8 @@
       <file leaf-file-name="nyuclasses_crawler_version2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/crawler/nyuclasses_crawler_version2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="183" column="60" lean-forward="true" selection-start-line="183" selection-start-column="60" selection-end-line="183" selection-end-column="60" />
+            <state relative-caret-position="265">
+              <caret line="20" column="19" lean-forward="true" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -196,9 +196,9 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38317758" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.38317758" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24578866" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24578866" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -360,8 +360,8 @@
     <entry file="file://$PROJECT_DIR$/app/backend/nyuclasses_crawler_version2.py" />
     <entry file="file://$PROJECT_DIR$/server/crawler/nyuclasses_crawler_version2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="183" column="60" lean-forward="true" selection-start-line="183" selection-start-column="60" selection-end-line="183" selection-end-column="60" />
+        <state relative-caret-position="265">
+          <caret line="20" column="19" lean-forward="true" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
