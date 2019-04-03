@@ -1,5 +1,6 @@
 <h1>Organizer</h1>
 
+![build](https://travis-ci.com/nyu-software-engineering/organizer.svg?branch=master)
 
 <h2>Description</h2>
   <p>Organizer is a web application that tracks down students' assignments from NYU Classes and organize them into a website so students do not neccessarily have to log in to NYU Classes and check for assignments for each of their courses. The web app also intends to provide insights on students' performance on doing different assignments. Additionally, it provides a time prediction on finishing upcoming tasks. This application is designed to help students make the most out of their time.</p>
@@ -19,36 +20,41 @@
 <h4>Development Code Building and Testing</h4>
   
    1. Clone our repository
-   2. Please be aware of our file structure:
+   2. Please be aware of our directory structure:
       <pre>
       .
       ├── client
       │   ├── public
       │   └── src
+      │       ├── __tests__
+      │       ├── components
+      │       └── css
       ├── documentation
       │   ├── web_mockup_Mark
       │   └── wireframe
       └── server
          ├── crawler
+         │   └── scripts
          ├── src
          └── test
       </pre>
-   3. Go to client directory or server directory and install or dependencies by running <code>npm install</code>
-   4. To build our app:
+   3. Go to client directory (`cd client`) or server directory and install or dependencies by running <code>npm install</code>
+   4. Please **DO NOT USE** `npm audit fix`
+   5. To build our app:
       1. From client directory: 
-         * To build: <code>npm build</code>
+         * To build: <code>npm run build</code>
          * To run: <code>npm start</code>
   
 <h4>Testing</h4>
-  
-   We use <code>mocha.js</code> for code testing and <code>istanbul.js</code> for code testing coverage.
+   To run frontend tests, make sure you are in `client` directory.
   
   * Run unit tests: <code>npm test</code>
-  * Run unit-test-coverage: <code>npm run test-with-coverage</code>
+  * Run unit-test-coverage: <code>npm test -- --coverage</code>(notice the double dashes in the middle)
   
    
   <h2>Additional Links</h2>
-   Links to our webpage mock-ups and wireframes:
+  
+  Links to our webpage mock-ups and wireframes:
 
   [mock-ups](documentation/web_mockup_Mark/mockup.md)
 

@@ -1,24 +1,16 @@
-#sidebar {
-  width: 25%;
-  height: 100vh;
-  background-color: #57068C;
-  color: #ffffff;
-  text-align: center;
+#tablelook {
+  position: absolute;
+  right: 250px;
+  width: 480px;
+  top: 200px;
+  height: 20px;
+  border: 3px solid green;
 }
 
 #user {
   padding-top: 30px;
   padding: 30px;
   font-size: 30px;
-}
-
-.active {
-  pointer-events: none;
-  background-color: #FFFFFF;
-}
-
-.active .sidebarlink {
-  color: #57068C;
 }
 
 .sidebaritem {
@@ -37,8 +29,4 @@
 .sidebaritem:hover .sidebarlink {
   text-decoration: none;
   color: #57068C;
-}
-
-.sidebarlink.active {
-  background-color: #57068C;
 }
