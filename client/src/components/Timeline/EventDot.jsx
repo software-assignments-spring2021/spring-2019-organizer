@@ -27,12 +27,40 @@ const dotStyle = {
     }
 }
 
+const hidStyle = {
+    display:'none'
+}
+
 //class fot eventdots
 class EventDot extends React.Component {
     constructor(props) {
         super(props);
         this.dotType = 'future';
         this.handleClick = this.handleClick.bind(this);
+        this.handleOver = this.handleOver.bind(this);
+        this.handleLeave = this.handleLeave.bind(this);
+    }
+
+    handleOver = function(e) {
+        console.log("over");
+        const myele = document.getElementById(this.props.label);
+        console.log(myele);
+        const hwlist = myele.querySelectorAll('.Hwitem');
+        console.log(hwlist);
+        for(const ele of hwlist) {
+            ele.style.display = 'block';
+        }
+        e.preventDefault();
+    }
+
+    handleLeave = function(e) {
+        console.log("leave");
+        const myele = document.getElementById(this.props.label);
+        const hwlist = myele.querySelectorAll('.Hwitem');
+        for(const ele of hwlist) {
+            ele.style.display = 'none';
+        }
+        e.preventDefault();
     }
 
     handleClick = function(e) {
@@ -52,15 +80,25 @@ class EventDot extends React.Component {
     }
 
     render() {
+        const props = this.props;
         return (
-            <li
+            <ul
                 className={`${this.dotType}`}
                 onClick={this.handleClick}
+                onMouseOver={this.handleOver}
+                onMouseLeave={this.handleLeave}
                 style={this.getStyle(this.dotType, 
-                this.props.position)}
+                props.position)}
+                id={props.label}
             >
-                {this.props.label}
-            </li>
+                {props.label}
+                {props.hwArray.map((hw, index)=> 
+                    <li className="Hwitem"
+                        key={index}
+                        style={hidStyle}
+                    >{hw}</li>
+                )}
+            </ul>
         );
     }
 
@@ -68,7 +106,8 @@ class EventDot extends React.Component {
 
 EventDot.propTypes = {
     position: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
+    hwArray: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
 export default Radium(EventDot);
