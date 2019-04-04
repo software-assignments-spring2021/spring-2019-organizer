@@ -4,7 +4,7 @@ import Events from './components/Timeline/Events';
 import TimeBlock from './components/TimeBlock';
 
 import './App.css';
-const testArray = ['March 23', "April 2", "May 19"];
+const testArray = {'March 23':["1", "2"], "April 2":["3"], "May 19":["4"]};
 
 class App extends Component {
   render() {
