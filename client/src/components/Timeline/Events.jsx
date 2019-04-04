@@ -6,6 +6,9 @@ import EventDot from './EventDot';
 class Events extends React.Component {
     render() {
         const props = this.props;
+
+        //a list to keep due dates extracted from the
+        //object passed in
         let eventList = [];
         for(const item in props.eventArray) {
             if(props.eventArray.hasOwnProperty(item)) {
@@ -13,6 +16,7 @@ class Events extends React.Component {
             }
         }
         console.log(eventList);
+        
         return (
             <span>
             <i className="arrow left"></i>
@@ -23,6 +27,7 @@ class Events extends React.Component {
                 }}
             >
                 {eventList.map((date, index) => 
+                //provide a list of hws of a date
                     <EventDot
                         key={index}
                         label={date}

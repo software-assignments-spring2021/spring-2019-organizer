@@ -27,6 +27,7 @@ const dotStyle = {
     }
 }
 
+//style to toggle for hw list
 const hidStyle = {
     display:'none'
 }
@@ -41,6 +42,7 @@ class EventDot extends React.Component {
         this.handleLeave = this.handleLeave.bind(this);
     }
 
+    //function responding to hovering
     handleOver = function(e) {
         console.log("over");
         const myele = document.getElementById(this.props.label);
@@ -53,6 +55,7 @@ class EventDot extends React.Component {
         e.preventDefault();
     }
 
+    //function responding to leaving
     handleLeave = function(e) {
         console.log("leave");
         const myele = document.getElementById(this.props.label);
@@ -104,6 +107,7 @@ class EventDot extends React.Component {
 
 }
 
+//prop checking
 EventDot.propTypes = {
     position: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
