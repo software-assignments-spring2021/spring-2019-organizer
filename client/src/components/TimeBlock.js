@@ -8,34 +8,34 @@ class TimeBlock extends Component {
 		this.state={
 			taskNum:3,
 			taskName:'Task 2',
-			taskDate:'1:30 Hrs',
+			taskEstimated:'1:30 Hrs',
 			taskDuedate: '3/20/2019',
-			taskList:[{taskName:'Task 1',taskDate:'1:30 Hrs', taskDuedate: '3/20/2019'},
-			{taskName:'Task 2',taskDate:'1:30 Hrs', taskDuedate: '3/20/2019'},
-			{taskName:'Task 3',taskDate:'1:30 Hrs', taskDuedate: '3/20/2019'}]
+			taskList:[{taskName:'Task 1',taskEstimated:'1:30 Hrs', taskDuedate: '3/20/2019'},
+			{taskName:'Task 2',taskEstimated:'1:30 Hrs', taskDuedate: '3/20/2019'},
+			{taskName:'Task 3',taskEstimated:'1:30 Hrs', taskDuedate: '3/20/2019'}]
 		}
 		
 	}
-
-	handleNameChange = (event) =>{
-		
+	//handle the event of changing the name and its targeted value
+	handleNameChange = (event) =>{		
 		this.setState({
 			taskName:event.target.value
 
 		})
 	}
-
-	handleDateChange = (event) =>{
+	//handle the event of changing the estiamted time and its targeted value
+	handleEstimatedChange = (event) =>{
 		this.setState({
-			taskDate:event.target.value
+			taskEstimated:event.target.value
 		})
 	}
-	handleDateChange = (event) =>{
+	//handle the event of changing the Due Date and its targeted value
+	handleDuedateChange = (event) =>{
 		this.setState({
 			taskDuedate:event.target.value
 		})
 	}
-
+	//handle deletion of an existing event
 	handleDelete = (i) =>{
 		this.state.taskList.splice(i,1)
 		this.setState({
@@ -45,18 +45,23 @@ class TimeBlock extends Component {
 			
 
 	}
-
+	//handle adding new event, user would have to enter 3 inputs in order to add a new event
 	handleAddEvent = () =>{
+		var taskNameInput = prompt("Please input the event name", "");
+		var taskEstimatedInput = prompt("Please enter the estimated time", "");
+		var taskDuedateInput = prompt("Please input the due date", "");
+
+
 		
 		let items = this.state.taskList
-		items.push({taskName:'Task '+(this.state.taskNum+1),taskDate:'1:30 Hrs', taskDuedate: '3/20/2019'})
+		items.push({taskName:taskNameInput+(this.state.taskNum+1),taskEstimated:taskEstimatedInput, taskDuedate: taskDuedateInput})
 		this.setState({
 			taskList:items,
 			taskNum:this.state.taskNum+1
 		})
 
 	}
-
+	// when done, the event would be put into the completed event box
 	handleDone = (i) =>{
 		var taski = this.state.taskList[i]
 		var newTaskList = this.state.taskList
@@ -71,26 +76,27 @@ class TimeBlock extends Component {
 	}
 
 	
-
+	//this function is to locate the current editable value from the event name
+	// and provide the new saved value not only for ongoing event but also for the completed event box when done.
 	handleNameBlur = (i,TName) =>{
-		console.log(TName)
 		var nList = this.state.taskList
-		console.log(i)
 		nList[i].taskName = TName
 		this.setState({
 			taskList:nList
 		})
 
 	}
-
-	handleDateBlur = (i,TDate) =>{
+	//this function is to locate the current editable value from the estimated name
+	// and provide the new saved value not only for ongoing event but also for the completed event box when done.
+	handleEstimatedBlur = (i,TEstimated) =>{
 		var dList = this.state.taskList
-		dList[i].taskDate = TDate
+		dList[i].taskEstimated = TEstimated
 		this.setState({
 			taskList:dList
 		})
 	}
-
+	//this function is to locate the current editable value from the due date
+	// and provide the new saved value not only for ongoing event but also for the completed event box when done.
 	handleDuedateBlur = (i,TDuedate) =>{
 		var dList = this.state.taskList
 		dList[i].taskDuedate = TDuedate
@@ -108,11 +114,13 @@ class TimeBlock extends Component {
 		<table id = "tablelook">
 			<thead>  
 				<tr>					
-					<th>Dates: 3/10/2019</th> 
+					<th>Date: 3/10/2019</th> 
 					<th>Estiamtion of time:</th>
 					<th>Due Date:</th>
+					<td>
 					<button onClick={this.handleAddEvent}> Add New Event </button>
-					<p id="demo"></p>
+					</td>
+					{/* <p id="demo"></p> */}
 
 				</tr>
 			</thead>
@@ -121,17 +129,17 @@ class TimeBlock extends Component {
 				{this.state.taskList.map((task,i)=>
 				<TableContent 
 					handleNameChange={this.handleNameChange.bind(this,i)}
-					handleDateChange={this.handleDateChange}
+					handleEstimatedChange={this.handleEstimatedChange}
 					handleDuedateChange={this.handleDuedateChange}
 					
-					tDate={task.taskDate}
+					tEstimated={task.taskEstimated}
 					tName={task.taskName}
 					tDuedate={task.taskDuedate}
 					key={i}
 					handleDelete={this.handleDelete.bind(this,i)}
 					handleDone={this.handleDone.bind(this,i)}
 					handleNameBlur={this.handleNameBlur.bind(this,i)}
-					handleDateBlur={this.handleDateBlur.bind(this,i)}
+					handleEstimatedBlur={this.handleEstimatedBlur.bind(this,i)}
 					handleDuedateBlur={this.handleDuedateBlur.bind(this,i)}
 				/>
 				)}
@@ -150,36 +158,3 @@ class TimeBlock extends Component {
 
 
 export default TimeBlock;
-
-
-// import React, { Component } from 'react'
-// import Button from 'react-bootstrap/Button';
-// // import FaPencil from 'react-icons/lib/fa/pencil'
-// // import FaTrash from 'react-icons/lib/fa/trash'
-
-// class Note extends Component {
-// 	constructor(props) {
-// 		super(props)
-// 		this.edit = this.edit.bind(this)
-// 		this.remove = this.remove.bind(this)
-// 	}
-// 	edit() {
-// 		alert('editing note')
-// 	}
-// 	remove() {
-// 		alert('removing note')
-// 	}
-// 	render() {
-// 		return (
-// 			<div className="note">
-// 				<p>Learn React</p>
-// 				<span>
-// 					{/* <button onClick={this.edit} id="edit"><FaPencil /></button>*/} */}
-// 					{/* {/*<button onClick={this.remove} id="remove"><FaTrash /></button> */}
-// 				</span>
-// 			</div>
-// 		)
-// 	}
-// }
-
-// export default Note

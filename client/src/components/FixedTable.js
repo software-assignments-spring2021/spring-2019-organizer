@@ -11,7 +11,7 @@ class FixedTable extends Component{
                     <td><p>{this.props.fName}</p>
                     </td>
                     
-					<td><p>{this.props.fDate}</p>
+					<td><p>{this.props.fEstimated}</p>
                     </td>
 
                     <td><p>{this.props.fDuedate}</p>

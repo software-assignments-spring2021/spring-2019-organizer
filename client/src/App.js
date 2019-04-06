@@ -25,17 +25,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <body>
+        {/* <body> */}
           <Sidebar />
-          <h3 className="ongoing">ongoing event list</h3>
+          <h3 className="ongoing">Ongoing Event List</h3>
           <TimeBlock 
             handleDone={this.handleDone.bind(this)}
           />
-          <h3 className="completed">completed event list</h3>
+          <h3 className="completed">Completed Event List</h3>
           <CompleteTable 
             fixedList={this.state.fixedList}
           />
-        </body>
+        {/* </body> */}
       </div>
     );
   }
