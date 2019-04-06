@@ -4,10 +4,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
 import time
+from info.py import netid, password
 
 url = 'http://newclasses.nyu.edu'
-netid = "tz904"
-password = "885600JJjj!"
 
 driver = webdriver.Chrome()
 driver.get(url)
