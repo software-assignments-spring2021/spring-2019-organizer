@@ -1,45 +1,13 @@
-#tablelook {
-  
+#cardlook {
   margin-top: 10px;
-  margin-left: 450px;
-  width: 680px;
-  height: 20px;
-  border: 3px solid green; 
-  
+  margin-left: 32%;
+  width: 60%;
 }
 
 #tcomplete{
-  
   margin-top: 10px;
   margin-left: 450px;
   width: 680px;
-  height: 20px;
-  border: 3px solid green; 
-  
-}
-
-#user {
-  padding-top: 30px;
-  padding: 30px;
-  font-size: 30px;
-}
-
-.sidebaritem {
-  padding: 10px;
-}
-
-.sidebarlink {
-  color: #FFFFFF;
-  font-weight: 200;
-}
-
-.sidebaritem:hover {
-  background-color: #FFFFFF;
-}
-
-.sidebaritem:hover .sidebarlink {
-  text-decoration: none;
-  color: #57068C;
 }
 
 .TaskName .TaskTime{
