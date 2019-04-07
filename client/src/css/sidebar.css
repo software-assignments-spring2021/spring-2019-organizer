@@ -1,4 +1,9 @@
 #sidebar {
+  position: absolute;
+  top:10px;
+  left:0px;
+  display: block;
+  float: left;
   width: 25%;
   height: 100vh;
   background-color: #57068C;

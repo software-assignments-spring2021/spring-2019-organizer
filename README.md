@@ -38,8 +38,9 @@
          ├── src
          └── test
       </pre>
-   3. Go to client directory or server directory and install or dependencies by running <code>npm install</code>
-   4. To build our app:
+   3. Go to client directory (`cd client`) or server directory and install or dependencies by running <code>npm install</code>
+   4. Please **DO NOT USE** `npm audit fix`
+   5. To build our app:
       1. From client directory: 
          * To build: <code>npm run build</code>
          * To run: <code>npm start</code>
@@ -52,7 +53,8 @@
   
    
   <h2>Additional Links</h2>
-   Links to our webpage mock-ups and wireframes:
+  
+  Links to our webpage mock-ups and wireframes:
 
   [mock-ups](documentation/web_mockup_Mark/mockup.md)
 

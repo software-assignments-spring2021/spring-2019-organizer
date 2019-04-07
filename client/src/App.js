@@ -1,14 +1,41 @@
 import React, { Component } from 'react';
 import Sidebar from './components/Sidebar';
+import TimeBlock from './components/TimeBlock';
+import CompleteTable from './components/CompleteTable';
+
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+        fixedList:[]
+    }
+  }
+
+
+  handleDone(taski){
+    var newList = this.state.fixedList
+    newList.push(taski)
+    this.setState({
+      fixedList:newList
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <body>
+        {/* <body> */}
           <Sidebar />
-        </body>
+          <h3 className="ongoing">Ongoing Event List</h3>
+          <TimeBlock 
+            handleDone={this.handleDone.bind(this)}
+          />
+          <h3 className="completed">Completed Event List</h3>
+          <CompleteTable 
+            fixedList={this.state.fixedList}
+          />
+        {/* </body> */}
       </div>
     );
   }
