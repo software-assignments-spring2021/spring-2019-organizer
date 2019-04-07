@@ -1,39 +1,41 @@
 // db.js
 const mongoose = require('mongoose') 
-const URLSlugs = require('mongoose-url-slugs');
 // my schema goes here!
 
+const TagSchema = new mongoose.Schema({
+    name: String
+});
+
+// schema for assignment
+const TaskSchema = new mongoose.Schema({
+    name: String,
+    duetime: String,
+    opentime: String,
+    finishtime: String,
+    tag: [TagSchema],
+    state: String,
+    text:{type: String, default:false}
+});
+
+
+// schema for class
+const ClassSchema = new mongoose.Schema({
+    title: String,
+    // quiz: [QuizSchema],
+    assignment:[TaskSchema],
+    text:{type: String, default:false}
+});
 // schema for people
-const PeopleSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     name: {type: String, default:false},
     class:[ClassSchema],
     text: String
 });
-// schema for class
-const ClassSchema = new mongoose.Schema({
-    title: String,
-    quiz: [QuizSchema],
-    assignment:[AssignmentSchema],
-    text:{type: String, default:false}
-});
-// schema for assignment
-const AssignmentSchema = new mongoose.Schema({
-    title: String,
-    duetime: String,
-    opentime: String,
-    text:{type: String, default:false}
-});
-// schema for quiz
-const QuizSchema = new mongoose.Schema({
-    title: String,
-    duetime: String,
-    limitime: String,
-    text:{type: String, default:false}
-});
-//BookSchema.plugin(URLSlugs('name title'));
-mongoose.model("Class", ClassSchema)
-mongoose.model("Assignment", AssignmentSchema)
-mongoose.model("Quiz", QuizSchema)
-mongoose.model("People", PeopleSchema)
+
+
+mongoose.model("Class", ClassSchema);
+mongoose.model("Task", TaskSchema);
+mongoose.model("User", UserSchema);
+mongoose.model("Tag", TagSchema);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/organizer',{ useNewUrlParser: true });
