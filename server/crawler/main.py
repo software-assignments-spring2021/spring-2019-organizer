@@ -55,14 +55,16 @@ def get_classes(page):
     i = 1
     while i < len(classes):
         cur_ele = classes[i]
-        cur_ele.click()
+        print('classes', cur_ele.find_element_by_css_selector('span').text)
+        cur_ele.click() 
         classpage = driver.page_source
         get_assigments(classpage)
         newclasses = driver.find_elements_by_css_selector('a.link-container')
         # update class element
-        if (i < len(classes) - 1):
-            i += 1
-            classes[i] = newclasses[i] 
+        i += 1
+        if (i <= len(classes) - 1):
+            classes[i] = newclasses[i]
+
 
 def get_assigments(page):
     assignment_tab = driver.find_element_by_css_selector('a[title="Assignments "]')
@@ -77,20 +79,20 @@ def select_assignments(r):
     assignments_columns = r.find_elements_by_css_selector('td')
     status = assignments_columns[2].text
     due_date_string = assignments_columns[4].text
-    due_date = time_transform(assignments_columns[4].text)
-    if (status == 'Not Started' and due_date > datetime.datetime.now()):
-        # attachmant = assignments_columns[0]
-        # open_date = assignments_columns[3]
-        title = assignments_columns[1]
-        print(title, due_date)
-
+    if (due_date_string != ''):
+        due_date = time_transform(assignments_columns[4].text)
+        if (status == 'Not Started' and due_date > datetime.datetime.now()):
+            # attachmant = assignments_columns[0]
+            # open_date = assignments_columns[3]
+            title = assignments_columns[1].find_element_by_css_selector('a[name="asnActionLink"]').text
+            print(title, due_date)
 
 
 def time_transform(time):
     timelist = time.split(' ')
     year = int(timelist[2])
     month = month_table[timelist[0]]
-    day = int(timelist[1][0])
+    day = int(timelist[1][:-1])
     hourminute = timelist[3].strip().split(':')
     if (hourminute[0] == ''):
         hour = 0
@@ -101,7 +103,6 @@ def time_transform(time):
         minute = 0
     else:
         minute = int(hourminute[1])
-    # print(type(year), type(month), type(day), type(hour), type(minute))
     return datetime.datetime(year, month, day, hour, minute)
 
 
