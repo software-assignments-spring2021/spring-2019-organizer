@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`timeline renders correctly 1`] = `
+<span>
+  <i
+    className="arrow left"
+  />
+  <ol
+    className="eventsList"
+    style={
+      Object {
+        "listStyle": "none",
+      }
+    }
+  >
+    <ul
+      className="future"
+      data-radium={true}
+      id="March 23"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseOver={[Function]}
+      style={
+        Object {
+          "borderRadius": "10%",
+          "color": "#0f0f0f",
+          "height": "30px",
+          "left": "350px",
+          "position": "absolute",
+          "textAlign": "center",
+          "top": 80,
+          "width": "100px",
+        }
+      }
+    >
+      March 23
+      <li
+        className="Hwitem"
+        data-radium={true}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        1
+      </li>
+      <li
+        className="Hwitem"
+        data-radium={true}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        2
+      </li>
+    </ul>
+    <ul
+      className="future"
+      data-radium={true}
+      id="April 2"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseOver={[Function]}
+      style={
+        Object {
+          "borderRadius": "10%",
+          "color": "#0f0f0f",
+          "height": "30px",
+          "left": "500px",
+          "position": "absolute",
+          "textAlign": "center",
+          "top": 80,
+          "width": "100px",
+        }
+      }
+    >
+      April 2
+      <li
+        className="Hwitem"
+        data-radium={true}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        3
+      </li>
+    </ul>
+    <ul
+      className="future"
+      data-radium={true}
+      id="May 19"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseOver={[Function]}
+      style={
+        Object {
+          "borderRadius": "10%",
+          "color": "#0f0f0f",
+          "height": "30px",
+          "left": "650px",
+          "position": "absolute",
+          "textAlign": "center",
+          "top": 80,
+          "width": "100px",
+        }
+      }
+    >
+      May 19
+      <li
+        className="Hwitem"
+        data-radium={true}
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        4
+      </li>
+    </ul>
+  </ol>
+  <i
+    className="arrow right"
+  />
+</span>
+`;
