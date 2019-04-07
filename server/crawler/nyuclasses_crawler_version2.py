@@ -77,7 +77,7 @@ def find_class_names(page):
     except:
 
         return "The name you searched does not exist in this page"
-namelst = find_class_names(originalsource)
+#namelst = find_class_names(originalsource)
 
 def chooselink(namelst):
     print(namelst)
@@ -86,10 +86,12 @@ def chooselink(namelst):
     actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
     actionChain1.perform()
 
-chooselink(namelst)
+
+#chooselink(namelst)
 # now we are on the class page
-newpage = driver.page_source
-print(len('Mrphs-toolsNav__menuitem--link'));
+#newpage = driver.page_source
+#print(len('Mrphs-toolsNav__menuitem--link'));
+
 def find_tag_names(page):
     names = []
     try:
@@ -109,10 +111,12 @@ def find_tag_names(page):
     except:
 
         return "The name you searched does not exist in this page"
-taglst = find_tag_names(newpage)
-for i in range(len(taglst)):
-    if taglst[i] == 'Tests &amp; Quizzes ':
-        taglst[i] = "Tests & Quizzes "
+#taglst = find_tag_names(newpage)
+
+#for i in range(len(taglst)):
+#    if taglst[i] == 'Tests &amp; Quizzes ':
+#        taglst[i] = "Tests & Quizzes "
+
 def choosetag(taglst):
     print(taglst)
     tagtouse = input("choose the tag name from list ")
@@ -120,7 +124,8 @@ def choosetag(taglst):
     actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
     actionChain1.perform()
 
-choosetag(taglst)
+
+#choosetag(taglst)
 
 
 def find_all_quizs(page):
@@ -151,13 +156,42 @@ def find_all_quizs(page):
             page = page[end_due::]
             return quizs
     except:
+        return ["The name you searched does not exist in this page"]
 
-        return "The name you searched does not exist in this page"
+#newpage = driver.page_source
+#quizlst = find_all_quizs(newpage)
+#for i in quizlst:
+#        print(i)
 
-newpage = driver.page_source
-quizlst = find_all_quizs(newpage)
-for i in quizlst:
-        print(i)
+
+def show_all_lists_of_quizs(originalsource):
+    namelst = find_class_names(originalsource)
+    namelst.pop(0)
+    print(["Title", "Time limit","Due Date"])
+    for classname in namelst:
+        print(classname)
+        shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
+        actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+        actionChain1.perform()
+        try:
+            shadowHostnew = driver.find_element_by_css_selector('.Mrphs-toolsNav__menuitem--link[title="Tests & Quizzes "]')
+            actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+            actionChain1.perform()
+            newpage = driver.page_source
+            quizlst = find_all_quizs(newpage)
+            quizlst.pop(0)
+            if quizlst[0][0] == "View Only Recorded Scores":
+                print("no available quizzes")
+            else:
+                for i in quizlst:
+                    print(i)
+        except:
+            print("no quizzes for this class")
+
+show_all_lists_of_quizs(originalsource)
+
+
+
 
 '''
 # get the source content basing on url
