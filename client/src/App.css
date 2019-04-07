@@ -25,3 +25,15 @@
     transform: rotate(360deg);
   }
 }
+
+.ongoing{
+  margin-top: 100px;
+  margin-left: 450px;
+  text-align: left;
+}
+
+.completed{
+  margin-top: 20px;
+  margin-left: 450px;
+  text-align: left;
+}
