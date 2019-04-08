@@ -4,28 +4,14 @@ import TableContent from './TableContent';
 import '../css/TimeBlock.css';
 
 class TimeBlock extends Component {
-  constructor(){
+  constructor(props){
 		super();
 		this.state={
-			taskNum:3,
-			taskName:'Task 2',
-			taskEstimated:'1:30 Hrs',
-			taskDuedate: '3/20/2019',
-			taskList:[{taskName:'Task 1',taskEstimated:'1:30 Hrs', taskDuedate: '3/20/2019'},
-			{taskName:'Task 2',taskEstimated:'1:30 Hrs', taskDuedate: '3/20/2019'},
-			{taskName:'Task 3',taskEstimated:'1:30 Hrs', taskDuedate: '3/20/2019'}]
+			scheduleDate: props.date,
+			estimatedTime: props.estimatedTime,
+			taskNum: 3,
+			taskList: props.taskList
 		};
-	}
-	
-	componentDidMount() {
-		fetch('/schedules')
-		.then(res => res.json)
-		.then(data => {
-			this.setState({});
-		})
-		.catch(err => {
-			console.log(err);
-	 	})
 	}
 
 	// handle the event of changing the name and its targeted value
@@ -121,8 +107,8 @@ class TimeBlock extends Component {
 			<Card id = "cardlook">
 				<Card.Header as="h5">
 					<Row>
-						<Col>10 MAR 2019</Col>
-						<Col>Estimated Time</Col>
+						<Col>{this.state.scheduleDate}</Col>
+						<Col>Estimated Time: {this.state.estimatedTime}</Col>
 					</Row>
 				</Card.Header>
 
