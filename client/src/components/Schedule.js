@@ -22,11 +22,11 @@ class Schedule extends Component {
     .then(data => {
       this.setState({
         schedules: data.schedules
-      })
+      });
     })
     .catch(err => {
         console.log(err);
-    })
+    });
   }
     
   handleDone(taski){

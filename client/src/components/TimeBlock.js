@@ -56,6 +56,16 @@ class TimeBlock extends Component {
 			taskList:items,
 			taskNum:this.state.taskNum+1
 		});
+
+		fetch('/schedules', { method: 'POST' })
+		.then(res => res.json())
+		.then(json => {
+			const data = {};
+			data.push(json);
+			this.setState({
+				schedules: data
+			});
+		});
   }
 
 	// when done, the event would be put into the completed event box
