@@ -9,8 +9,8 @@ import datetime
 
 # insert your netid and password here for now
 # We will have a better version
-netid = "tz904"
-password = "885600JJjj!"
+netid = ""
+password = ""
 
 
 
@@ -170,8 +170,11 @@ def get_assigments(page):
     assignment_tab.click()
     assignments_page = driver.page_source
     assignments_rows = driver.find_elements_by_css_selector('table[summary="List of assignments."] tr')[1:]
+    newcount = 0
     for r in assignments_rows:
-        select_assignments(r)
+        newcount += select_assignments(r)
+    if newcount == 0:
+        print("No Assignments")
 
 # The input is one assignment page of one class
 # The ouput is the details of this assignment like title, due date
@@ -179,6 +182,7 @@ def select_assignments(r):
     assignments_columns = r.find_elements_by_css_selector('td')
     status = assignments_columns[2].text
     due_date_string = assignments_columns[4].text
+    count = 0
     if (due_date_string != ''):
         due_date = time_transform(assignments_columns[4].text)
         if (status == 'Not Started' and due_date > datetime.datetime.now()):
@@ -186,6 +190,9 @@ def select_assignments(r):
             # open_date = assignments_columns[3]
             title = assignments_columns[1].find_element_by_css_selector('a[name="asnActionLink"]').text
             print(title, due_date)
+            count += 1
+    return count
+
 
 # The input is the string of the time
 # The output is the formalized time
@@ -261,7 +268,6 @@ def show_all_quizs_assignments(originalsource):
     for classname in namelst:
         print(classname)
         print("Quiz")
-        print(["Title", "Time limit", "Due Date"])
         shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
         actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
         actionChain1.perform()
@@ -275,6 +281,7 @@ def show_all_quizs_assignments(originalsource):
             if quizlst[0][0] == "View Only Recorded Scores":
                 print("no available quizzes")
             else:
+                print(["Title", "Time limit", "Due Date"])
                 for i in quizlst:
                     print(i)
         except:
@@ -286,6 +293,37 @@ def show_all_quizs_assignments(originalsource):
         classpage = driver.page_source
         get_assigments(classpage)
 
+def show_all_quizs_assignments_v2(originalsource):
+    namelst = find_class_names(originalsource)
+    namelst.pop(0)
+    for classname in namelst:
+        print(classname)
+        shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
+        actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+        actionChain1.perform()
+        print("Assignments")
+        classpage = driver.page_source
+        get_assigments(classpage)
+        print("Quiz")
+        try:
+            shadowHostnew = driver.find_element_by_css_selector('.Mrphs-toolsNav__menuitem--link[title="Tests & Quizzes "]')
+            actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+            actionChain1.perform()
+            newpage = driver.page_source
+            quizlst = find_all_quizs(newpage)
+            quizlst.pop(0)
+            if quizlst[0][0] == "View Only Recorded Scores":
+                print("no available quizzes")
+            else:
+                print(["Title", "Time limit", "Due Date"])
+                for i in quizlst:
+                    print(i)
+        except:
+            print("no quizzes for this class")
+
+
+
+
 # The following is the main function
 driver = webdriver.Chrome()
 driver.get(url)
@@ -294,6 +332,7 @@ click_Push()
 if wait_for(passDUO):
     # originalsource = driver.page_source
     homepage = driver.page_source
-    show_all_quizs_assignments(homepage)
+    show_all_quizs_assignments_v2(homepage)
+    #show_all_quizs_assignments(homepage)
     driver.close()
     driver.quit()
