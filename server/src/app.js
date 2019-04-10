@@ -1,5 +1,7 @@
 //dependencies
 require('/db');
+const passport = require('passport');
+const auth = require('./auth');
 const mongoose = require('mongoose');
 const express = require('express');
 const path = require('path');
@@ -15,7 +17,26 @@ const publicPath = path.resolve(__dirname,
 app.use(express.static(publicPath));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+auth(passport);
+app.use(passport.initialize());
 
+// Google OAuth setup
+app.get('/', (req, res) => {
+    res.json({
+        status: 'session cookie not set'
+    });
+});
+
+
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/userinfo.profile']
+}));
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        failureRedirect: '/'
+    }),
+    (req, res) => {}
+);
 
 app.post('/user', function (req, res) {
     const user = req.user;
@@ -24,7 +45,7 @@ app.post('/user', function (req, res) {
     const text = user.text;
 
     const newUser = new User({
-        title: title,
+        title: name,
         class: subject,
         text: text
     });
