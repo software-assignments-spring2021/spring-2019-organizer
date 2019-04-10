@@ -286,12 +286,6 @@ def show_all_quizs_assignments(originalsource):
                     print(i)
         except:
             print("no quizzes for this class")
-        print("Assignments")
-        shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
-        actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
-        actionChain1.perform()
-        classpage = driver.page_source
-        get_assigments(classpage)
 
 def show_all_quizs_assignments_v2(originalsource):
     namelst = find_class_names(originalsource)
