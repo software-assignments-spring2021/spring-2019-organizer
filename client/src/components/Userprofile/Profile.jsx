@@ -1,7 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import { Nametab, Majortab} from './Profiletab';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types'; leave for later
 
 //base sytle for the user profile div
 const profileStyle = {
