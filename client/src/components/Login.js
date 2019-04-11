@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Card, Row, Col} from 'react-bootstrap';
 import '../css/Login.css';
 
 const UNAME = '123456';
@@ -48,22 +49,26 @@ class Login extends Component{
     render(){
         return(
             
-            <div className="login">
-                <h2>Welcome to Log in</h2>
-                <div className="log-box">
-                    <tr>
-                        <td className="text">Username:</td>
-                        <td><input type="text" className="uname" onChange={this.props.handleUserNameChange}/></td>
-                    </tr>
-                    <tr>
-                        <td className="text">Password:</td>
-                        <td><input type="password" className="pwd" onChange={this.props.handlePwdChange}/></td>
-                    </tr>
+            <Card.Title id ="login">
+                <Card.Header>Welcome to Log in</Card.Header>
+                <Card.Body className="log-box">
+                    <Card.Title>
+                        <Col className="text">Username:</Col>
+                        <Col><input type="text" className="uname" onChange={this.props.handleUserNameChange}/></Col>
+                    </Card.Title>
+                    <Card.Title>
+                        <Row>
+                        <Col className="text">Password:</Col>
+                        <Col><input type="password" className="pwd" onChange={this.props.handlePwdChange}/></Col>
+                        </Row>
+                    </Card.Title>
+                    <Col>
                     <button className="log-btn" onClick={this.props.handleLogin}>Login</button>
                     <button className="sign" onClick={this.props.handleSign}>sign in with Email</button>
+                    </Col>
                 
-                </div>
-            </div>
+                </Card.Body>
+            </Card.Title>
         );
     }
 

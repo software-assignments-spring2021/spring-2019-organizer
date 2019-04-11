@@ -26,7 +26,7 @@ class App extends Component {
           handlePwdChange={this.handlePwdChange}
           handleSign={this.handleSign}
           handleLogin={this.handleLogin}
-        />
+          />
         </div>
       </Router>
     );

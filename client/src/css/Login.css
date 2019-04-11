@@ -8,15 +8,12 @@ html,body{
     
     background-color: rgb(145, 243, 197);
     
-    
-    
-
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     
 }
 
 .login h2{
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .log-box{
