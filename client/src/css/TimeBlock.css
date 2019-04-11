@@ -10,6 +10,11 @@
   width: 680px;
 }
 
+.custom {
+  border: #57068C;
+  background-color: #57068C;
+}
+
 .TaskName .TaskTime{
   text-align: center;
 }
