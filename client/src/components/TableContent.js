@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { Row, Col, Button } from 'react-bootstrap';
+import Change from './Change';
 import '../css/TimeBlock.css';
 
-//the following is to elimated the error produced by contentEditable error
-//You aren't doing anything wrong.
 //This a known issue 
-//(http://facebook.github.io/draft-js/docs/advanced-topics-issues-and-pitfalls.html#react-contenteditable-warning)
-// and it's being tracked in the react repo: facebook/react#5837
 //https://github.com/facebook/draft-js/issues/53
+
 console.error = (function() {
   var error = console.error;
   return function(exception) {
@@ -70,7 +68,7 @@ class TableContent extends Component {
           </Col>
           <Col>
             <Button variant="success" size="sm" onClick={this.props.handleDone}>Done</Button> 
-            <Button variant="info" size="sm" onClick={this.props.handleEdit}>Edit</Button>
+            <Change task={this.props.task}/>
             <Button variant="danger" size="sm" onClick={this.props.handleDelete}>Delete</Button>
           </Col>
       </Row>

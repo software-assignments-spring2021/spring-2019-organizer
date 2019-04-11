@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Card, Row, Col, Button } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import TableContent from './TableContent';
+import Change from './Change';
 import '../css/TimeBlock.css';
 
 class TimeBlock extends Component {
@@ -129,7 +130,7 @@ class TimeBlock extends Component {
 							<Col>Estimated Time</Col>
 							<Col>Due</Col>
 							<Col> 
-								<Button onClick={this.handleAddEvent}> Add New Event</Button>
+								<Change task={null}/>
 							</Col>
 						</Row>
 					</Card.Title>
@@ -138,7 +139,8 @@ class TimeBlock extends Component {
 							handleNameChange={this.handleNameChange.bind(this,i)}
 							handleDateChange={this.handleDateChange}
 							handleDuedateChange={this.handleDuedateChange}
-								
+							
+							task={task}
 							tEstimated={task.taskEstimated}
 							tName={task.taskName}
 							tDuedate={task.taskDuedate}
