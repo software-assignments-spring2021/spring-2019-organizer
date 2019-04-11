@@ -1,0 +1,69 @@
+html,body{
+    height:100%;
+    background-color: rgb(145, 243, 197);
+}
+.login{
+    width:100%;
+    height:100%;
+    
+    background-color: rgb(145, 243, 197);
+    
+    
+    
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+}
+
+.login h2{
+    margin-top: 100px;
+}
+
+.log-box{
+    background-color: #fff;
+    width:300px;
+    margin: auto;
+    border: 2px solid #3a3a3a;
+    font-weight: bold;
+}
+
+.log-box tr{
+    margin-left:auto;
+    margin-right:auto;
+    display: block;
+    margin-top: 20px; 
+    margin-bottom: 20px;
+}
+tr td{
+    margin: auto;
+    display: inline-block;
+    text-align: center;
+    
+}
+
+.text{
+    margin-right:10px; 
+}
+
+button{
+    padding-left: 4px;
+    padding-right:4px;
+    border-radius: 2px; 
+    border: 1px solid #3a3a3a;
+    outline: none;
+    height:25px;
+    background-color: rgb(247, 188, 188);
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: rgb(252, 147, 147);
+}
+
+.log-btn{
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+
+

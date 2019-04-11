@@ -12,6 +12,7 @@ class SideBar extends React.Component {
           <SidebarLink to="/schedules" label="Schedules"/>
           <SidebarLink to="/tags" label="Tags"/>
           <SidebarLink to="/analysis" label="Analysis"/>
+          <SidebarLink to="/login" label="Login/Log out"/>
         </Nav>
       </Router>
     );

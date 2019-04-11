@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Sidebar from './components/Sidebar';
 import Schedule from './components/Schedule';
 import Profile from './components/Userprofile/Profile';
+import Login from './components/Login'
 
 import './App.css';
 
@@ -19,6 +20,13 @@ class App extends Component {
           <Route path="/schedules" component={Schedule} />
           <Route path="/tags" />
           <Route path="/analysis" />
+          <Route path="/login" /> component={Login} />
+          <Login 
+          handleUserNameChange={this.handleUserNameChange}
+          handlePwdChange={this.handlePwdChange}
+          handleSign={this.handleSign}
+          handleLogin={this.handleLogin}
+        />
         </div>
       </Router>
     );
