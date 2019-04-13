@@ -33,22 +33,22 @@ class TableContent extends Component {
   // if the mouse is pressed not in the editable content of name, then the user may no longer edit the value
   handleNameBlur = () =>{
     this.refs.Name.contentEditable = 'false';
-    var TName = this.refs.Name.innerHTML;
-    this.props.handleNameBlur(TName);
+    var name = this.refs.Name.innerHTML;
+    this.props.handleNameBlur(name);
   }
     
   // if the mouse is pressed not in the editable content of estimated time, then the user may no longer edit the value
   handleEstimatedBlur = () =>{
     this.refs.Estimated.contentEditable = 'false';
-    var TEstimated = this.refs.Estimated.innerHTML;
-    this.props.handleEstimatedBlur(TEstimated);
+    var estimated = this.refs.Estimated.innerHTML;
+    this.props.handleEstimatedBlur(estimated);
   }
     
   // if the mouse is pressed not in the editable content of due date, then the user may no longer edit the value
   handleDuedateBlur = () =>{
     this.refs.Duedate.contentEditable = 'false';
-    var TDuedate = this.refs.Duedate.innerHTML;
-    this.props.handleDuedateBlur(TDuedate);
+    var subject = this.refs.Duedate.innerHTML;
+    this.props.handleDuedateBlur(subject);
   }
 
   // onBlur is used to save the content of saving new data. 
@@ -58,13 +58,13 @@ class TableContent extends Component {
     return (
       <Row>
           <Col>
-            <p contentEditable="false" ref='Name' onBlur={this.handleNameBlur}>{this.props.tName}</p>
+            <p contentEditable="false" ref='Subject' onBlur={this.handleNameBlur}>{this.props.subject}</p>
           </Col>
           <Col>
-            <p contentEditable="false" ref='Estimated' onBlur={this.handleEstimatedBlur}> {this.props.tEstimated}</p>
+            <p contentEditable="false" ref='Name' onBlur={this.handleEstimatedBlur}> {this.props.name}</p>
           </Col>
           <Col>
-            <p contentEditable="false" ref='Duedate' onBlur={this.handleDuedateBlur}> {this.props.tDuedate}</p>
+            <p contentEditable="false" ref='Estimated' onBlur={this.handleDuedateBlur}> {this.props.estimated}</p>
           </Col>
           <Col>
             <Button variant="success" size="sm" onClick={this.props.handleDone}>Done</Button> 
