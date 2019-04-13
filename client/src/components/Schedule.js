@@ -37,25 +37,8 @@ class Schedule extends Component {
       fixedList:newList
     });
   }
-
-  // sortTasks() {
-  //   let newSchedules = this.state.schedules;
-  //   for (let task of this.state.tasks) {
-  //     const date = task['date'];
-  //     if (newSchedules[date] === undefined) {
-  //       newSchedules[date] = {tasks: [task]};
-  //     } else {
-  //       newSchedules[date].tasks.push(task);
-  //     }
-  //   }
-  //   this.setState({
-  //     schedules: newSchedules
-  //   });
-  //   console.log(this.state.schedules);
-  // }
     
   render() {
-    // this.sortTasks();
     return (
       <div className="Schdule">
         <Events eventArray={testArray}/>
@@ -63,7 +46,7 @@ class Schedule extends Component {
         { Object.keys(this.state.schedules).map((key, index) =>
             <TimeBlock 
             date={key}
-            tasks={this.state.schedules[key]['tasks']}
+            tasks={this.state.schedules[key]}
             handleDone={this.handleDone.bind(this)}
             />
         ) }
