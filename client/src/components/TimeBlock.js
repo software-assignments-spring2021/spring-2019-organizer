@@ -9,7 +9,6 @@ class TimeBlock extends Component {
 		super();
 		this.state={
 			date: props.date,
-
 			tasks: props.tasks
 		};
 	}
@@ -81,17 +80,17 @@ class TimeBlock extends Component {
 
   render() {
 		return (
-			<Card id = "cardlook">
+			<Card id="cardlook" className="text-left">
 				<Card.Header as="h5">
-					{this.state.scheduleDate}
+					{this.state.date}
 				</Card.Header>
 
 				<Card.Body>
 					<Card.Title>
 						<Row>
+							<Col>Subject</Col>
 							<Col>Required</Col>
 							<Col>Estimated Time</Col>
-							<Col>Due</Col>
 							<Col> 
 								<Change task={null}/>
 							</Col>

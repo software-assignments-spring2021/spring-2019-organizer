@@ -64,7 +64,7 @@ class TableContent extends Component {
             <p contentEditable="false" ref='Name' onBlur={this.handleEstimatedBlur}> {this.props.name}</p>
           </Col>
           <Col>
-            <p contentEditable="false" ref='Estimated' onBlur={this.handleDuedateBlur}> {this.props.estimated}</p>
+            <p contentEditable="false" ref='Estimated' onBlur={this.handleDuedateBlur}> {this.props.estimated} Hours</p>
           </Col>
           <Col>
             <Button variant="success" size="sm" onClick={this.props.handleDone}>Done</Button> 
