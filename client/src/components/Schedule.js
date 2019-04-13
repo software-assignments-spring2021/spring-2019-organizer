@@ -8,10 +8,11 @@ class Schedule extends Component {
   constructor(){
     super();
     this.state = {
-      schedules: [ { date: 'Mar 10 2019', estimatedTime: '4:30 Hrs',
-      taskList: [{taskName:'Task 1',taskEstimated:'1:30 Hrs', taskDuedate: '3/20/2019'},
-      {taskName:'Task 2',taskEstimated:'1:30 Hrs', taskDuedate: '3/20/2019'},
-      {taskName:'Task 3',taskEstimated:'1:30 Hrs', taskDuedate: '3/20/2019'}]} ],
+      schedules: {
+      '04/18/2019' : [{ subject: 'Agile Software Development', name: 'HW10', date: '04/18/2019', estimated: 1.5, type: 'homework', text: '' }],
+      '05/02/2019': [{ subject: 'Machine Learning', name: 'Homework 3', date: '05/02/2019', estimated: 8, type: 'homework', text: '' }],
+      '01/01/2020': [{ subject: 'SSPC', name: 'Final Paper', date: '01/01/2020', estimated: 5, type: 'homework', text: '' }]
+      },
       fixedList: []
     };
   }
@@ -21,7 +22,7 @@ class Schedule extends Component {
     .then(res => res.json())
     .then(data => {
       this.setState({
-        schedules: data.schedules
+        tasks: data.tasks
       });
     })
     .catch(err => {
@@ -36,17 +37,33 @@ class Schedule extends Component {
       fixedList:newList
     });
   }
+
+  // sortTasks() {
+  //   let newSchedules = this.state.schedules;
+  //   for (let task of this.state.tasks) {
+  //     const date = task['date'];
+  //     if (newSchedules[date] === undefined) {
+  //       newSchedules[date] = {tasks: [task]};
+  //     } else {
+  //       newSchedules[date].tasks.push(task);
+  //     }
+  //   }
+  //   this.setState({
+  //     schedules: newSchedules
+  //   });
+  //   console.log(this.state.schedules);
+  // }
     
   render() {
+    // this.sortTasks();
     return (
       <div className="Schdule">
         <Events eventArray={testArray}/>
         <h3 className="ongoing">ongoing event list</h3>
-        { this.state.schedules.map(schedule => 
+        { Object.keys(this.state.schedules).map((key, index) =>
             <TimeBlock 
-            date={schedule.date} 
-            estimatedTime={schedule.estimatedTime}
-            taskList={schedule.taskList}
+            date={key}
+            tasks={this.state.schedules[key]['tasks']}
             handleDone={this.handleDone.bind(this)}
             />
         ) }
