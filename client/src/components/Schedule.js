@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Events from './Timeline/Events';
 import TimeBlock from './TimeBlock';
-import CompleteTable from './CompleteTable';
+// import CompleteTable from './CompleteTable';
 
 const testArray = {'March 23':["1", "2"], "April 2":["3"], "May 19":["4"]};
 class Schedule extends Component {
@@ -45,13 +45,14 @@ class Schedule extends Component {
         <h3 className="ongoing">ongoing event list</h3>
         { Object.keys(this.state.schedules).map((key, index) =>
             <TimeBlock 
+            key={key}
             date={key}
             tasks={this.state.schedules[key]}
             handleDone={this.handleDone.bind(this)}
             />
         ) }
-        <h3 className="completed">completed event list</h3>
-        <CompleteTable fixedList={this.state.fixedList}/>
+        {/* <h3 className="completed">completed event list</h3>
+        <CompleteTable fixedList={this.state.fixedList}/> */}
       </div>
     );
   }

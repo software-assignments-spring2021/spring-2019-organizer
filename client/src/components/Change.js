@@ -61,9 +61,9 @@ class Change extends Component {
   render() {
     return (
       <>
-        <button class={this.state.task === null ? "btn btn-primary custom" : "btn btn-primary btn-sm"} 
+        <button class={this.state.task === null ? "btn btn-primary custom" : "btn btn-light btn-sm"} 
         onClick={this.handleShow}>
-          {this.state.task === null ? "Add New Task" : "Edit"}
+          {this.state.task === null ? "Add New Task" : <ion-icon name="create"></ion-icon>}
         </button>
   
         <Modal 

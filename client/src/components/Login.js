@@ -63,8 +63,8 @@ class Login extends Component{
                         </Row>
                     </Card.Title>
                     <Col>
-                    <button className="log-btn" onClick={this.props.handleLogin}>Login</button>
-                    <button className="sign" onClick={this.props.handleSign}>sign in with Email</button>
+                    <button className="btn btn-primary log-btn" onClick={this.props.handleLogin}>Login</button>
+                    <button className="btn btn-primary sign" onClick={this.props.handleSign}>sign in with Email</button>
                     </Col>
                 
                 </Card.Body>

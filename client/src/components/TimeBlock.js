@@ -21,7 +21,6 @@ class TimeBlock extends Component {
 		});
   }
 
-	// handle adding new event, user would have to enter 3 inputs in order to add a new event
   handleAddEvent = () =>{
 		fetch('/schedules', { method: 'POST' })
 		.then(res => res.json())

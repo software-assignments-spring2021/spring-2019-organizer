@@ -20,13 +20,7 @@ class App extends Component {
           <Route path="/schedules" component={Schedule} />
           <Route path="/tags" />
           <Route path="/analysis" />
-          <Route path="/login" /> component={Login} />
-          <Login 
-          handleUserNameChange={this.handleUserNameChange}
-          handlePwdChange={this.handlePwdChange}
-          handleSign={this.handleSign}
-          handleLogin={this.handleLogin}
-          />
+          <Route path="/login" component={Login} />
         </div>
       </Router>
     );

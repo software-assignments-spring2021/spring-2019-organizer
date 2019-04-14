@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Button } from 'react-bootstrap';
 import Change from './Change';
+import "react-icons/io";
 import '../css/TimeBlock.css';
 
 //This a known issue 
@@ -67,9 +68,16 @@ class TableContent extends Component {
             <p contentEditable="false" ref='Estimated' onBlur={this.handleDuedateBlur}> {this.props.estimated} Hours</p>
           </Col>
           <Col>
-            <Button variant="success" size="sm" onClick={this.props.handleDone}>Done</Button> 
+            <Button variant="light" size="sm" onClick={this.props.handleDone}>
+              <ion-icon name="arrow-dropright-circle"></ion-icon>
+            </Button> 
+            <Button variant="light" size="sm" onClick={this.props.handleDone}>
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+            </Button> 
             <Change task={this.props.task}/>
-            <Button variant="danger" size="sm" onClick={this.props.handleDelete}>Delete</Button>
+            <Button variant="light" size="sm" onClick={this.props.handleDelete}>
+              <ion-icon name="trash"></ion-icon>
+            </Button>
           </Col>
       </Row>
     )
