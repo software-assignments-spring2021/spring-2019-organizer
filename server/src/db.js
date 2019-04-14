@@ -18,6 +18,7 @@ const TaskSchema = new mongoose.Schema({
     finishtime: String,
     tag: [TagSchema],
     state: String,
+    class: ClassSchema,
     description:{type: String, default:false},
     difficulty: Number,
     predictiontime: Number,
@@ -30,13 +31,15 @@ const SubTaskSchema = new mongoose.Schema({
     finishtime: String,
     state: String,
     description:{type: String, default:false},
-    actualtime: Number
+    actualtime: Number,
+    task: TaskSchema
 });
 
 // schema for class
 const ClassSchema = new mongoose.Schema({
     name: String,
     task:[TaskSchema],
+    user: UserSchema,
     deviation: Number
 });
 
@@ -59,5 +62,6 @@ mongoose.model("Class", ClassSchema);
 mongoose.model("Task", TaskSchema);
 mongoose.model("User", UserSchema);
 mongoose.model("Tag", TagSchema);
+mongoose.model("SubTask", SubTaskSchema);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/organizer',{ useNewUrlParser: true });
