@@ -2,9 +2,13 @@
 const mongoose = require('mongoose') 
 // my schema goes here!
 
+// Tag with the same name will have the same color
+// Tag are things like quiz, assignments or other tags users want to create 
 const TagSchema = new mongoose.Schema({
-    name: String
+    name: String,
+    color: String,
 });
+
 
 // schema for assignment
 const TaskSchema = new mongoose.Schema({
@@ -14,23 +18,41 @@ const TaskSchema = new mongoose.Schema({
     finishtime: String,
     tag: [TagSchema],
     state: String,
-    text:{type: String, default:false}
+    description:{type: String, default:false},
+    difficulty: Number,
+    predictiontime: Number,
+    subTask:[SubTaskSchema],
+    actualtime: Number
 });
 
+const SubTaskSchema = new mongoose.Schema({
+    name: String,
+    finishtime: String,
+    state: String,
+    description:{type: String, default:false},
+    actualtime: Number
+});
 
 // schema for class
 const ClassSchema = new mongoose.Schema({
-    title: String,
-    // quiz: [QuizSchema],
-    assignment:[TaskSchema],
-    text:{type: String, default:false}
+    name: String,
+    task:[TaskSchema],
+    deviation: Number
 });
+
 // schema for people
 const UserSchema = new mongoose.Schema({
-    name: {type: String, default:false},
+    name: String,
+    netid: String,
+    password: String,
     class:[ClassSchema],
-    text: String
+    tip: String,
+    allDeviation: Number,
+    workingTime: [Number],
 });
+
+
+
 
 
 mongoose.model("Class", ClassSchema);

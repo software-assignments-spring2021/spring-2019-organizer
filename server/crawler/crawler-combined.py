@@ -9,8 +9,8 @@ import datetime
 
 # insert your netid and password here for now
 # We will have a better version
-netid = ""
-password = ""
+netid = "tz904"
+password = "885600JJjj!"
 
 
 
@@ -327,6 +327,6 @@ if wait_for(passDUO):
     # originalsource = driver.page_source
     homepage = driver.page_source
     show_all_quizs_assignments_v2(homepage)
-    #show_all_quizs_assignments(homepage)
+    #get_classes(homepage)
     driver.close()
     driver.quit()
