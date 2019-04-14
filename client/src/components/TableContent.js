@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { Row, Col, Button } from 'react-bootstrap';
+import Change from './Change';
 import '../css/TimeBlock.css';
 
-//the following is to elimated the error produced by contentEditable error
-//You aren't doing anything wrong.
 //This a known issue 
-//(http://facebook.github.io/draft-js/docs/advanced-topics-issues-and-pitfalls.html#react-contenteditable-warning)
-// and it's being tracked in the react repo: facebook/react#5837
 //https://github.com/facebook/draft-js/issues/53
+
 console.error = (function() {
   var error = console.error;
   return function(exception) {
@@ -35,22 +33,22 @@ class TableContent extends Component {
   // if the mouse is pressed not in the editable content of name, then the user may no longer edit the value
   handleNameBlur = () =>{
     this.refs.Name.contentEditable = 'false';
-    var TName = this.refs.Name.innerHTML;
-    this.props.handleNameBlur(TName);
+    var name = this.refs.Name.innerHTML;
+    this.props.handleNameBlur(name);
   }
     
   // if the mouse is pressed not in the editable content of estimated time, then the user may no longer edit the value
   handleEstimatedBlur = () =>{
     this.refs.Estimated.contentEditable = 'false';
-    var TEstimated = this.refs.Estimated.innerHTML;
-    this.props.handleEstimatedBlur(TEstimated);
+    var estimated = this.refs.Estimated.innerHTML;
+    this.props.handleEstimatedBlur(estimated);
   }
     
   // if the mouse is pressed not in the editable content of due date, then the user may no longer edit the value
   handleDuedateBlur = () =>{
     this.refs.Duedate.contentEditable = 'false';
-    var TDuedate = this.refs.Duedate.innerHTML;
-    this.props.handleDuedateBlur(TDuedate);
+    var subject = this.refs.Duedate.innerHTML;
+    this.props.handleDuedateBlur(subject);
   }
 
   // onBlur is used to save the content of saving new data. 
@@ -60,18 +58,25 @@ class TableContent extends Component {
     return (
       <Row>
           <Col>
-            <p contentEditable="false" ref='Name' onBlur={this.handleNameBlur}>{this.props.tName}</p>
+            <p contentEditable="false" ref='Subject' onBlur={this.handleNameBlur}>{this.props.subject}</p>
           </Col>
           <Col>
-            <p contentEditable="false" ref='Estimated' onBlur={this.handleEstimatedBlur}> {this.props.tEstimated}</p>
+            <p contentEditable="false" ref='Name' onBlur={this.handleEstimatedBlur}> {this.props.name}</p>
           </Col>
           <Col>
-            <p contentEditable="false" ref='Duedate' onBlur={this.handleDuedateBlur}> {this.props.tDuedate}</p>
+            <p contentEditable="false" ref='Estimated' onBlur={this.handleDuedateBlur}> {this.props.estimated} Hours</p>
           </Col>
           <Col>
-            <Button variant="success" size="sm" onClick={this.props.handleDone}>Done</Button> 
-            <Button variant="info" size="sm" onClick={this.props.handleEdit}>Edit</Button>
-            <Button variant="danger" size="sm" onClick={this.props.handleDelete}>Delete</Button>
+            <Button variant="light" size="sm" onClick={this.props.handleDone}>
+              <ion-icon name="arrow-dropright-circle"></ion-icon>
+            </Button> 
+            <Button variant="light" size="sm" onClick={this.props.handleDone}>
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+            </Button> 
+            <Change task={this.props.task}/>
+            <Button variant="light" size="sm" onClick={this.props.handleDelete}>
+              <ion-icon name="trash"></ion-icon>
+            </Button>
           </Col>
       </Row>
     )

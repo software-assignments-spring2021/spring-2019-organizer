@@ -1,13 +1,7 @@
-html,body{
-    height:100%;
-    background-color: rgb(145, 243, 197);
-}
 .login{
     width:100%;
     height:100%;
-    
     background-color: rgb(145, 243, 197);
-    
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     
 }
@@ -40,21 +34,6 @@ tr td{
 
 .text{
     margin-right:10px; 
-}
-
-button{
-    padding-left: 4px;
-    padding-right:4px;
-    border-radius: 2px; 
-    border: 1px solid #3a3a3a;
-    outline: none;
-    height:25px;
-    background-color: rgb(247, 188, 188);
-    cursor: pointer;
-}
-
-button:hover{
-    background-color: rgb(252, 147, 147);
 }
 
 .log-btn{

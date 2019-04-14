@@ -1,62 +1,27 @@
 import React, { Component } from 'react';
-import { Card, Row, Col, Button } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import TableContent from './TableContent';
+import Change from './Change';
 import '../css/TimeBlock.css';
 
 class TimeBlock extends Component {
   constructor(props){
 		super();
 		this.state={
-			scheduleDate: props.date,
-			estimatedTime: props.estimatedTime,
-			taskNum: 3,
-			taskList: props.taskList
+			date: props.date,
+			tasks: props.tasks
 		};
-	}
-
-	// handle the event of changing the name and its targeted value
-  handleNameChange = (event) =>{
-		this.setState({
-			taskName:event.target.value
-    });
-  }
-
-  // handle the event of changing the estiamted time and its targeted value
-	handleEstimatedChange = (event) =>{
-		this.setState({
-			taskEstimated:event.target.value
-		});
-	}
-	
-	// handle the event of changing the Due Date and its targeted value
-	handleDuedateChange = (event) =>{
-		this.setState({
-			taskDuedate:event.target.value
-		});
 	}
 
 	// handle deletion of an existing event
   handleDelete = (i) =>{
-		this.state.taskList.splice(i,1);
+		this.state.tasks.splice(i,1);
 		this.setState({
-			taskList:this.state.taskList,
-			taskNum:this.state.taskNum-1
+			tasks:this.state.tasks
 		});
   }
 
-	// handle adding new event, user would have to enter 3 inputs in order to add a new event
   handleAddEvent = () =>{
-		var taskNameInput = prompt("Please input the event name", "");
-		var taskEstimatedInput = prompt("Please enter the estimated time", "");
-		var taskDuedateInput = prompt("Please input the due date", "");
-
-		let items = this.state.taskList;
-		items.push({taskName:taskNameInput, taskEstimated:taskEstimatedInput, taskDuedate: taskDuedateInput});
-		this.setState({
-			taskList:items,
-			taskNum:this.state.taskNum+1
-		});
-
 		fetch('/schedules', { method: 'POST' })
 		.then(res => res.json())
 		.then(json => {
@@ -70,11 +35,11 @@ class TimeBlock extends Component {
 
 	// when done, the event would be put into the completed event box
   handleDone = (i) => {
-		var taski = this.state.taskList[i];
-		var newTaskList = this.state.taskList;
-		newTaskList.splice(i,1);
+		var taski = this.state.tasks[i];
+		var newtasks = this.state.tasks;
+		newtasks.splice(i,1);
 		this.setState({
-			taskList:newTaskList
+			tasks:newtasks
 		});
     this.props.handleDone(taski);
   }
@@ -83,10 +48,10 @@ class TimeBlock extends Component {
 	// and provide the new saved value not only for ongoing event 
 	// but also for the completed event box when done.
   handleNameBlur = (i,TName) => {
-		var nList = this.state.taskList;
+		var nList = this.state.tasks;
 		nList[i].taskName = TName;
 		this.setState({
-			taskList:nList
+			tasks:nList
 		});
   }
 
@@ -94,10 +59,10 @@ class TimeBlock extends Component {
 	// and provide the new saved value not only for ongoing event 
 	// but also for the completed event box when done.
   handleEstimatedBlur = (i,TEstimated) =>{
-		var dList = this.state.taskList
+		var dList = this.state.tasks
 		dList[i].taskEstimated = TEstimated
 		this.setState({
-			taskList:dList
+			tasks:dList
 		})
 	}
 
@@ -105,43 +70,37 @@ class TimeBlock extends Component {
 	// and provide the new saved value not only for ongoing event 
 	// but also for the completed event box when done.
   handleDuedateBlur = (i,TDuedate) => {
-		var dList = this.state.taskList;
+		var dList = this.state.tasks;
     dList[i].taskDuedate = TDuedate;
 		this.setState({
-	  	taskList:dList
+	  	tasks:dList
 		});
   }
 
   render() {
 		return (
-			<Card id = "cardlook">
+			<Card id="cardlook" className="text-left">
 				<Card.Header as="h5">
-					<Row>
-						<Col>{this.state.scheduleDate}</Col>
-						<Col>Estimated Time: {this.state.estimatedTime}</Col>
-					</Row>
+					{this.state.date}
 				</Card.Header>
 
 				<Card.Body>
 					<Card.Title>
 						<Row>
+							<Col>Subject</Col>
 							<Col>Required</Col>
 							<Col>Estimated Time</Col>
-							<Col>Due</Col>
 							<Col> 
-								<Button onClick={this.handleAddEvent}> Add New Event</Button>
+								<Change task={null}/>
 							</Col>
 						</Row>
 					</Card.Title>
-					{this.state.taskList.map((task,i)=>
+					{this.state.tasks.map((task,i)=>
 						<TableContent 
-							handleNameChange={this.handleNameChange.bind(this,i)}
-							handleDateChange={this.handleDateChange}
-							handleDuedateChange={this.handleDuedateChange}
-								
-							tEstimated={task.taskEstimated}
-							tName={task.taskName}
-							tDuedate={task.taskDuedate}
+							task={task}
+							estimated={task.estimated}
+							name={task.name}
+							subject={task.subject}
 							key={i}
 							handleDelete={this.handleDelete.bind(this,i)}
 							handleDone={this.handleDone.bind(this,i)}

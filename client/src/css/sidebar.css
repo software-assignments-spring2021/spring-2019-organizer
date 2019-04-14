@@ -1,11 +1,11 @@
 #sidebar {
-  position: absolute;
-  top:10px;
+  position: fixed;
+  top:0px;
   left:0px;
   display: block;
   float: left;
   width: 25%;
-  height: 100vh;
+  height: 120vh;
   background-color: #57068C;
   color: #ffffff;
   text-align: center;

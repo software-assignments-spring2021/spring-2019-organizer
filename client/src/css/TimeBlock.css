@@ -1,6 +1,7 @@
 #cardlook {
   margin-top: 10px;
   margin-left: 32%;
+  margin-bottom: 20px;
   width: 60%;
 }
 
@@ -8,6 +9,11 @@
   margin-top: 10px;
   margin-left: 450px;
   width: 680px;
+}
+
+.custom {
+  border: #57068C;
+  background-color: #57068C;
 }
 
 .TaskName .TaskTime{
