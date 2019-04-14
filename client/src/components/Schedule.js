@@ -12,8 +12,7 @@ class Schedule extends Component {
       '04/18/2019' : [{ subject: 'Agile Software Development', name: 'HW10', date: '04/18/2019', estimated: 1.5, type: 'homework', text: '' }],
       '05/02/2019': [{ subject: 'Machine Learning', name: 'Homework 3', date: '05/02/2019', estimated: 8, type: 'homework', text: '' }],
       '01/01/2020': [{ subject: 'SSPC', name: 'Final Paper', date: '01/01/2020', estimated: 5, type: 'homework', text: '' }]
-      },
-      fixedList: []
+      }
     };
   }
 
@@ -51,8 +50,6 @@ class Schedule extends Component {
             handleDone={this.handleDone.bind(this)}
             />
         ) }
-        {/* <h3 className="completed">completed event list</h3>
-        <CompleteTable fixedList={this.state.fixedList}/> */}
       </div>
     );
   }
