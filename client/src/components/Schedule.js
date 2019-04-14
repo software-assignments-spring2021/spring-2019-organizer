@@ -45,7 +45,6 @@ class Schedule extends Component {
         <h3 className="ongoing">ongoing event list</h3>
         { Object.keys(this.state.schedules).map((key, index) =>
             <TimeBlock 
-            key={key}
             date={key}
             tasks={this.state.schedules[key]}
             handleDone={this.handleDone.bind(this)}
