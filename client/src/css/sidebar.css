@@ -9,6 +9,7 @@
   background-color: #57068C;
   color: #ffffff;
   text-align: center;
+  z-index: 10
 }
 
 #user {
