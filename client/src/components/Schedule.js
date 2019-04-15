@@ -9,9 +9,9 @@ class Schedule extends Component {
     super();
     this.state = {
       schedules: {
-      '04/18/2019' : [{ subject: 'Agile Software Development', name: 'HW10', date: '04/18/2019', estimated: 1.5, type: 'homework', text: '' }],
-      '05/02/2019': [{ subject: 'Machine Learning', name: 'Homework 3', date: '05/02/2019', estimated: 8, type: 'homework', text: '' }],
-      '01/01/2020': [{ subject: 'SSPC', name: 'Final Paper', date: '01/01/2020', estimated: 5, type: 'homework', text: '' }]
+      '04/18/2019' : [{ class: 'Agile Software Development', name: 'HW10', date: '04/18/2019', estimated: 1.5, tag: ['homework'], text: '' }],
+      '05/02/2019': [{ class: 'Machine Learning', name: 'Homework 3', date: '05/02/2019', estimated: 8, tag: ['homework'], text: '' }],
+      '01/01/2020': [{ class: 'SSPC', name: 'Final Paper', date: '01/01/2020', estimated: 5, tag: ['homework'], text: '' }]
       }
     };
   }

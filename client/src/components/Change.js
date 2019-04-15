@@ -13,7 +13,7 @@ class Change extends Component {
     this.state = {
       show: false,
       task: props.task,
-      newTask: { subject: '', name: '', date: '', estimated: '', type: '', text: '' }
+      newTask: { class: '', name: '', date: '', estimated: '', type: [], text: '' }
     };
   }
 
@@ -82,10 +82,10 @@ class Change extends Component {
           <Modal.Body>
             <Form onSubmit={e => this.handleSave(e)}>
               <Form.Row>
-                <Form.Group as={Col} md="4" controlId="subject">
+                <Form.Group as={Col} md="4" controlId="class">
                   <Form.Label>Subject </Form.Label>
-                  <Form.Control required name="subject" type="text" 
-                  defaultValue={this.state.task === null ? "" : this.state.task.subject}
+                  <Form.Control required name="class" type="text" 
+                  defaultValue={this.state.task === null ? "" : this.state.task.class}
                   onChange={this.handleChange}/>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="name">

@@ -42,40 +42,7 @@ class TimeBlock extends Component {
 			tasks:newtasks
 		});
     this.props.handleDone(taski);
-  }
-
-	// this function is to locate the current editable value from the event name
-	// and provide the new saved value not only for ongoing event 
-	// but also for the completed event box when done.
-  handleNameBlur = (i,TName) => {
-		var nList = this.state.tasks;
-		nList[i].taskName = TName;
-		this.setState({
-			tasks:nList
-		});
-  }
-
-	// this function is to locate the current editable value from the estimated name
-	// and provide the new saved value not only for ongoing event 
-	// but also for the completed event box when done.
-  handleEstimatedBlur = (i,TEstimated) =>{
-		var dList = this.state.tasks
-		dList[i].taskEstimated = TEstimated
-		this.setState({
-			tasks:dList
-		})
 	}
-
-	// this function is to locate the current editable value from the due date
-	// and provide the new saved value not only for ongoing event 
-	// but also for the completed event box when done.
-  handleDuedateBlur = (i,TDuedate) => {
-		var dList = this.state.tasks;
-    dList[i].taskDuedate = TDuedate;
-		this.setState({
-	  	tasks:dList
-		});
-  }
 
   render() {
 		return (
@@ -100,13 +67,10 @@ class TimeBlock extends Component {
 							task={task}
 							estimated={task.estimated}
 							name={task.name}
-							subject={task.subject}
+							subject={task.class}
 							key={i}
 							handleDelete={this.handleDelete.bind(this,i)}
 							handleDone={this.handleDone.bind(this,i)}
-							handleNameBlur={this.handleNameBlur.bind(this,i)}
-							handleEstimatedBlur={this.handleEstimatedBlur.bind(this,i)}
-							handleDuedateBlur={this.handleDuedateBlur.bind(this,i)}
 						/>
 					)}
 				</Card.Body>
