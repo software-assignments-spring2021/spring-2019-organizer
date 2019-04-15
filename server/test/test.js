@@ -2,7 +2,7 @@
 const assert = require("assert");
 const utils = require("../src/utils");
 const expect = require("chai").expect;
-
+const analysis = require("../src/analysis");
 /*a test function*/
 function testFunc1(a, b, c) {
     return a + b + c;
@@ -183,4 +183,118 @@ describe('utility functions', function() {
             expect(result).to.equal(false);
         });
     });
+});
+
+
+
+//sample1
+const dic_predictime_class1 = {
+    "assignment1":10,
+    "assignment2":10,
+    "assignment3":10,
+    "assignment4":10,
+    "assignment5":10,
+    "assignment6":10,
+    "assignment7":10,
+    "assignment8":10,
+    "assignment9":10,
+    "assignment10":10,
+}
+
+const dic_realtime_class1 = {
+    "assignment1":11,
+    "assignment2":11,
+    "assignment3":11,
+    "assignment4":11,
+    "assignment5":11,
+    "assignment6":11,
+    "assignment7":11,
+    "assignment8":11,
+    "assignment9":11,
+    "assignment10":11,
+}
+
+
+//sample2
+const dic_realtime_class2 = {
+    "assignment1":5,
+    "assignment2":5,
+    "assignment3":8,
+    "assignment4":9,
+    "assignment5":10,
+    "assignment6":3,
+    "assignment7":7
+}
+
+const dic_predictime_class2 = {
+    "assignment1":5,
+    "assignment2":5,
+    "assignment3":8,
+    "assignment4":9,
+    "assignment5":10,
+    "assignment6":3,
+    "assignment7":7
+}
+
+// sample 3
+const dic_realtime_class3 = {
+    "assignment1":0,
+    "assignment2":0,
+    "assignment3":0,
+    "assignment4":0,
+    "assignment5":0,
+    "assignment6":0,
+    "assignment7":0,
+    "assignment8":0,
+    "assignment9":0,
+    "assignment10":0,
+
+}
+
+const dic_predictime_class3 = {
+    "assignment1":5,
+    "assignment2":5,
+    "assignment3":8,
+    "assignment4":9,
+    "assignment5":10,
+    "assignment6":3,
+    "assignment7":7,
+    "assignment8":5,
+    "assignment9":5,
+    "assignment10":8,
+}
+// first one is sd, second one is num
+const class_sd_list1 = [[1,1],[1,1],[1,1]];
+const class_sd_list2 = [[2,1],[2,1],[2,1]];
+const class_sd_list3 = [[1,10],[2,10]];
+describe('analysis functions', function() {
+
+    describe('standard_deviation_class()', function() {
+        it('return 1 if all prediction equals realtime', function() {
+            assert.equal(analysis.standard_deviation_class(dic_realtime_class2,dic_predictime_class2)[0], 1);
+        });
+        it('return 1.1 if all realtime is 1.1 * prediction', function() {
+            assert.equal(analysis.standard_deviation_class(dic_realtime_class1,dic_predictime_class1)[0], 1.1);
+        });
+        it('return 0 if all the realtime of task is 0', function() {
+            assert.equal(analysis.standard_deviation_class(dic_realtime_class3,dic_predictime_class3)[0], 0);
+        });
+    });
+
+    describe('standard_deviation_user()', function() {
+        it('return 1 if sd of classes are all 1', function() {
+            assert.equal(analysis.standard_deviation_user(class_sd_list1), 1);
+        });
+
+        it('return 2 if sd of classes are all 2', function() {
+            assert.equal(analysis.standard_deviation_user(class_sd_list2), 2);
+        });
+
+        it('return 1.5 if sd of classes are 1 and 2, num of task of classes are equal', function() {
+            assert.equal(analysis.standard_deviation_user(class_sd_list3), 1.5);
+        });
+
+    });
+
+
 });
