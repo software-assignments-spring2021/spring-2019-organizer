@@ -49,14 +49,12 @@ const UserSchema = new mongoose.Schema({
     netid: String,
     password: String,
     class: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ClassSchema' }],
+    task: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TaskSchema' }],
+    tag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TagSchema' }],
     tip: String,
     allDeviation: Number,
     workingTime: [Number],
 });
-
-
-
-
 
 mongoose.model("Class", ClassSchema);
 mongoose.model("Task", TaskSchema);
