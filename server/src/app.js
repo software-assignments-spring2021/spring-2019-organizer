@@ -1,53 +1,80 @@
-//dependencies
-require('/db');
-const passport = require('passport');
-const auth = require('./auth');
+//mongoDB
+require('./db');
 const mongoose = require('mongoose');
-const express = require('express');
-const path = require('path');
 const User = mongoose.model('User');
 const Class = mongoose.model('Class');
 const Task = mongoose.model('Task');
 const Tag = mongoose.model('Tag');
 
-//set up app
+// OAuthentication
+const passport = require('passport');
+const express = require('express');
+const auth = require('./oauth');
+const cookieSession = require('cookie-session');
+
+//set up middleware
 const app = express();
-const publicPath = path.resolve(__dirname,
-    'public');
-app.use(express.static(publicPath));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-auth(passport);
+
+// create a new cookie session middleware
+app.use(cookieSession({
+    name: 'session',
+    keys: ['secert']
+}));
+
+// initialize the passport
 app.use(passport.initialize());
 
-// Google OAuth setup
+// configure strategy
+auth(passport);
+
+// authenticate request
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['profile']
+}));
+
+// runs the functions in strategy
+app.get('/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+        req.session.token = req.user.token;
+        console.log(req.user.email);
+        res.redirect('/');
+    }
+);
+
+// homepage
 app.get('/', (req, res) => {
-    res.json({
-        status: 'session cookie not set'
-    });
+    if (req.session.token) {
+        res.cookie('token', req.session.token);
+        res.json({
+            status: 'session cookie set'
+        });
+    } else {
+        res.cookie('token', '');
+        res.json({
+            status: 'session cookie not set'
+        });
+    }
+});
+
+// login router
+app.get('/login', (req, res) => {
+    res.redirect('/auth/google');
+});
+
+// logout router
+app.get('/logout', (req, res) => {
+    // invoking passport logout method to remove req.user
+    req.logout();
+    req.session = null;
+    res.redirect('/');
 });
 
 
-app.get('/auth/google', passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/userinfo.profile']
-}));
-app.get('/auth/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: '/'
-    }),
-    (req, res) => {}
-);
-
 app.post('/user', function (req, res) {
     const user = req.user;
-    const name = user.name;
-    const subject = user.subject;
-    const text = user.text;
-
     const newUser = new User({
-        title: name,
-        class: subject,
-        text: text
+       
     });
 
     newUser.save(function(saveErr, saveUser, saveCount) {
@@ -60,14 +87,10 @@ app.post('/user', function (req, res) {
 });
 
 
-app.post('/class', function (req, res) {
+app.post('/class/add', function (req, res) {
     const subject = req.class;
-    const name = subject.title;
-    
     const newClass = new Class({
-        title: name,
-        assignment: [],
-        text: ''
+
     });
 
     newClass.save(function(saveErr, saveClass, saveCount) {
@@ -80,20 +103,10 @@ app.post('/class', function (req, res) {
 });
 
 app.post('/task/add', function (req, res) {
-    const t = req.task;
-    const title = t.title;
-    const due = t.due_time;
-    const open = t.open_time;
-    const text = t.text;
+    const task = req.task;
 
     const newTask = new Task({
-        name: title,
-        duetime: due,
-        opentime: open,
-        finishtime: '',
-        tag: '',
-        state: 'in progress',
-        text: text
+
     });
 
     newTask.save(function(saveErr, saveAsn, saveCount) {
@@ -107,10 +120,9 @@ app.post('/task/add', function (req, res) {
 
 app.post('/tag/add', function (req, res) {
     const tag = req.tag;
-    const name = t.name;
-
+    
     const newTag = new Tag({
-        name: name,
+     
     });
 
     newTag.save(function(saveErr, saveTag, saveCount) {
@@ -122,6 +134,21 @@ app.post('/tag/add', function (req, res) {
     });
 });
 
+app.post('/subtask/add', function (req, res) {
+    const subtask = req.subtask;
+    
+    const newTag = new Tag({
+     
+    });
+
+    newTag.save(function(saveErr, saveSubTask, saveCount) {
+        if (saveErr) {
+            res.send(new Error(saveErr));
+        } else {
+            res.redirect('/');
+        }
+    });
+});
 
 //run the server
 app.listen(3000, 'localhost');

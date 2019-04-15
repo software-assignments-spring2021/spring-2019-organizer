@@ -1,7 +1,7 @@
 .DS_Store
-.idea
+**/.idea
 .nyc_output
-.vscode
+**/.vscode
 node_modules
 coverage
 server/crawler/info.py
