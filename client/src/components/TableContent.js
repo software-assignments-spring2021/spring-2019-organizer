@@ -31,7 +31,7 @@ class TableContent extends Component {
   }
 
   handleStart = () => {
-    this.setState({isStarted: true})
+    this.setState({isStarted: true});
     // set start time
   }
 
@@ -39,7 +39,7 @@ class TableContent extends Component {
     return (
       <Row>
           <Col>
-            <p ref='Subject'>{this.props.subject}</p>
+            <p ref='subject'>{this.props.subject}</p>
           </Col>
           <Col>
             <p ref='Name'> {this.props.name}</p>
