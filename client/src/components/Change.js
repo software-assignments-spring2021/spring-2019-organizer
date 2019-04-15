@@ -38,7 +38,7 @@ class Change extends Component {
         'Content-Type': 'application/json'
       }
     }).then(response => {
-      response.json().then(data =>{
+      response.json().then(data => {
         console.log("Successful" + data);
       })
     })
