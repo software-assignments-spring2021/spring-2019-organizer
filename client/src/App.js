@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar';
 import Schedule from './components/Schedule';
 import Profile from './components/Userprofile/Profile';
 import Settingpage from './components/Settingpage'
-import NickName from './components/Settingpage'
+// import NickName from './components/Settingpage'
 import './App.css';
 
 //const testprofile = 'https://raw.githubusercontent.com/nyu-software-engineering/organizer/master/documentation/web_mockup_Mark/home_page.png';
@@ -15,7 +15,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Sidebar />
-          <Profile name = {NickName} major='Computer Science'/>
+          <Profile name = "Mark" major='Computer Science'/>
           <Route exact path="/" />
           <Route path="/schedules" component={Schedule} />
           <Route path="/tags" />
