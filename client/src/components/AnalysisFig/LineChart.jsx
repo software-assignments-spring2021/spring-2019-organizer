@@ -10,6 +10,7 @@ require('echarts/lib/chart/line');
 
 const linestyle = {
     left: '30%',
+    position: 'relative',
     top: '100px',
     width: '600px',
     height: '400px'
