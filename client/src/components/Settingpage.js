@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import Login from './Login';
+import Setting from './Setting';
 import { Redirect } from 'react-router';
 // import SidebarLink from './Sidebar'
 
 const UNAME = '123';
 const PWD = '123';
 
-class Loginpage extends Component {
+class Settingpage extends Component {
   constructor(props){
     super(props);
     this.state=({
+      NickName: "",
       userName:'123',
       pwd:'123',
       redirect: false
@@ -17,6 +18,11 @@ class Loginpage extends Component {
     })
 
   }
+    handleNickNameChange = (e) =>{
+      this.setState({
+        NickName:e.target.value
+      })
+    }
   
 
     handleUserNameChange = (e) =>{
@@ -75,8 +81,8 @@ class Loginpage extends Component {
     return (
       
 
-      <div className="loginpage">   
-        <Login         
+      <div className="Settingpage">   
+        <Setting         
           handleUserNameChange={this.handleUserNameChange}
           handlePwdChange={this.handlePwdChange}
           handleSign={this.handleSign}
@@ -90,4 +96,4 @@ class Loginpage extends Component {
   }
 }
 
-export default Loginpage;
+export default Settingpage;
