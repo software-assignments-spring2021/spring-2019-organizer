@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Card, Row, Col} from 'react-bootstrap';
-
 import '../css/Setting.css';
+
 
 
 class Setting extends Component{
 
     render(){
-        return(
-            
+        return(           
             <div id ="setting">
                 <Col className="titles1"> NYU Classes Organizer</Col>
                 <Col className="titles1"> Please Login to NYU Classes</Col>
@@ -40,4 +39,7 @@ class Setting extends Component{
 }
 
 export default Setting;
+
+
+
 

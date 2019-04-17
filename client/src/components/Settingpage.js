@@ -3,6 +3,7 @@ import Setting from './Setting';
 import { Redirect } from 'react-router';
 // import SidebarLink from './Sidebar'
 
+
 const UNAME = '123';
 const PWD = '123';
 
@@ -36,21 +37,24 @@ class Settingpage extends Component {
         pwd:e.target.value
       })
     }
-    state = {
-      redirect: false
+
+    handleNickNameChange = (e) =>{
+      this.setState({
+        NickName:e.target.value
+      })
     }
 
     handleLogin = () =>{
       if(this.state.userName===UNAME&&this.state.pwd===PWD){
         alert("Login successfully!"); 
+        // var userName = this.state.userName;
+        // var pwd = this.state.pwd;
 
         this.setState({redirect: true})
 
         if (this.state.redirect) {
           return <Redirect to='/schedules' />
-        
-        
-        
+      
   
       };
            
@@ -67,9 +71,10 @@ class Settingpage extends Component {
         alert("Fail to log!");
       }
     }
-
+    
+    //handle logout
     handleSign = () =>{
-      alert("Sign in successfully!");
+      alert("Logout successfully!");
     }
 
     
@@ -85,14 +90,19 @@ class Settingpage extends Component {
         <Setting         
           handleUserNameChange={this.handleUserNameChange}
           handlePwdChange={this.handlePwdChange}
-          handleSign={this.handleSign}
-          handleLogin={this.handleLogin}        
+          handleSign={this.handleSign} //handle logout
+          handleLogin={this.handleLogin}   
+          handleNickNameChange={this.handleNickNameChange} 
+          
         />
+       
       
         
       </div>
       
+      
     );
+    
   }
 }
 
