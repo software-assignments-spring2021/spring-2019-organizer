@@ -57,7 +57,6 @@ const dic_realtime_class3 = {
     "assignment8":5,
     "assignment9":5,
     "assignment10":8,
-
 }
 
 const dic_predictime_class3 = {
@@ -71,12 +70,12 @@ const dic_predictime_class3 = {
     "assignment8":5,
     "assignment9":5,
     "assignment10":8,
-
 }
 
 
 
-//we calculate the sd for each class
+// we calculate the sd for each class
+// 
 function standard_deviation_class(dic_realtime,dic_predict){
     let sd1 = 0;
     let n = 1;
