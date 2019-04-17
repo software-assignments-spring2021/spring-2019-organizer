@@ -12,10 +12,6 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-/* 
-.App-link {
-  color: #61dafb;
-} */
 
 @keyframes App-logo-spin {
   from {
@@ -24,16 +20,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.ongoing{
-  margin-top: 100px;
-  margin-left: 450px;
-  text-align: left;
-}
-
-.completed{
-  margin-top: 20px;
-  margin-left: 450px;
-  text-align: left;
 }
