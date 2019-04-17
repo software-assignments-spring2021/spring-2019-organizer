@@ -9,8 +9,8 @@ import datetime
 
 # insert your netid and password here for now
 # We will have a better version
-netid = ""
-password = ""
+netid = "tz904"
+password = "885600JJjj!"
 
 
 
@@ -394,15 +394,23 @@ def save_all_quizs_assignments(originalsource):
         classlist.append(cur_class)
 
 # The following is the main function
+def click_Ok():
+    shadowHost = driver.find_element_by_id('duo_iframe')
+    for i in range(150, 400, 10):
+        for j in range(250, 400, 10):
+            actionChain = webdriver.ActionChains(driver).move_to_element_with_offset(shadowHost, i, j).click()
+            actionChain.perform()
+
 driver = webdriver.Chrome()
 driver.get(url)
 login(netid, password)
+click_Ok()
 click_Push()
 if wait_for(passDUO):
     # originalsource = driver.page_source
     homepage = driver.page_source
-    # show_all_quizs_assignments_v2(homepage)
-    print(save_all_quizs_assignments(homepage))
+    show_all_quizs_assignments_v2(homepage)
+    #print(save_all_quizs_assignments(homepage))
     #get_classes(homepage)
     driver.close()
     driver.quit()

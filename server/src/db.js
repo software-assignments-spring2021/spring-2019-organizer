@@ -13,7 +13,7 @@ const TagSchema = new mongoose.Schema({
 // schema for assignment
 const TaskSchema = new mongoose.Schema({
     name: String,
-    duetime: String,
+    duetime: String, //yyyy-mm-ddThh:mm
     opentime: String,
     finishtime: String,
     tag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TagSchema' }],
@@ -21,7 +21,7 @@ const TaskSchema = new mongoose.Schema({
     class: { type: mongoose.Schema.Types.ObjectId, ref: 'ClassSchema' }, 
     description: {type: String, default:false},
     difficulty: Number,
-    predictiontime: Number,
+    estimated: Number,
     subTask: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubTaskSchema' }],
     actualtime: Number
 });
@@ -30,7 +30,7 @@ const SubTaskSchema = new mongoose.Schema({
     name: String,
     finishtime: String,
     state: String,
-    description: {type: String, default:false},
+    estimated: {type: String, default:false},
     actualtime: Number,
     task: { type: mongoose.Schema.Types.ObjectId, ref: 'TaskSchema' }
 });
