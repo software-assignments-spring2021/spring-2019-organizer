@@ -3,59 +3,69 @@ import { Row, Col, Button } from 'react-bootstrap';
 import Change from './Change';
 import '../css/TimeBlock.css';
 
-//This a known issue 
-//https://github.com/facebook/draft-js/issues/53
-
-console.error = (function() {
-  var error = console.error;
-  return function(exception) {
-    if ((exception + '').indexOf('Warning: A component is `contentEditable`') !== 0) {
-      error.apply(console, arguments)
-    }
-  }
-})()
-
 class TableContent extends Component {
   constructor(){
     super();
     this.state = {
-      isStarted: false
+      isStarted: false,
+      isDone: false // need to initiate
     };
-  }
-   
-  // if the button edit is pressed, then the user may edit the name, estimated time, and due date
-  handleEdit = () =>{
-    this.refs.Name.contentEditable = 'true';
-    this.refs.Estimated.contentEditable = 'true';
-    this.refs.Duedate.contentEditable = 'true';
   }
 
   handleStart = () => {
-    this.setState({isStarted: true});
-    // set start time
+    this.setState({isStarted: true}); // to delete after connect to db
+    fetch('/start', {
+      method: 'POST',
+      body: JSON.stringify({taskid: 'somestring'}), // set taskid
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+		.then((data) =>  console.log(data))
+    .catch((err)=>console.log(err))
+  }
+  
+  handleDone = () => {
+    this.setState({isDone: true});
+    fetch('/done', {
+      method: 'POST',
+      body: JSON.stringify({taskid: 'somestring'}), // set taskid
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+		.then((data) =>  console.log(data))
+    .catch((err)=>console.log(err))
   }
 
   render() {
     return (
-      <Row>
+      <Row bsPrefix={this.state.isDone ? "row done" : "row"}>
           <Col>
-            <p ref='subject'>{this.props.subject}</p>
+            <p ref='subject'>{this.props.task.class}</p>
           </Col>
           <Col>
-            <p ref='Name'> {this.props.name}</p>
+            <p ref='Name'> {this.props.task.name}</p>
           </Col>
           <Col>
-            <p ref='Estimated'> {this.props.estimated} Hours</p>
+            <p ref='Estimated'> {this.props.task.estimated} Hours</p>
           </Col>
           <Col>
-            <Button variant="light" size="sm" disabled={this.state.isStarted} onClick={this.handleStart}>
+            {this.props.task.tag.map(tag => 
+              <span ref='Tag'> {tag}</span>
+            )}
+          </Col>
+          <Col>
+            <Button variant="light" size="sm" disabled={this.state.isStarted || this.state.isDone} onClick={this.handleStart}>
               <ion-icon name="arrow-dropright-circle"></ion-icon>
             </Button> 
-            <Button ref="start" variant="light" size="sm" onClick={this.props.handleDone}>
+            <Button ref="start" variant="light" disabled={this.state.isDone} size="sm" onClick={this.handleDone}>
               <ion-icon name="checkmark-circle-outline"></ion-icon>
             </Button> 
-            <Change task={this.props.task}/>
-            <Button variant="light" size="sm" onClick={this.props.handleDelete}>
+            <Change disabled={this.state.isDone} task={this.props.task}/>
+            <Button variant="light" size="sm" disabled={this.state.isDone} onClick={this.props.handleDelete}>
               <ion-icon name="trash"></ion-icon>
             </Button>
           </Col>
