@@ -25,22 +25,37 @@ class BubbleChart extends React.Component{
     }
 
     drawChart = function() {
-        let myChart = echarts.init(document.querySelector('.chartdiv'));
+        let myChart = echarts.init(document.querySelector('.bubblediv'));
         const name = this.props.name;
-        const xdata = this.props.xdata;
-        const ydata = this.props.ydata;
+        //get the data when the task done is clicked (yaxis)
+        const hourData = this.props.hourData; 
+        //get the day data when the task done is clicked (xaxis)
+        const daydata = this.props.ydata;
+        //data types (course hws)
+        const hws = this.props.hws;
         myChart.setOption({
             title: {
                 text: name
             },
             tooltip: {},
             xAxis: {
-                data: xdata
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed'
+                    }
+                }
             },
-            yAxis: {},
+            yAxis: {
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed'
+                    }
+                },
+                scale: true
+            },
             series: [{
-                name: 'time',
-                type: 'bar',
+                name: 'hw1',
+                type: 'scatter',
                 data: ydata
             }]
         })
