@@ -1,5 +1,5 @@
 // db.js
-const mongoose = require('mongoose') 
+const mongoose = require('mongoose');
 // my schema goes here!
 
 // Tag with the same name will have the same color
@@ -16,12 +16,17 @@ const TaskSchema = new mongoose.Schema({
     duetime: String,
     opentime: String,
     finishtime: String,
-    tag: [TagSchema],
+    tag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TagSchema' }],
     state: String,
+<<<<<<< HEAD
     class: ClassSchema,
+=======
+    class: { type: mongoose.Schema.Types.ObjectId, ref: 'ClassSchema' }, 
+    description: {type: String, default:false},
+>>>>>>> 656f1243e5fb94c1c4d2aaf398e119fa66877d03
     difficulty: Number,
     predictiontime: Number,
-    subTask:[SubTaskSchema],
+    subTask: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubTaskSchema' }],
     actualtime: Number
 });
 
@@ -29,16 +34,16 @@ const SubTaskSchema = new mongoose.Schema({
     name: String,
     finishtime: String,
     state: String,
-    description:{type: String, default:false},
+    description: {type: String, default:false},
     actualtime: Number,
-    task: TaskSchema
+    task: { type: mongoose.Schema.Types.ObjectId, ref: 'TaskSchema' }
 });
 
 // schema for class
 const ClassSchema = new mongoose.Schema({
     name: String,
-    task:[TaskSchema],
-    user: UserSchema,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'UserSchema' }, 
+    task: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TaskSchema' }],
     deviation: Number
 });
 
@@ -47,15 +52,13 @@ const UserSchema = new mongoose.Schema({
     name: String,
     netid: String,
     password: String,
-    class:[ClassSchema],
+    class: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ClassSchema' }],
+    task: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TaskSchema' }],
+    tag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TagSchema' }],
     tip: String,
     allDeviation: Number,
     workingTime: [Number],
 });
-
-
-
-
 
 mongoose.model("Class", ClassSchema);
 mongoose.model("Task", TaskSchema);
