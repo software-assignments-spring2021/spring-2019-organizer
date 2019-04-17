@@ -19,7 +19,6 @@ const TaskSchema = new mongoose.Schema({
     tag: [TagSchema],
     state: String,
     class: ClassSchema,
-    description:{type: String, default:false},
     difficulty: Number,
     predictiontime: Number,
     subTask:[SubTaskSchema],
