@@ -19,30 +19,17 @@ class TimeBlock extends Component {
 		this.setState({
 			tasks:this.state.tasks
 		});
+		fetch('/delete', {
+      method: 'POST',
+      body: JSON.stringify({taskid: 'somestring'}), // set taskid
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+		.then((data) =>  console.log(data))
+    .catch((err)=>console.log(err))
   }
-
-  handleAddEvent = () =>{
-		fetch('/schedules', { method: 'POST' })
-		.then(res => res.json())
-		.then(json => {
-			const data = {};
-			data.push(json);
-			this.setState({
-				schedules: data
-			});
-		});
-  }
-
-	// when done, the event would be put into the completed event box
-  handleDone = (i) => {
-		var taski = this.state.tasks[i];
-		var newtasks = this.state.tasks;
-		newtasks.splice(i,1);
-		this.setState({
-			tasks:newtasks
-		});
-    this.props.handleDone(taski);
-	}
 
   render() {
 		return (
@@ -57,6 +44,7 @@ class TimeBlock extends Component {
 							<Col>Subject</Col>
 							<Col>Required</Col>
 							<Col>Estimated Time</Col>
+							<Col>Tags</Col>
 							<Col> 
 								<Change task={null}/>
 							</Col>
@@ -65,12 +53,8 @@ class TimeBlock extends Component {
 					{this.state.tasks.map((task,i)=>
 						<TableContent 
 							task={task}
-							estimated={task.estimated}
-							name={task.name}
-							subject={task.class}
 							key={i}
 							handleDelete={this.handleDelete.bind(this,i)}
-							handleDone={this.handleDone.bind(this,i)}
 						/>
 					)}
 				</Card.Body>

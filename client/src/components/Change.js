@@ -61,12 +61,16 @@ class Change extends Component {
       }));
     }
   }
+
+  handleOptionChange(e) {
+    const option = e.target.value;
+  }
   
   render() {
     return (
       <>
         <button class={this.state.task === null ? "btn btn-primary custom" : "btn btn-light btn-sm"} 
-        onClick={this.handleShow}>
+        disabled={this.props.disabled === null ? false : this.props.disabled} onClick={this.handleShow}>
           {this.state.task === null ? "Add New Task" : <ion-icon name="create"></ion-icon>}
         </button>
   
@@ -96,16 +100,16 @@ class Change extends Component {
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="date">
                   <Form.Label>Due </Form.Label>
-                  <Form.Control required name="date" type="date" 
-                  defaultValue={this.state.task === null ? "" : this.state.task.date}
+                  <Form.Control required name="date" type="datetime-local" 
+                  defaultValue={this.state.task === null ? "" : this.state.task.duetime}
                   onChange={this.handleChange}/>
                 </Form.Group>
               </Form.Row>
               <Form.Row>
                 <Form.Group as={Col} md="4" controlId="type">
-                  <Form.Label>Type </Form.Label>
+                  <Form.Label>Tags </Form.Label>
                   <Form.Control name="type" type="text" 
-                  defaultValue={this.state.task === null ? "" : this.state.task.type}
+                  defaultValue={this.state.task === null ? "" : this.state.task.tag}
                   onChange={this.handleChange}/>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="estimated">
@@ -114,13 +118,20 @@ class Change extends Component {
                   defaultValue={this.state.task === null ? "" : this.state.task.estimated}
                   onChange={this.handleChange}/>
                 </Form.Group>
+                <Form.Group as={Col} md="4" controlId="difficulty">
+                  <Form.Label>Difficulty level </Form.Label><br/>
+                  <Form.Check inline type="radio" label="1" name="diff" id="1" onChange={this.handleOptionChange}
+                  checked={this.state.task === null ? false : this.state.task.difficulty===1}/>
+                  <Form.Check inline type="radio" label="2" name="diff" id="2" onChange={this.handleOptionChange}
+                  checked={this.state.task === null ? false : this.state.task.difficulty===2}/>
+                  <Form.Check inline type="radio" label="3" name="diff" id="3" onChange={this.handleOptionChange}
+                  checked={this.state.task === null ? true : this.state.task.difficulty===3}/>
+                  <Form.Check inline type="radio" label="4" name="diff" id="4" onChange={this.handleOptionChange}
+                  checked={this.state.task === null ? false : this.state.task.difficulty===4}/>
+                  <Form.Check inline type="radio" label="5" name="diff" id="5" onChange={this.handleOptionChange}
+                  checked={this.state.task === null ? false : this.state.task.difficulty===5}/>
+                </Form.Group>
               </Form.Row>
-              <Form.Group controlId="text">
-                <Form.Label>Task description</Form.Label>
-                <Form.Control name="text" as="textarea" rows="3" 
-                defaultValue={this.state.task === null ? "" : this.state.task.text}
-                onChange={this.handleChange}/>
-              </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
