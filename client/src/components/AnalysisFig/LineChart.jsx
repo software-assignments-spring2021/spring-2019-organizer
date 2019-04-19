@@ -1,6 +1,4 @@
 import React from 'react';
-//import radium from 'radium';
-//import * as d3 from 'd3';
 const echarts = require('echarts/lib/echarts');
 
 //require echarts component
@@ -8,6 +6,7 @@ require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 require('echarts/lib/chart/line');
 
+//simple style
 const linestyle = {
     left: '30%',
     position: 'relative',
@@ -16,7 +15,7 @@ const linestyle = {
     height: '400px'
 }
 
-//a bar chart component
+//a line chart component to analyze the students predicted time vs. actual time
 class LineChart extends React.Component{
     constructor(props) {
         super(props);
@@ -35,6 +34,7 @@ class LineChart extends React.Component{
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
+                //show only a recent week's data
                 data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
             },
             yAxis: {

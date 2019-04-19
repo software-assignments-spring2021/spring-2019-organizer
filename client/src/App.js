@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Sidebar from './components/Sidebar';
 import Schedule from './components/Schedule';
 import Profile from './components/Userprofile/Profile';
-import Settingpage from './components/Settingpage'
-// import NickName from './components/Settingpage'
-import './App.css';
+import Settingpage from './components/Settingpage';
+import Figures from './components/Figures';
 
 //const testprofile = 'https://raw.githubusercontent.com/nyu-software-engineering/organizer/master/documentation/web_mockup_Mark/home_page.png';
+
 class App extends Component {
 
   render() {
@@ -19,7 +19,7 @@ class App extends Component {
           <Route exact path="/" />
           <Route path="/schedules" component={Schedule} />
           <Route path="/tags" />
-          <Route path="/analysis" />
+          <Route path="/analysis" component={Figures}/>
           <Route path="/setting" component={Settingpage} 
           />
         </div>

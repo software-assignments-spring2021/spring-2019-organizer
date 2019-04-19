@@ -1,6 +1,4 @@
 import React from 'react';
-//import radium from 'radium';
-//import * as d3 from 'd3';
 const echarts = require('echarts/lib/echarts');
 
 //require echarts component
@@ -47,26 +45,6 @@ class Barchart extends React.Component{
             }]
         })
     }
-
-    //function to draw the chart
-    // drawChart = function() {
-    //     const data = this.props.data;
-    //     const svg = d3.select(".chartdiv")
-    //                     .append("svg")
-    //                     .attr("width", this.state.width)
-    //                     .attr("height", this.state.height);
-    //                     //.style('margin-left', 100);
-                        
-    //     svg.selectAll('rect')
-    //         .data(data)
-    //         .enter()
-    //         .append('rect')
-    //         .attr('x', (d, i) => i * 70)
-    //         .attr('y', (d, i) => 300 - d * 10)
-    //         .style('width', 25)
-    //         .style('height', (d, i) => d * 10)
-    //         .attr('fill', 'blue');
-    // }
 
     render() {
         return (

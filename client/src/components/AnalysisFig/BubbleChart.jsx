@@ -13,15 +13,17 @@ const barStyle = {
     height: '400px'
 }
 
-//a bar chart component
+//a bubble chart component to analyze the time stamps of 'done time'
 class BubbleChart extends React.Component{
     constructor(props) {
         super(props);
         this.drawChart = this.drawChart.bind(this);
+        //a limited number of color options
         this.colors = [
             'rgba(251, 118, 123, 0.7)', 
             'rgba(129, 227, 238, 0.7)',
         ]
+        //a variable size array of input courses
         this.series = []
         let i;
         const courses = this.props.courses;
@@ -37,13 +39,13 @@ class BubbleChart extends React.Component{
             newobject.itemStyle = {normal: {color: this.colors[i]}};
             this.series.push(newobject);
         }
-        console.log(this.series);
         this.legend = this.props.courses;
     }
     //function to call when component mounted
     componentDidMount() {
         this.drawChart();
     }
+
 
     drawChart = function() {
         let myChart = echarts.init(document.querySelector('.bubblediv'));
@@ -54,6 +56,7 @@ class BubbleChart extends React.Component{
             title: {
                 text: name
             },
+            //temporarily not working
             legend: {
                 right: 10,
                 data: mylegend
