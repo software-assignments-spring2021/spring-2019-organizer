@@ -9,8 +9,8 @@ import datetime
 
 # insert your netid and password here for now
 # We will have a better version
-netid = "tz904"
-password = "885600JJjj!"
+netid = ""
+password = ""
 
 
 
@@ -193,6 +193,40 @@ def select_assignments(r):
             count += 1
     return count
 
+# The input is the assignment page of one class
+# The output is the list of all the unfinished assignments we have with the help of select_assignments
+def save_get_assigments(page):
+    assignment_tab = driver.find_element_by_css_selector('a[title="Assignments "]')
+    assignment_tab.click()
+    assignments_page = driver.page_source
+    assignments_rows = driver.find_elements_by_css_selector('table[summary="List of assignments."] tr')[1:]
+    newcount = 0
+    all_assignments = []
+    for r in assignments_rows:
+        newcount += select_assignments(r)[0]
+        all_assignments.append(select_assignments(r)[1])
+    if newcount == 0:
+        print("No Assignments")
+    return all_assignments
+
+# The input is one assignment page of one class
+# The ouput is the details of this assignment like title, due date
+def save_select_assignments(r):
+    assignments_columns = r.find_elements_by_css_selector('td')
+    status = assignments_columns[2].text
+    due_date_string = assignments_columns[4].text
+    count = 0
+    title = "nothing"
+    due_date = "noday"
+    if (due_date_string != ''):
+        due_date = time_transform(assignments_columns[4].text)
+        if (status == 'Not Started' and due_date > datetime.datetime.now()):
+            # attachmant = assignments_columns[0]
+            # open_date = assignments_columns[3]
+            title = assignments_columns[1].find_element_by_css_selector('a[name="asnActionLink"]').text
+            print(title, due_date)
+            count += 1
+    return [count,[title,due_date]]
 
 # The input is the string of the time
 # The output is the formalized time
@@ -287,18 +321,23 @@ def show_all_quizs_assignments(originalsource):
         except:
             print("no quizzes for this class")
 
+
 def show_all_quizs_assignments_v2(originalsource):
     namelst = find_class_names(originalsource)
     namelst.pop(0)
     for classname in namelst:
         print(classname)
-        shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
-        actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
-        actionChain1.perform()
-        print("Assignments")
-        classpage = driver.page_source
-        get_assigments(classpage)
-        print("Quiz")
+        try:
+            shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
+            actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+            actionChain1.perform()
+            print("Assignments")
+            classpage = driver.page_source
+            get_assigments(classpage)
+            print("Quiz")
+        except:
+            print("No assignments for this class")
+
         try:
             shadowHostnew = driver.find_element_by_css_selector('.Mrphs-toolsNav__menuitem--link[title="Tests & Quizzes "]')
             actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
@@ -316,7 +355,43 @@ def show_all_quizs_assignments_v2(originalsource):
             print("no quizzes for this class")
 
 
+def save_all_quizs_assignments(originalsource):
+    namelst = find_class_names(originalsource)
+    namelst.pop(0)
+    classlist = []
+    for classname in namelst:
+        cur_class = []
+        cur_class.append(classname)
+        quiz = ["Quiz"]
+        assignment = ["Assignment"]
+        try:
+            shadowHostnew = driver.find_element_by_css_selector('.link-container[title="' + classname + '"]')
+            actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+            actionChain1.perform()
+            classpage = driver.page_source
+            assignment.append(save_get_assigments(classpage))
+        except:
+            assignment.append(["No assignments"])
+            print("No assignments for this class")
 
+        try:
+            shadowHostnew = driver.find_element_by_css_selector(
+                '.Mrphs-toolsNav__menuitem--link[title="Tests & Quizzes "]')
+            actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
+            actionChain1.perform()
+            newpage = driver.page_source
+            quizlst = find_all_quizs(newpage)
+            quizlst.pop(0)
+            if quizlst[0][0] == "View Only Recorded Scores":
+                quiz.append("no available quizzes")
+            else:
+                for i in quizlst:
+                    quiz.append(i)
+        except:
+            quiz.append("No quizs")
+        cur_class.append(quiz)
+        cur_class.append(assignment)
+        classlist.append(cur_class)
 
 # The following is the main function
 driver = webdriver.Chrome()
@@ -326,7 +401,8 @@ click_Push()
 if wait_for(passDUO):
     # originalsource = driver.page_source
     homepage = driver.page_source
-    show_all_quizs_assignments_v2(homepage)
+    # show_all_quizs_assignments_v2(homepage)
+    print(save_all_quizs_assignments(homepage))
     #get_classes(homepage)
     driver.close()
     driver.quit()
