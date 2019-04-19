@@ -14,63 +14,29 @@ class TableContent extends Component {
 
   handleStart = () => {
     this.setState({isStarted: true}); // to delete after connect to db
-<<<<<<< HEAD
-<<<<<<< HEAD
     fetch('/task', {
       method: 'UPDATE',
-=======
-    fetch('/start', {
-      method: 'POST',
->>>>>>> task edit/delete/done refined, difficulty added
-=======
-    fetch('/task', {
-      method: 'UPDATE',
->>>>>>> tag color and multiselection updated
       body: JSON.stringify({taskid: 'somestring'}), // set taskid
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-<<<<<<< HEAD
-<<<<<<< HEAD
 		.then((data) => console.log(data))
-=======
-		.then((data) =>  console.log(data))
->>>>>>> task edit/delete/done refined, difficulty added
-=======
-		.then((data) => console.log(data))
->>>>>>> tag color and multiselection updated
     .catch((err)=>console.log(err))
   }
   
   handleDone = () => {
     this.setState({isDone: true});
     fetch('/done', {
-<<<<<<< HEAD
-<<<<<<< HEAD
       method: 'UPDATE',
-=======
-      method: 'POST',
->>>>>>> task edit/delete/done refined, difficulty added
-=======
-      method: 'UPDATE',
->>>>>>> tag color and multiselection updated
       body: JSON.stringify({taskid: 'somestring'}), // set taskid
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-<<<<<<< HEAD
-<<<<<<< HEAD
 		.then((data) => console.log(data))
-=======
-		.then((data) =>  console.log(data))
->>>>>>> task edit/delete/done refined, difficulty added
-=======
-		.then((data) => console.log(data))
->>>>>>> tag color and multiselection updated
     .catch((err)=>console.log(err))
   }
 
@@ -88,15 +54,7 @@ class TableContent extends Component {
           </Col>
           <Col>
             {this.props.task.tag.map(tag => 
-<<<<<<< HEAD
-<<<<<<< HEAD
               <font ref='Tag' color={tag.color}> {tag.name}</font>
-=======
-              <span ref='Tag'> {tag}</span>
->>>>>>> task edit/delete/done refined, difficulty added
-=======
-              <font ref='Tag' color={tag.color}> {tag.name}</font>
->>>>>>> tag color and multiselection updated
             )}
           </Col>
           <Col>
