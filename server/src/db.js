@@ -18,12 +18,7 @@ const TaskSchema = new mongoose.Schema({
     finishtime: String,
     tag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TagSchema' }],
     state: String,
-<<<<<<< HEAD
-    class: ClassSchema,
-=======
     class: { type: mongoose.Schema.Types.ObjectId, ref: 'ClassSchema' }, 
-    description: {type: String, default:false},
->>>>>>> 656f1243e5fb94c1c4d2aaf398e119fa66877d03
     difficulty: Number,
     predictiontime: Number,
     subTask: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubTaskSchema' }],
