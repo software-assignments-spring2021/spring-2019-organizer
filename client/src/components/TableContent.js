@@ -14,29 +14,29 @@ class TableContent extends Component {
 
   handleStart = () => {
     this.setState({isStarted: true}); // to delete after connect to db
-    fetch('/start', {
-      method: 'POST',
+    fetch('/task', {
+      method: 'UPDATE',
       body: JSON.stringify({taskid: 'somestring'}), // set taskid
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-		.then((data) =>  console.log(data))
+		.then((data) => console.log(data))
     .catch((err)=>console.log(err))
   }
   
   handleDone = () => {
     this.setState({isDone: true});
     fetch('/done', {
-      method: 'POST',
+      method: 'UPDATE',
       body: JSON.stringify({taskid: 'somestring'}), // set taskid
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-		.then((data) =>  console.log(data))
+		.then((data) => console.log(data))
     .catch((err)=>console.log(err))
   }
 
@@ -54,7 +54,7 @@ class TableContent extends Component {
           </Col>
           <Col>
             {this.props.task.tag.map(tag => 
-              <span ref='Tag'> {tag}</span>
+              <font ref='Tag' color={tag.color}> {tag.name}</font>
             )}
           </Col>
           <Col>

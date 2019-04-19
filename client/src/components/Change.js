@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Form, Col } from 'react-bootstrap';
+import Select from 'react-select';
 
 class Change extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class Change extends Component {
     this.state = {
       show: false,
       task: props.task,
-      newTask: { class: '', name: '', date: '', estimated: '', type: [], text: '' }
+      tags: null,
+      newTask: { class: '', name: '', duetime: '', estimated: '', tag: [], difficulty: null }
     };
   }
 
@@ -30,8 +32,27 @@ class Change extends Component {
     const taskData = this.state.newTask;
     this.setState({ show: false });
 
-    fetch('/schedules',{
+    fetch('/task',{
       method: "POST",
+      body: JSON.stringify(taskData),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      response.json().then(data =>{
+        console.log("Successful" + data);
+      })
+    })
+  }
+
+  handleUpdate(e) {
+    e.preventDefault();
+    const taskData = this.state.newTask;
+    this.setState({ show: false });
+
+    fetch('/task',{
+      method: "UPDATE",
       body: JSON.stringify(taskData),
       headers: {
         'Accept': 'application/json',
@@ -60,9 +81,19 @@ class Change extends Component {
 
   handleOptionChange(e) {
     const option = e.target.value;
+
   }
   
   render() {
+    const tags = [];
+    if (this.state.task !== null) {
+      for (let tag of this.state.task.tag) {
+        tags.push({
+          value: tag.name,
+          label: tag.name
+        })
+      }
+    }
     return (
       <>
         <button class={this.state.task === null ? "btn btn-primary custom" : "btn btn-light btn-sm"} 
@@ -102,11 +133,9 @@ class Change extends Component {
                 </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} md="4" controlId="type">
+                <Form.Group as={Col} md="4" controlId="tag">
                   <Form.Label>Tags </Form.Label>
-                  <Form.Control name="type" type="text" 
-                  defaultValue={this.state.task === null ? "" : this.state.task.tag}
-                  onChange={this.handleChange}/>
+                  <Tags tags={this.state.task === null ? null : tags}/>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="estimated">
                   <Form.Label>Estimated hours to finish </Form.Label>
@@ -131,13 +160,57 @@ class Change extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <button class="btn btn-primary custom" onClick={this.handleSave}>
+            <button class="btn btn-primary custom" 
+            onClick={this.state.task === null ? this.handleSave: this.handleUpdate}>
               Save
             </button>
           </Modal.Footer>
         </Modal>
       </>
-    );
+    )
+  }
+}
+
+class Tags extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: [
+        { value: 'homework', label: 'homework' },
+        { value: 'else', label: 'else' },
+        { value: 'quiz', label: 'quiz' }
+      ],
+      selectedOption: props.tags
+    }
+  }
+
+  componentDidMount() {
+    fetch('/change')
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        options: data.tags
+      });
+    })
+    .catch(err => {
+        console.log(err);
+    });
+  }
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  }
+
+  render() {
+    return (
+      <Select
+        isMulti={true}
+        value={this.state.selectedOption}
+        onChange={this.handleChange}
+        options={this.state.options}
+      />
+    )
   }
 }
 
