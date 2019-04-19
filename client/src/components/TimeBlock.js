@@ -13,21 +13,23 @@ class TimeBlock extends Component {
 		};
 	}
 
-	// handle deletion of an existing event
-  handleDelete = (i) =>{
-		this.state.tasks.splice(i,1);
-		this.setState({
-			tasks:this.state.tasks
-		});
-		fetch('/delete', {
-      method: 'POST',
+  handleDelete = (i) => {
+		if (this.state.tasks.length === 1) this.props.handleDelete();
+		else {
+			this.state.tasks.splice(i,1);
+			this.setState({
+				tasks:this.state.tasks
+			});
+		}
+		fetch('/task', {
+      method: 'DELETE',
       body: JSON.stringify({taskid: 'somestring'}), // set taskid
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-		.then((data) =>  console.log(data))
+		.then((data) => console.log(data))
     .catch((err)=>console.log(err))
   }
 

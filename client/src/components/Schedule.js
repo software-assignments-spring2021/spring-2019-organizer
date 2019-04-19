@@ -10,6 +10,7 @@ class Schedule extends Component {
       schedules: {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       '2019-05-10' : [{ class: 'Agile Software Development', name: 'HW10', duetime: '2019-05-10T08:00', estimated: 1.5, tag: ['homework'], difficulty: 2},
       { class: 'Machine Learning', name: 'Homework 3', duetime: '2019-05-10T08:00', estimated: 8, tag: ['homework', 'haha'], difficulty: 5}],
       '2019-05-15': [{ class: 'SSPC', name: 'Final Paper', duetime: '2019-05-15T15:30', estimated: 5, tag: ['homework'], difficulty: 4}]
@@ -23,6 +24,11 @@ class Schedule extends Component {
       { class: 'Machine Learning', name: 'Homework 3', duetime: '2019-05-10T08:00', estimated: 8, tag: ['homework', 'haha'], difficulty: 5}],
       '2019-05-15': [{ class: 'SSPC', name: 'Final Paper', duetime: '2019-05-15T15:30', estimated: 5, tag: ['homework'], difficulty: 4}]
 >>>>>>> task edit/delete/done refined, difficulty added
+=======
+      '2019-05-10' : [{ class: 'Agile Software Development', name: 'HW10', duetime: '2019-05-10T08:00', estimated: 1.5, tag: [{name:'homework',color:'pink'}], difficulty: 2},
+      { class: 'Machine Learning', name: 'Homework 3', duetime: '2019-05-10T08:00', estimated: 8, tag: [{name:'homework',color:'pink'}, {name:'else',color:'purple'}], difficulty: 5}],
+      '2019-05-15': [{ class: 'SSPC', name: 'Final Paper', duetime: '2019-05-15T15:30', estimated: 5, tag: [{name:'homework',color:'pink'}], difficulty: 4}]
+>>>>>>> tag color and multiselection updated
       }
     };
   }
@@ -39,13 +45,10 @@ class Schedule extends Component {
         console.log(err);
     });
   }
-    
-  handleDone(taski){
-    var newList = this.state.fixedList;
-    newList.push(taski);
-    this.setState({
-      fixedList:newList
-    });
+
+  handleDelete(key) {
+    delete this.state.schedules[key];
+    this.setState({schedules: this.state.schedules});
   }
     
   render() {
@@ -57,7 +60,7 @@ class Schedule extends Component {
             key={key}
             date={key}
             tasks={this.state.schedules[key]}
-            handleDone={this.handleDone.bind(this)}
+            handleDelete={this.handleDelete.bind(this, key)}
             />
         ) }
       </div>
