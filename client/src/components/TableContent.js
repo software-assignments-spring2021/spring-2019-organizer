@@ -3,78 +3,69 @@ import { Row, Col, Button } from 'react-bootstrap';
 import Change from './Change';
 import '../css/TimeBlock.css';
 
-//This a known issue 
-//https://github.com/facebook/draft-js/issues/53
-
-console.error = (function() {
-  var error = console.error;
-  return function(exception) {
-    if ((exception + '').indexOf('Warning: A component is `contentEditable`') !== 0) {
-      error.apply(console, arguments)
-    }
-  }
-})()
-
 class TableContent extends Component {
   constructor(){
     super();
     this.state = {
-            
+      isStarted: false,
+      isDone: false // need to initiate
     };
   }
-   
-  // if the button edit is pressed, then the user may edit the name, estimated time, and due date
-  handleEdit = () =>{
-    this.refs.Name.contentEditable = 'true';
-    this.refs.Estimated.contentEditable = 'true';
-    this.refs.Duedate.contentEditable = 'true';
+
+  handleStart = () => {
+    this.setState({isStarted: true}); // to delete after connect to db
+    fetch('/task', {
+      method: 'UPDATE',
+      body: JSON.stringify({taskid: 'somestring'}), // set taskid
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+		.then((data) => console.log(data))
+    .catch((err)=>console.log(err))
   }
-    
-  // if the mouse is pressed not in the editable content of name, then the user may no longer edit the value
-  handleNameBlur = () =>{
-    this.refs.Name.contentEditable = 'false';
-    var name = this.refs.Name.innerHTML;
-    this.props.handleNameBlur(name);
-  }
-    
-  // if the mouse is pressed not in the editable content of estimated time, then the user may no longer edit the value
-  handleEstimatedBlur = () =>{
-    this.refs.Estimated.contentEditable = 'false';
-    var estimated = this.refs.Estimated.innerHTML;
-    this.props.handleEstimatedBlur(estimated);
-  }
-    
-  // if the mouse is pressed not in the editable content of due date, then the user may no longer edit the value
-  handleDuedateBlur = () =>{
-    this.refs.Duedate.contentEditable = 'false';
-    var subject = this.refs.Duedate.innerHTML;
-    this.props.handleDuedateBlur(subject);
+  
+  handleDone = () => {
+    this.setState({isDone: true});
+    fetch('/done', {
+      method: 'UPDATE',
+      body: JSON.stringify({taskid: 'somestring'}), // set taskid
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+		.then((data) => console.log(data))
+    .catch((err)=>console.log(err))
   }
 
-  // onBlur is used to save the content of saving new data. 
-  // When the mouse is no longer pointing at the value input
-  // in this rendering case, it would be outputed value. 
   render() {
     return (
-      <Row>
+      <Row bsPrefix={this.state.isDone ? "row done" : "row"}>
           <Col>
-            <p contentEditable="false" ref='Subject' onBlur={this.handleNameBlur}>{this.props.subject}</p>
+            <p ref='subject'>{this.props.task.class}</p>
           </Col>
           <Col>
-            <p contentEditable="false" ref='Name' onBlur={this.handleEstimatedBlur}> {this.props.name}</p>
+            <p ref='Name'> {this.props.task.name}</p>
           </Col>
           <Col>
-            <p contentEditable="false" ref='Estimated' onBlur={this.handleDuedateBlur}> {this.props.estimated} Hours</p>
+            <p ref='Estimated'> {this.props.task.estimated} Hours</p>
           </Col>
           <Col>
-            <Button variant="light" size="sm" onClick={this.props.handleDone}>
+            {this.props.task.tag.map(tag => 
+              <font ref='Tag' color={tag.color}> {tag.name}</font>
+            )}
+          </Col>
+          <Col>
+            <Button variant="light" size="sm" disabled={this.state.isStarted || this.state.isDone} onClick={this.handleStart}>
               <ion-icon name="arrow-dropright-circle"></ion-icon>
             </Button> 
-            <Button variant="light" size="sm" onClick={this.props.handleDone}>
+            <Button ref="start" variant="light" disabled={this.state.isDone} size="sm" onClick={this.handleDone}>
               <ion-icon name="checkmark-circle-outline"></ion-icon>
             </Button> 
-            <Change task={this.props.task}/>
-            <Button variant="light" size="sm" onClick={this.props.handleDelete}>
+            <Change disabled={this.state.isDone} task={this.props.task}/>
+            <Button variant="light" size="sm" disabled={this.state.isDone} onClick={this.props.handleDelete}>
               <ion-icon name="trash"></ion-icon>
             </Button>
           </Col>

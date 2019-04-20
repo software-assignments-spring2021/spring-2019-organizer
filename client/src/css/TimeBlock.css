@@ -1,21 +1,15 @@
 #cardlook {
   margin-top: 10px;
-  margin-left: 32%;
+  margin-left: 25%;
   margin-bottom: 20px;
-  width: 60%;
+  width: 70%;
 }
 
-#tcomplete{
-  margin-top: 10px;
-  margin-left: 450px;
-  width: 680px;
+.done {
+  color: grey;
 }
 
 .custom {
   border: #57068C;
   background-color: #57068C;
-}
-
-.TaskName .TaskTime{
-  text-align: center;
 }
