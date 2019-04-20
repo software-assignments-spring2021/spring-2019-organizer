@@ -80,7 +80,7 @@ class Change extends Component {
   }
 
   handleOptionChange(e) {
-    const option = e.target.value;
+    // const option = e.target.value;
 
   }
   
