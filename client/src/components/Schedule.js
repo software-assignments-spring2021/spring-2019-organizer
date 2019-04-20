@@ -27,7 +27,7 @@ class Schedule extends Component {
         console.log(err);
     });
   }
-
+    
   handleDelete(key) {
     delete this.state.schedules[key];
     this.setState({schedules: this.state.schedules});
