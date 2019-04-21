@@ -21,6 +21,12 @@ def login(n, p):
     passwordBox.send_keys(p)
     submitBtn.click()
 
+def click_Ok():
+    shadowHost = driver.find_element_by_id('duo_iframe')
+    for i in range(150, 400, 10):
+        for j in range(250, 400, 10):
+            actionChain = webdriver.ActionChains(driver).move_to_element_with_offset(shadowHost, i, j).click()
+            actionChain.perform()
 
 def click_Push():
     shadowHost = driver.find_element_by_id('duo_iframe')
@@ -110,6 +116,7 @@ def time_transform(time):
 driver = webdriver.Chrome()
 driver.get(url)
 login(netid, password)
+click_Ok()
 click_Push()
 if wait_for(passDUO):
     # originalsource = driver.page_source
