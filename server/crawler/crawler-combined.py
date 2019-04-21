@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
 import time
 import datetime
-#from info import netid, password
+# from info import netid, password
 
 # insert your netid and password here for now
 # We will have a better version
