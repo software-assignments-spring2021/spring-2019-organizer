@@ -35,7 +35,6 @@ class Change extends Component {
     e.preventDefault();
     const taskData = this.state.newTask;
     taskData.difficulty = parseInt(this.state.option);
-    console.log(taskData);
     this.setState({ show: false });
 
     fetch('/task',{
@@ -60,7 +59,6 @@ class Change extends Component {
     e.preventDefault();
     const taskData = this.state.task;
     taskData.difficulty = parseInt(this.state.option);
-    console.log(taskData);
     this.setState({ show: false });
 
     fetch('/task',{
