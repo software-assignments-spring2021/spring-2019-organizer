@@ -70,6 +70,102 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
+app.route('/task')
+    .get(function(req, res) {
+        const task = req.task;
+
+        const newTask = new Task({
+    
+        });
+    
+        newTask.save(function(saveErr, saveAsn, saveCount) {
+            if (saveErr) {
+                res.send(new Error(saveErr));
+            } else {
+                res.redirect('/');
+            }
+        });
+    } )
+    .post(function(req, res) {
+        const task = req.task;
+
+        const newTask = new Task({
+    
+        });
+    
+        newTask.save(function(saveErr, saveAsn, saveCount) {
+            if (saveErr) {
+                res.send(new Error(saveErr));
+            } else {
+                res.redirect('/');
+            }
+        });
+    } )
+    .delete(function(req, res) {
+        const task = req.task;
+
+        const newTask = new Task({
+    
+        });
+    
+        newTask.save(function(saveErr, saveAsn, saveCount) {
+            if (saveErr) {
+                res.send(new Error(saveErr));
+            } else {
+                res.redirect('/');
+            }
+        }
+    } )
+
+
+app.route('/tag')
+    .get(function(req, res) {
+        const tag = req.tag;
+
+    const newTag = new Tag({
+
+    });
+
+    newTag.save(function(saveErr, saveAsn, saveCount) {
+        if (saveErr) {
+            res.send(new Error(saveErr));
+        } else {
+            res.redirect('/');
+        }
+    });
+    } )
+    .post(function(req, res) {
+        const tag = req.tag;
+
+        const newTag = new Tag({
+
+        });
+
+        newTag.save(function(saveErr, saveAsn, saveCount) {
+            if (saveErr) {
+                res.send(new Error(saveErr));
+            } else {
+                res.redirect('/');
+            }
+        });
+    } )
+    .delete(function(req, res) {
+        const tag = req.tag;
+
+        const newTag = new Tag({
+
+        });
+
+        newTag.save(function(saveErr, saveAsn, saveCount) {
+            if (saveErr) {
+                res.send(new Error(saveErr));
+            } else {
+                res.redirect('/');
+            }
+        });
+    } )
+
+
 
 app.post('/user', function (req, res) {
     const user = req.user;
