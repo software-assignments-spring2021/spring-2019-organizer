@@ -9,13 +9,17 @@ class Change extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleTagChange = this.handleTagChange.bind(this);
+    this.handleOptionChange = this.handleOptionChange.bind(this);
   
     this.state = {
       show: false,
       task: props.task,
+      option: props.task === null ? '3' : props.task.difficulty.toString(),
       tags: null,
-      newTask: { class: '', name: '', duetime: '', estimated: '', tag: [], difficulty: null }
+      newTask: { class: '', name: '', duetime: '', estimated: '', tag: [], difficulty: 3 }
     };
   }
 
@@ -30,6 +34,7 @@ class Change extends Component {
   handleSave(e) {
     e.preventDefault();
     const taskData = this.state.newTask;
+    taskData.difficulty = parseInt(this.state.option);
     this.setState({ show: false });
 
     fetch('/task',{
@@ -48,7 +53,8 @@ class Change extends Component {
 
   handleUpdate(e) {
     e.preventDefault();
-    const taskData = this.state.newTask;
+    const taskData = this.state.task;
+    taskData.difficulty = parseInt(this.state.option);
     this.setState({ show: false });
 
     fetch('/task',{
@@ -79,9 +85,24 @@ class Change extends Component {
     }
   }
 
-  handleOptionChange(e) {
-    // const option = e.target.value;
+  handleTagChange(selectedOption) {
+    console.log(`Option selected:`, selectedOption);
+    if (this.state.task === null) {
+      this.setState(prevState => ({
+        newTask: {...prevState.newTask, tag: selectedOption}
+      }));
+    } else {
+      this.setState(prevState => ({
+        task: {...prevState.task, tag: selectedOption}
+      }));
+    }
+  }
 
+  handleOptionChange(e) {
+    const difficulty = e.target.value;
+    this.setState({
+      option: difficulty
+    });
   }
   
   render() {
@@ -90,10 +111,12 @@ class Change extends Component {
       for (let tag of this.state.task.tag) {
         tags.push({
           value: tag.name,
-          label: tag.name
-        })
+          label: tag.name,
+          color: tag.color
+        });
       }
     }
+
     return (
       <>
         <button class={this.state.task === null ? "btn btn-primary custom" : "btn btn-light btn-sm"} 
@@ -135,7 +158,10 @@ class Change extends Component {
               <Form.Row>
                 <Form.Group as={Col} md="4" controlId="tag">
                   <Form.Label>Tags </Form.Label>
-                  <Tags tags={this.state.task === null ? null : tags}/>
+                  <Tags 
+                  tags={this.state.task === null ? null : tags}
+                  handleTagChange={this.handleTagChange}
+                  />
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="estimated">
                   <Form.Label>Estimated hours to finish </Form.Label>
@@ -145,16 +171,21 @@ class Change extends Component {
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="difficulty">
                   <Form.Label>Difficulty level </Form.Label><br/>
-                  <Form.Check inline type="radio" label="1" name="diff" id="1" onChange={this.handleOptionChange}
-                  checked={this.state.task === null ? false : this.state.task.difficulty===1}/>
-                  <Form.Check inline type="radio" label="2" name="diff" id="2" onChange={this.handleOptionChange}
-                  checked={this.state.task === null ? false : this.state.task.difficulty===2}/>
-                  <Form.Check inline type="radio" label="3" name="diff" id="3" onChange={this.handleOptionChange}
-                  checked={this.state.task === null ? true : this.state.task.difficulty===3}/>
-                  <Form.Check inline type="radio" label="4" name="diff" id="4" onChange={this.handleOptionChange}
-                  checked={this.state.task === null ? false : this.state.task.difficulty===4}/>
-                  <Form.Check inline type="radio" label="5" name="diff" id="5" onChange={this.handleOptionChange}
-                  checked={this.state.task === null ? false : this.state.task.difficulty===5}/>
+                  <Form.Check inline type="radio" label="1" value="1" name="diff"
+                  onChange={this.handleOptionChange}
+                  checked={this.state.option === "1"}/>
+                  <Form.Check inline type="radio" label="2" value="2" name="diff"
+                  onChange={this.handleOptionChange}
+                  checked={this.state.option === "2"}/>
+                  <Form.Check inline type="radio" label="3" value="3" name="diff"
+                  onChange={this.handleOptionChange}
+                  checked={this.state.option === "3"}/>
+                  <Form.Check inline type="radio" label="4" value="4" name="diff"
+                  onChange={this.handleOptionChange}
+                  checked={this.state.option === "4"}/>
+                  <Form.Check inline type="radio" label="5" value="5" name="diff"
+                  onChange={this.handleOptionChange}
+                  checked={this.state.option === "5"}/>
                 </Form.Group>
               </Form.Row>
             </Form>
@@ -176,9 +207,9 @@ class Tags extends Component {
     super(props);
     this.state = {
       options: [
-        { value: 'homework', label: 'homework' },
-        { value: 'else', label: 'else' },
-        { value: 'quiz', label: 'quiz' }
+        { value: 'homework', label: 'homework', color: 'pink' },
+        { value: 'else', label: 'else', color: 'purple' },
+        { value: 'quiz', label: 'quiz', color: 'blue' }
       ],
       selectedOption: props.tags
     }
@@ -188,8 +219,16 @@ class Tags extends Component {
     fetch('/change')
     .then(res => res.json())
     .then(data => {
+      const options = [];
+      for (let tag of data.tags ) {
+        options.push({
+          value: tag.name,
+          label: tag.name,
+          color: tag.color
+        });
+      }
       this.setState({
-        options: data.tags
+        options: options
       });
     })
     .catch(err => {
@@ -199,7 +238,14 @@ class Tags extends Component {
 
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+    const finalOptions = []
+    for (let option of selectedOption) {
+      finalOptions.push({
+        name: option.value,
+        color: option.color
+      });
+    }
+    this.props.handleTagChange(finalOptions);
   }
 
   render() {
