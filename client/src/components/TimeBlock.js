@@ -7,6 +7,10 @@ import '../css/TimeBlock.css';
 class TimeBlock extends Component {
   constructor(props){
 		super();
+
+		this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+
 		this.state={
 			date: props.date,
 			tasks: props.tasks
@@ -31,6 +35,14 @@ class TimeBlock extends Component {
     }).then(res => res.json())
 		.then((data) => console.log(data))
     .catch((err)=>console.log(err))
+	}
+	
+	handleUpdate(undateInfo) {
+    this.props.handleUpdate(undateInfo);
+  }
+
+  handleSave(saveInfo) {
+    this.props.handleSave(saveInfo);
   }
 
   render() {
@@ -48,7 +60,11 @@ class TimeBlock extends Component {
 							<Col>Estimated Time</Col>
 							<Col>Tags</Col>
 							<Col> 
-								<Change task={null}/>
+								<Change 
+									task={null}
+									handleUpdate={this.handleUpdate}
+              		handleSave={this.handleSave}
+								/>
 							</Col>
 						</Row>
 					</Card.Title>
@@ -57,6 +73,8 @@ class TimeBlock extends Component {
 							task={task}
 							key={i}
 							handleDelete={this.handleDelete.bind(this,i)}
+							handleUpdate={this.handleUpdate}
+							handleSave={this.handleSave}
 						/>
 					)}
 				</Card.Body>

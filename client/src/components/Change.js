@@ -35,6 +35,7 @@ class Change extends Component {
     e.preventDefault();
     const taskData = this.state.newTask;
     taskData.difficulty = parseInt(this.state.option);
+    console.log(taskData);
     this.setState({ show: false });
 
     fetch('/task',{
@@ -44,17 +45,22 @@ class Change extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    }).then(response => {
-      response.json().then(data =>{
-        console.log("Successful" + data);
-      })
-    })
+    // }).then(response => {
+    //   response.json().then(data =>{
+    //     console.log("Successful" + data);
+    //   })
+    }).catch(err => {
+      console.log(err);
+    });
+
+    this.props.handleSave(taskData);
   }
 
   handleUpdate(e) {
     e.preventDefault();
     const taskData = this.state.task;
     taskData.difficulty = parseInt(this.state.option);
+    console.log(taskData);
     this.setState({ show: false });
 
     fetch('/task',{
@@ -64,11 +70,15 @@ class Change extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    }).then(response => {
-      response.json().then(data =>{
-        console.log("Successful" + data);
-      })
-    })
+    // }).then(response => {
+    //   response.json().then(data =>{
+    //     console.log("Successful" + data);
+    //   })
+    }).catch(err => {
+      console.log(err);
+    });
+
+    this.props.handleUpdate(taskData);
   }
 
   handleChange(e) {
@@ -148,9 +158,9 @@ class Change extends Component {
                   defaultValue={this.state.task === null ? "" : this.state.task.name}
                   onChange={this.handleChange}/>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="date">
+                <Form.Group as={Col} md="4" controlId="duetime">
                   <Form.Label>Due </Form.Label>
-                  <Form.Control required name="date" type="datetime-local" 
+                  <Form.Control required name="duetime" type="datetime-local" 
                   defaultValue={this.state.task === null ? "" : this.state.task.duetime}
                   onChange={this.handleChange}/>
                 </Form.Group>
