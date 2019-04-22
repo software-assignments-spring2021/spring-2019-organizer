@@ -15,6 +15,7 @@ const TaskSchema = new mongoose.Schema({
     name: String,
     duetime: String,
     opentime: String,
+    starttime: String,
     finishtime: String,
     tag: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TagSchema' }],
     state: String,

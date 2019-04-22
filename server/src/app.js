@@ -71,21 +71,6 @@ app.get('/logout', (req, res) => {
 });
 
 
-app.post('/user', function (req, res) {
-    const user = req.user;
-    const newUser = new User({
-       
-    });
-
-    newUser.save(function(saveErr, saveUser, saveCount) {
-        if (saveErr) {
-            res.send(new Error(saveErr));
-        } else {
-            res.redirect('/');
-        }
-    });
-});
-
 
 app.post('/class/add', function (req, res) {
     const subject = req.class;
@@ -149,6 +134,13 @@ app.post('/subtask/add', function (req, res) {
         }
     });
 });
+
+
+
+
+
+app.get('/user')
+
 
 //run the server
 app.listen(3000, 'localhost');
