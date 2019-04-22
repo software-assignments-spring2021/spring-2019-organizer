@@ -88,10 +88,19 @@ function standard_deviation_class(dic_realtime,dic_predict){
     return [sd1,n];
 }
 
+// update stand_deviation_class
+function update_standard_deviation_class(dic_class1,newtask_predict,newtask_realtime){
+    let sd_cur = dic_class1.sd;
+    let n = dic_class1.tasks.length;
+    sd_cur = (newtask_realtime / newtask_predict) + sd1 * (n - 1);
+    sd_cur = sd1 / n;
+    sd_cur = Math.round(sd1 * 100) / 100;
+    dic_class1.sd = sd_cur;
+}
+
+
 
 // a list of class for one user
-
-
 function gather_class_sd(predictime_list,realtime_list){
     let final_list = [];
     for(var i =0;i<predictime_list.length;i++){
@@ -99,8 +108,8 @@ function gather_class_sd(predictime_list,realtime_list){
         final_list.push(temp_list);
     }
     return final_list;
-
 }
+
 //we calculate the sd for each user
 function standard_deviation_user(class_sd_list){
     let sdtotal = 0;
@@ -112,6 +121,21 @@ function standard_deviation_user(class_sd_list){
     }
     return sdtotal;
 }
+
+// update stand_deviation_user
+function update_standard_deviation_user(dic_user,newclass,newclasssd){
+    let sd_user = dic_user.sd;
+    let n_user = dic_user.tasks.length;
+    let n_class = newclass.length;
+    let sd_class = newclasssd;
+    sd_new = sd_user * n_user + n_class * sd_class
+    sd_new = sd_new / (n_user + n_class);
+    sd_new = Math.round(sd_new * 100) / 100;
+    dic_user.sd = sd_new;
+}
+
+
+
 
 predictime_list = [dic_predictime_class1,dic_predictime_class2,dic_predictime_class3];
 realtime_list = [dic_realtime_class1,dic_realtime_class2,dic_predictime_class3];
