@@ -6,6 +6,20 @@ require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 require('echarts/lib/chart/scatter');
 
+
+class BubbleObject {
+    constructor(name, data, itemStyle) {
+        this.type = 'scatter';
+        this.symbolSize = function (data) {
+            return 10 * data[2];
+        };
+        this.name = name;
+        this.data = data;
+        this.itemStyle = itemStyle;
+    }   
+}
+
+
 const barStyle = {
     left: '30%',
     top: '100px',
@@ -28,15 +42,9 @@ class BubbleChart extends React.Component{
         let i;
         const courses = this.props.courses;
         for (i = 0; i < courses.length; ++i) {
-            const newobject = {
-                type: 'scatter',
-                symbolSize: function (data) {
-                    return 10 * data[2];
-                }
-            };
-            newobject.name = courses[i];
-            newobject.data = this.props.data[i];
-            newobject.itemStyle = {normal: {color: this.colors[i]}};
+            const newobject = new BubbleObject(courses[i],
+                this.props.data[i],
+                {normal: {color: this.colors[i]}});
             this.series.push(newobject);
         }
         this.legend = this.props.courses;
