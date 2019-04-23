@@ -32,6 +32,28 @@ class Schedule extends Component {
     delete this.state.schedules[key];
     this.setState({schedules: this.state.schedules});
   }
+
+  handleUpdate(updateInfo) {
+    // const key = undateInfo.duetime.slice(0,10);
+    console.log(updateInfo);
+  }
+
+  handleSave(saveInfo) {
+    console.log(saveInfo);
+    const key = saveInfo.duetime.slice(0,10);
+    const schedules_old = this.state.schedules;
+    if (schedules_old.hasOwnProperty(key)) {
+      schedules_old[key].push(saveInfo);
+      this.setState({
+        schedules: schedules_old
+      })
+    } else {
+      schedules_old[key] = [saveInfo];
+      this.setState({
+        schedules: schedules_old
+      });
+    }
+  }
     
   render() {
     return (
@@ -43,6 +65,8 @@ class Schedule extends Component {
             date={key}
             tasks={this.state.schedules[key]}
             handleDelete={this.handleDelete.bind(this, key)}
+            handleUpdate={this.handleUpdate.bind(this)}
+            handleSave={this.handleSave.bind(this)}
             />
         ) }
       </div>
