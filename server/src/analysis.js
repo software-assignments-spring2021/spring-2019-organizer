@@ -135,8 +135,6 @@ function update_standard_deviation_user(dic_user,newclass,newclasssd){
 }
 
 
-
-
 predictime_list = [dic_predictime_class1,dic_predictime_class2,dic_predictime_class3];
 realtime_list = [dic_realtime_class1,dic_realtime_class2,dic_predictime_class3];
 final_list = gather_class_sd(predictime_list,realtime_list);
@@ -145,6 +143,59 @@ console.log((standard_deviation_class(dic_realtime_class1,dic_predictime_class1)
 console.log((standard_deviation_class(dic_realtime_class2,dic_predictime_class2)));
 console.log((standard_deviation_class(dic_realtime_class3,dic_predictime_class3)));
 console.log(standard_deviation_user(final_list));
+
+// Creational design pattern: Prototype
+// It is standard deviation calculator for prediction model
+// We will have deviation for each class of the user and user as well.
+class SD_Calculater{
+
+    constructor(user) {
+        this.user = user;
+        this.user_class_list = user.class;
+        this.user_task_list = user.task;
+        this.user_sd = 0;
+        this.class_sd_dic = {};
+    } 
+
+    // generate the original class sd for ths chosen class
+    generate_class_sd(class_obj){
+        let sd_class = 0;
+        let n = 1;
+        for (let key in class_obj.task){
+            if(key.actualtime !== 0 && key.predictiontime !== 0){
+            sd_class = (key.actualtime / key.predictiontime) + sd_class * (n - 1);
+            sd_class = sd_class / n;
+            n += 1;
+            }
+        }
+        sd_class = Math.round(sd_class * 100) / 100;
+        class_obj.deviation = sd_class;
+        this.class_sd_dic[class_obj] = sd_class;
+    };
+
+    
+    // generate the original user sd based on the raw input
+    generate_user_sd(){
+        let sd_user = 0;
+        let totalnum = 0;
+        for (let class_cur in this.user.class){
+            this.generate_class_sd(class_cur);
+        }
+        for (let key in this.user.class){
+            if(key.actualtime !== 0 && key.predictiontime !==0){
+             sd_user = key.deviation * key.task.length + sd_user * totalnum;
+             totalnum = totalnum + key.task.length
+             sd_user = sd_user / totalnum
+            }
+        }
+        this.user_sd = sd_user;
+        this.user.allDeviation = sd_user;
+
+    }; 
+
+}
+
+
 
 module.exports = {
     standard_deviation_class:standard_deviation_class,
