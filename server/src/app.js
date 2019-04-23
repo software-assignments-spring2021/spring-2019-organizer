@@ -231,11 +231,40 @@ app.post('/subtask/add', function (req, res) {
     });
 });
 
+app.get('/scheduling', (req, res) => {
+    Task.find({}, (err, results, count) => {
+        if (err) {
+            res.redirect('/');
+        } else {
+            const iterator = (function() {
+                let i = 0;
+                const tasks = results;
+                const length = tasks.length;
+
+                return {
+                    next: function() {
+                        if (!this.hasNext()) {
+                            return null;
+                        }
+                        let element = tasks[i];
+                        i += 1;
+                        return element;
+                    },
+                    hasNext: function() {
+                        return i < length;
+                    },
+                    current: function() {
+                        return tasks[i];
+                    }
+                }
+            }());
+            res.send(iterator);
+        }
+    }); 
+})
 
 
 
-
-app.get('/user')
 
 
 //run the server
