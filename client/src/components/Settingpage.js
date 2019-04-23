@@ -14,7 +14,8 @@ class Settingpage extends Component {
       NickName: "",
       userName:'123',
       pwd:'123',
-      redirect: false
+      redirect: false,
+
 
     })
 
@@ -46,7 +47,8 @@ class Settingpage extends Component {
 
     handleLogin = () =>{
       if(this.state.userName===UNAME&&this.state.pwd===PWD){
-        alert("Login successfully!"); 
+        alert("Welcome to Organizer, you have been logged in successfully!"); 
+        // this.setState({loginstate: true})
         // var userName = this.state.userName;
         // var pwd = this.state.pwd;
 
@@ -81,11 +83,12 @@ class Settingpage extends Component {
   render() {
     if (this.state.redirect) {
       return <Redirect to="/schedules" />
+
     }
+
+    else{
     
     return (
-      
-
       <div className="Settingpage">   
         <Setting         
           handleUserNameChange={this.handleUserNameChange}
@@ -102,6 +105,7 @@ class Settingpage extends Component {
       
       
     );
+    }
     
   }
 }
