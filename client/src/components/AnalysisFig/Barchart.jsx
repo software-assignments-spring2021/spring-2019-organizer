@@ -5,6 +5,7 @@ const echarts = require('echarts/lib/echarts');
 require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 require('echarts/lib/chart/bar');
+require('echarts/lib/component/legend');
 
 const barStyle = {
     left: '30%',
@@ -34,6 +35,9 @@ class Barchart extends React.Component{
                 text: name
             },
             tooltip: {},
+            legend: {
+                data: ['time']
+            },
             xAxis: {
                 data: xdata
             },
