@@ -1,8 +1,15 @@
 import Barchart from './AnalysisFig/Barchart';
 import LineChart from './AnalysisFig/LineChart';
 import BubbleChart from './AnalysisFig/BubbleChart';
+import PieChart from './AnalysisFig/PieChart';
 import React, { Component } from 'react';
 
+//sample test data:
+const piedata = [
+  {name: 'Agile', value: 12},//value in hour
+  {name: 'Operating System', value: 7},
+  {name: 'Machine Learning', value: 17}
+]
 
 //testing data
 const mydata = [
@@ -25,6 +32,7 @@ const mydata = [
         <LineChart predTime={[0, 16, 19, 14, 15]}
             actualTime={[20, 21, 11, 18, 20]}/>
         <BubbleChart courses={mycourses} data={mydata} name='bubblechart'/> 
+        <PieChart name='pie chart' data={piedata}/>
         </div>
       );
     }

@@ -5,7 +5,7 @@ const echarts = require('echarts/lib/echarts');
 require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 require('echarts/lib/chart/scatter');
-
+require('echarts/lib/component/legend');
 
 class BubbleObject {
     constructor(name, data, itemStyle) {
@@ -64,9 +64,7 @@ class BubbleChart extends React.Component{
             title: {
                 text: name
             },
-            //temporarily not working
             legend: {
-                right: 10,
                 data: mylegend
             },
             tooltip: {},
