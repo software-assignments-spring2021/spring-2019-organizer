@@ -65,8 +65,14 @@ class TableContent extends Component {
             <p ref='Estimated'> {this.props.task.estimated} Hours</p>
           </Col>
           <Col>
-            {this.props.task.tag.map(tag => 
-              <font ref='Tag' color={tag.color}> {tag.name}</font>
+            {this.props.task.tag.map((tag, i) => 
+              <font 
+                key={i}
+                ref='Tag' 
+                color={tag.color}
+              > 
+                {tag.name}
+              </font>
             )}
           </Col>
           <Col>

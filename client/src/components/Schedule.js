@@ -33,9 +33,22 @@ class Schedule extends Component {
     this.setState({schedules: this.state.schedules});
   }
 
-  handleUpdate(updateInfo) {
-    // const key = undateInfo.duetime.slice(0,10);
+  handleUpdate(idx, updateInfo) {
     console.log(updateInfo);
+    const key = updateInfo.duetime.slice(0,10);
+    const schedules_old = this.state.schedules;
+
+    if (schedules_old.hasOwnProperty(key)) {
+      schedules_old[key].splice(idx, 0, updateInfo);
+    } else { 
+      schedules_old[key] = [updateInfo];
+    }
+
+    const schedules_new = this.sortByDate(schedules_old);
+    this.setState({
+      schedules: schedules_new
+    });
+    console.log(this.state.schedules);
   }
 
   handleSave(saveInfo) {
@@ -44,17 +57,27 @@ class Schedule extends Component {
     const schedules_old = this.state.schedules;
     if (schedules_old.hasOwnProperty(key)) {
       schedules_old[key].push(saveInfo);
-      this.setState({
-        schedules: schedules_old
-      })
     } else {
       schedules_old[key] = [saveInfo];
-      this.setState({
-        schedules: schedules_old
-      });
     }
+
+    const schedules_new = this.sortByDate(schedules_old);
+    this.setState({
+      schedules: schedules_new
+    });
   }
     
+  sortByDate(unordered) {
+    const ordered = {};
+
+    Object.keys(unordered).sort().forEach(function(key) {
+      ordered[key] = unordered[key];
+    });
+    console.log(ordered);
+
+    return ordered;
+  }
+
   render() {
     return (
       <div className="Schdule">

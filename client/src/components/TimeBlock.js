@@ -8,7 +8,6 @@ class TimeBlock extends Component {
   constructor(props){
 		super();
 
-		this.handleUpdate = this.handleUpdate.bind(this);
     this.handleSave = this.handleSave.bind(this);
 
 		this.state={
@@ -25,6 +24,7 @@ class TimeBlock extends Component {
 				tasks:this.state.tasks
 			});
 		}
+
 		fetch('/task', {
       method: 'DELETE',
       body: JSON.stringify({taskid: 'somestring'}), // set taskid
@@ -37,8 +37,16 @@ class TimeBlock extends Component {
     .catch((err)=>console.log(err))
 	}
 	
-	handleUpdate(undateInfo) {
-    this.props.handleUpdate(undateInfo);
+	handleUpdate(i, undateInfo) {
+		if (this.state.tasks.length === 1) this.props.handleDelete();
+		else {
+			this.state.tasks.splice(i,1);
+			this.setState({
+				tasks:this.state.tasks
+			});
+		}
+
+    this.props.handleUpdate(i, undateInfo);
   }
 
   handleSave(saveInfo) {
@@ -73,7 +81,7 @@ class TimeBlock extends Component {
 							task={task}
 							key={i}
 							handleDelete={this.handleDelete.bind(this,i)}
-							handleUpdate={this.handleUpdate}
+							handleUpdate={this.handleUpdate.bind(this,i)}
 							handleSave={this.handleSave}
 						/>
 					)}
