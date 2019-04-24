@@ -62,10 +62,11 @@ class TimeBlock extends Component {
 
 				<Card.Body>
 					<Card.Title>
-						<Row>
+						<Row style={{ textAlign: 'center' }}>
 							<Col>Subject</Col>
 							<Col>Required</Col>
-							<Col>Estimated Time</Col>
+							<Col>Due</Col>
+							<Col>Estimated</Col>
 							<Col>Tags</Col>
 							<Col> 
 								<Change 
