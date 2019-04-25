@@ -18,6 +18,30 @@
   font-size: 30px;
 }
 
+.in {
+  display: inline-block;
+  transform: rotate( 180deg );
+  transition: transform 150ms ease;
+}
+
+.out {
+  display: inline-block;
+  transition: transform 150ms ease;
+}
+
+.show {
+  opacity: 1;
+  max-height: 250px;
+  transition: all 0.3s;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  max-height: 0;
+  transition: all 0.3s;
+}
+
 .active {
   pointer-events: none;
   background-color: #FFFFFF;
@@ -36,23 +60,21 @@
   font-weight: 200;
 }
 
-.sidebaritem:hover {
+.submenu {
+  padding: 3px;
+}
+
+.sidebaritem:hover,
+.submenu:hover {
   background-color: #FFFFFF;
 }
 
-.sidebaritem:hover .sidebarlink {
+.sidebaritem:hover .sidebarlink,
+.submenu:hover .sidebarlink {
   text-decoration: none;
   color: #57068C;
 }
 
 .sidebarlink.active {
-  background-color: #57068C;
-}
-
-.titles{
-  background-color: #57068C;
-}
-
-.titiles1{
   background-color: #57068C;
 }
