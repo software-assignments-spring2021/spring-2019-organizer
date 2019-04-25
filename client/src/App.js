@@ -20,7 +20,8 @@ class App extends Component {
           <Profile name = "Mark" major='Computer Science'/>
           <Route exact path="/" />
           <Route path="/schedules" component={Schedule} />
-          <Route path="/tags" />
+          <Route path="/subject/:subject" component={Schedule} />
+          <Route path="/tag/:tag" component={Schedule} />
           <Route path="/analysis" component={Figures}/>
           <Route path="/setting" component={Settingpage} 
           />
