@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { BrowserRouter as Router, Route} from "react-router-dom";
-import '../css/sidebar.css';
+import '../css/Sidebar.css';
 
 class SideBar extends React.Component {
   constructor() {
@@ -48,11 +48,15 @@ class SideBar extends React.Component {
 
           <div className={rotate ? "show" : "hidden"}>
             {subjects.map((subject, i) => 
-              <Nav.Item 
+            <Nav.Item 
                 bsPrefix="submenu"
                 key={i}
               >
-                <Nav.Link bsPrefix="sidebarlink submenu">
+                <Nav.Link 
+                  bsPrefix="sidebarlink submenu"
+                  href={`/subject/${subject}`}
+                  label="Subject"
+                >
                   {subject}
                 </Nav.Link>
               </Nav.Item>
