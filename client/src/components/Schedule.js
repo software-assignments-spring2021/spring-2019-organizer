@@ -124,9 +124,11 @@ class Schedule extends Component {
     return (
       <div className="Schdule">
         <Events eventArray={testArray}/>
+
         <h4 id="title"> 
           {subjectFlag ? `Tasks for ${subject}` : ""} 
         </h4>
+        
         { Object.keys(schedules).map((key, index) =>
             <TimeBlock 
             key={key}
