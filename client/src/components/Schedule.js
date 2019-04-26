@@ -97,7 +97,15 @@ class Schedule extends Component {
       } 
 
       else if (this.state.tagFilter !== undefined) {
-        // const filter = this.state.tagFilter;
+        const filter = this.state.tagFilter;
+        for (const key of Object.keys(oldSchedules)) {
+          const arr = oldSchedules[key].filter(obj => {
+              return obj.tag === filter;
+          });
+          if (arr.length !== 0) {
+              newSchedules[key] = arr;
+          }
+        }
         
       }
       
@@ -108,6 +116,7 @@ class Schedule extends Component {
       return oldSchedules;
     }
   }
+  
 
   render() {
     let schedules = this.state.schedules;
@@ -116,9 +125,16 @@ class Schedule extends Component {
 
     let subjectFlag = false;
     let subject = "";
+    let tagFlag = false;
+    let tag = "";
+
     if (this.state.subjectFilter !== undefined) {
       subjectFlag = true;
       subject = this.state.subjectFilter;
+    }
+    else if (this.state.tagFilter !== undefined) {
+      tagFlag = true;
+      tag = this.state.tagFilter;
     }
 
     return (
@@ -127,6 +143,10 @@ class Schedule extends Component {
 
         <h4 id="title"> 
           {subjectFlag ? `Tasks for ${subject}` : ""} 
+        </h4>
+
+        <h4 id="title"> 
+          {tagFlag ? `Tasks for ${tag}` : ""} 
         </h4>
         
         { Object.keys(schedules).map((key, index) =>
