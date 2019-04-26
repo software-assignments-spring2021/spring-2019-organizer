@@ -59,12 +59,25 @@
   font-weight: 200;
 }
 
+.sidebartaglink {
+  color: #FFFFFF;
+  font-weight: 200;
+}
+
 .submenu {
+  padding: 3px;
+}
+.tagmenu {
   padding: 3px;
 }
 
 .sidebaritem:hover,
 .submenu:hover {
+  background-color: #FFFFFF;
+}
+
+.sidebartag:hover,
+.tagmenu:hover {
   background-color: #FFFFFF;
 }
 
@@ -74,6 +87,15 @@
   color: #57068C;
 }
 
+.sidebartag:hover .sidebartaglink,
+.tagmenu:hover .sidebartaglink {
+  text-decoration: none;
+  color: #57068C;
+}
+
 .sidebarlink.active {
+  background-color: #57068C;
+}
+.sidebartaglink.active {
   background-color: #57068C;
 }
