@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Events from './Timeline/Events';
 import TimeBlock from './TimeBlock';
 import '../css/Schedule.css';
 
-const testArray = {'March 23':["1", "2"], "April 2":["3"], "May 19":["4"]};
+//const testArray = {'March 23':["1", "2"], "April 2":["3"], "May 19":["4"]};
 class Schedule extends Component {
   constructor(props){
     super(props);
@@ -139,7 +138,6 @@ class Schedule extends Component {
 
     return (
       <div className="Schdule">
-        <Events eventArray={testArray}/>
 
         <h4 id="title"> 
           {subjectFlag ? `Tasks for ${subject}` : ""} 

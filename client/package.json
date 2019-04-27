@@ -30,6 +30,7 @@
   "devDependencies": {
     "d3": "^5.9.2",
     "echarts": "^4.2.1",
+    "jquery": "^3.4.0",
     "radium": "^0.25.1",
     "react-test-renderer": "^16.8.6"
   }
