@@ -226,7 +226,7 @@ class Tags extends Component {
   }
 
   componentDidMount() {
-    fetch('/change')
+    fetch('/tags')
     .then(res => res.json())
     .then(data => {
       const options = [];

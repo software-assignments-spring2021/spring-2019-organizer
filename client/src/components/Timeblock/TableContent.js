@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Button } from 'react-bootstrap';
 import Change from './Change';
-import '../css/TimeBlock.css';
+import '../../css/TimeBlock.css';
 
 class TableContent extends Component {
   constructor(props){
