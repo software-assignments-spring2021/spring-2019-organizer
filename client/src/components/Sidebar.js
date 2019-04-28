@@ -131,11 +131,13 @@ function SidebarLink({ label, to, activeOnlyWhenExact }) {
       children={({ match }) => (
         <Nav.Item 
           bsPrefix="sidebaritem" 
-          id={label === "User" ? "user" : ""} 
           className={match ? "active" : ""}
         >
-        
-          <Nav.Link bsPrefix="sidebarlink" href={to} eventKey={match ? "disabled" : ""}>
+          <Nav.Link 
+            href={to} 
+            bsPrefix="sidebarlink" 
+            eventKey={match ? "disabled" : ""}
+          >
           { label }
           </Nav.Link>
         </Nav.Item>
