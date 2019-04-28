@@ -10,7 +10,7 @@ class SideBar extends React.Component {
       rotate: false,
       rotatetags: false,
       subjects: ['Agile Software Development', 'Machine Learning', 'SSPC'],
-      tags: ['homework', 'Quizzes', 'Labs', 'Tests']
+      tags: ['homework', 'else', 'quiz']
     }
   }
 
@@ -20,7 +20,21 @@ class SideBar extends React.Component {
     .then(data => {
       this.setState({
         subjects: data.classes
+      });
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
+    fetch('/tags')
+    .then(res => res.json())
+    .then(data => {
+      const tags = [];
+      for (let tag of data.tags ) {
+        tags.push(tag.name);
+      }
+      this.setState({
+        tags: tags
       });
     })
     .catch(err => {
@@ -35,12 +49,16 @@ class SideBar extends React.Component {
     return (
       <Router>
         <Nav id="sidebar" variant="pills" className="flex-column" >
-          <SidebarLink activeOnlyWhenExact={true} to="/" label="User"/>
+          <Nav.Item id="user">
+            <Nav.Link bsPrefix="sidebarlink userlink" disabled="true"> 
+              Organizer
+            </Nav.Link>
+          </Nav.Item>
           <SidebarLink to="/schedules" label="Schedules"/>
           
-          <Nav.Item bsPrefix="sidebartag">
+          <Nav.Item bsPrefix="sidebaritem">
             <Nav.Link 
-              bsPrefix="sidebartaglink" 
+              bsPrefix="sidebarlink" 
               onClick={() => this.setState({ rotatetags: !rotatetags })}
             > 
               Tags &nbsp;
@@ -53,11 +71,11 @@ class SideBar extends React.Component {
           <div className={rotatetags ? "show" : "hidden"}>
             {tags.map((tag, i) => 
             <Nav.Item 
-                bsPrefix="tagmenu"
+                bsPrefix="submenu"
                 key={i}
               >
                 <Nav.Link 
-                  bsPrefix="sidebartaglink tagmenu" 
+                  bsPrefix="sidebarlink submenu" 
                   href={`/tag/${tag}`}
                   label="Tag"
                 >
