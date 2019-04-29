@@ -28,6 +28,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "canvas-gauges": "^2.1.5",
     "d3": "^5.9.2",
     "echarts": "^4.2.1",
     "jquery": "^3.4.0",

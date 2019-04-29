@@ -5,6 +5,7 @@ import Schedule from './components/Schedule';
 import Settingpage from './components/Settingpage';
 import Figures from './components/Figures';
 import Timeline from './components/Timeline';
+import Stress from './components/Stress';
 import './css/Timeline.css';
 
 //const testprofile = 'https://raw.githubusercontent.com/nyu-software-engineering/organizer/master/documentation/web_mockup_Mark/home_page.png';
@@ -19,6 +20,7 @@ class App extends Component {
         <div className="App">
           <Sidebar />
           <Timeline />
+          <Stress value={68} />
           <Route exact path="/" />
           <Route path="/schedules" component={Schedule} />
           <Route path="/subject/:subject" component={Schedule} />
