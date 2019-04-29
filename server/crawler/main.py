@@ -5,8 +5,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
 import time
 import datetime
-from info import netid, password
-
+# from info import netid, password
+netid = ""
+password = ""
 url = 'http://newclasses.nyu.edu'
 month_table = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
 
