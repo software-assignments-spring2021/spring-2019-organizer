@@ -70,167 +70,111 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
+// router for handling task CRUD
 app.route('/task')
+    // getting all tasks
     .get(function(req, res) {
-        const task = req.task;
-
-        const newTask = new Task({
-    
-        });
-    
-        newTask.save(function(saveErr, saveAsn, saveCount) {
-            if (saveErr) {
-                res.send(new Error(saveErr));
+        Task.find({}, function(err, tasks) {
+            if (err) {
+                return res.status(500).send(err);
             } else {
-                res.redirect('/');
+                return res.status(200).send(tasks);
             }
         });
-    } )
+    })
+    // creating a task
     .post(function(req, res) {
         const task = req.task;
-
         const newTask = new Task({
-    
+            id: task.id, 
+            name: task.name,
+            duetime: task.duetime,
+            opentime: task.opentime,
+            starttime: task.starttime,
+            finishtime: task.finishtime,
+            tag: [],
+            state: task.stage,
+            class: { type: mongoose.Schema.Types.ObjectId, ref: 'ClassSchema' }, 
+            description: {type: String, default:false},
+            difficulty: 0,
+            predictiontime: 0,
+            // subTask: [{ type: mongoose.Schema.Types.ObjectId, ref: 'SubTaskSchema' }],
+            actualtime: 0
         });
     
         newTask.save(function(saveErr, saveAsn, saveCount) {
             if (saveErr) {
-                res.send(new Error(saveErr));
+                res.send(saveErr);
             } else {
-                res.redirect('/');
+                res.status(200).send(saveAsn);
+            }
+        });        
+    })
+    // updating a single task
+    .put(function(req, res) {
+        const task = req.task;
+        Task.findOneAndUpdate({id : task.id}, req.task, function(err, task) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.status(200).send(task);
             }
         });
-    } )
+    })
+    // delete a single task
     .delete(function(req, res) {
         const task = req.task;
-
-        const newTask = new Task({
-    
-        });
-    
-        newTask.save(function(saveErr, saveAsn, saveCount) {
-            if (saveErr) {
-                res.send(new Error(saveErr));
+        Task.findOneAndDelete({id : task.id}, req.task, function(err, task) {
+            if (err) {
+                res.send(err);
             } else {
-                res.redirect('/');
+                res.status(200).send(task);
             }
-        }
-    } )
+        });
+    });    
+    
 
-
+// router for handling tag CRUD
 app.route('/tag')
+    // getting all tag
     .get(function(req, res) {
-        const tag = req.tag;
-
-    const newTag = new Tag({
-
-    });
-
-    newTag.save(function(saveErr, saveAsn, saveCount) {
-        if (saveErr) {
-            res.send(new Error(saveErr));
-        } else {
-            res.redirect('/');
-        }
-    });
-    } )
+        Tag.find({}, function(err, tags) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(tags);
+            }
+        });
+    })
+    // adding a new tag
     .post(function(req, res) {
         const tag = req.tag;
-
         const newTag = new Tag({
-
+            name: tag.name,
+            color: tag.color
         });
 
-        newTag.save(function(saveErr, saveAsn, saveCount) {
+        newTag.save(function(saveErr, saveTag, saveCount) {
             if (saveErr) {
-                res.send(new Error(saveErr));
+                res.send(saveErr);
             } else {
-                res.redirect('/');
+                res.status(200).send(saveTag);
             }
         });
-    } )
+    })
+    // deleting a tag
     .delete(function(req, res) {
         const tag = req.tag;
-
-        const newTag = new Tag({
-
-        });
-
-        newTag.save(function(saveErr, saveAsn, saveCount) {
-            if (saveErr) {
-                res.send(new Error(saveErr));
+        Tag.findOneAndDelete({ name : tag.name }, function(err, result) {
+            if (err) {
+                res.send(err);
             } else {
-                res.redirect('/');
+                res.status(200).send(result);
             }
         });
-    } )
-
-
-
-
-app.post('/class/add', function (req, res) {
-    const subject = req.class;
-    const newClass = new Class({
-
     });
 
-    newClass.save(function(saveErr, saveClass, saveCount) {
-        if (saveErr) {
-            res.send(new Error(saveErr));
-        } else {
-            res.redirect('/');
-        }
-    });
-});
-
-app.post('/task/add', function (req, res) {
-    const task = req.task;
-
-    const newTask = new Task({
-
-    });
-
-    newTask.save(function(saveErr, saveAsn, saveCount) {
-        if (saveErr) {
-            res.send(new Error(saveErr));
-        } else {
-            res.redirect('/');
-        }
-    });
-});
-
-app.post('/tag/add', function (req, res) {
-    const tag = req.tag;
-    
-    const newTag = new Tag({
-     
-    });
-
-    newTag.save(function(saveErr, saveTag, saveCount) {
-        if (saveErr) {
-            res.send(new Error(saveErr));
-        } else {
-            res.redirect('/');
-        }
-    });
-});
-
-app.post('/subtask/add', function (req, res) {
-    const subtask = req.subtask;
-    
-    const newTag = new Tag({
-     
-    });
-
-    newTag.save(function(saveErr, saveSubTask, saveCount) {
-        if (saveErr) {
-            res.send(new Error(saveErr));
-        } else {
-            res.redirect('/');
-        }
-    });
-});
-
+// router for sending all tasks according to time format
 app.get('/scheduling', (req, res) => {
     Task.find({}, (err, results, count) => {
         if (err) {
@@ -256,16 +200,14 @@ app.get('/scheduling', (req, res) => {
                     current: function() {
                         return tasks[i];
                     }
-                }
+                };
             }());
-            res.send(iterator);
+
+            results.sort((a, b) => (a.opentime < b.opentime) ? 1 : -1);
+            res.send(results);
         }
     }); 
-})
-
-
-
-
+});
 
 //run the server
 app.listen(3000, 'localhost');
