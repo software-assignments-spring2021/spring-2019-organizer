@@ -9,8 +9,8 @@ import datetime
 
 # insert your netid and password here for now
 # We will have a better version
-netid = ""
-password = ""
+netid = "tz904"
+password = "885600JJjj!"
 
 
 
@@ -30,14 +30,14 @@ def login(n, p):
     passwordBox.clear()
     passwordBox.send_keys(p)
     submitBtn.click()
-
-# This function is to find the duo-button to click
-def click_Push():
-    shadowHost = driver.find_element_by_id('duo_iframe')
-    for i in range(400, 500, 10):
-        for j in range(0, 140, 10):
-            actionChain = webdriver.ActionChains(driver).move_to_element_with_offset(shadowHost, i, j).click()
-            actionChain.perform()
+#
+# # This function is to find the duo-button to click
+# def click_Push():
+#     shadowHost = driver.find_element_by_id('duo_iframe')
+#     for i in range(400, 500, 10):
+#         for j in range(0, 140, 10):
+#             actionChain = webdriver.ActionChains(driver).move_to_element_with_offset(shadowHost, i, j).click()
+#             actionChain.perform()
 
 # This function is to check if we can find the duo location
 def passDUO():
@@ -358,12 +358,13 @@ def show_all_quizs_assignments_v2(originalsource):
 def save_all_quizs_assignments(originalsource):
     namelst = find_class_names(originalsource)
     namelst.pop(0)
-    classlist = []
+    classlist = {}
     for classname in namelst:
+        classlist[classname] = {};
         cur_class = []
         cur_class.append(classname)
-        quiz = ["Quiz"]
-        assignment = ["Assignment"]
+        quiz = []
+        assignment = []
         try:
             shadowHostnew = driver.find_element_by_css_selector('.link-container[title="' + classname + '"]')
             actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
@@ -383,26 +384,52 @@ def save_all_quizs_assignments(originalsource):
             quizlst = find_all_quizs(newpage)
             quizlst.pop(0)
             if quizlst[0][0] == "View Only Recorded Scores":
-                quiz.append("no available quizzes")
+                quiz.append(["no available quizzes"])
             else:
                 for i in quizlst:
                     quiz.append(i)
         except:
-            quiz.append("No quizs")
-        cur_class.append(quiz)
-        cur_class.append(assignment)
-        classlist.append(cur_class)
+            quiz.append(["No quizs"])
+        classlist[classname]["Quiz"] = quiz;
+        classlist[classname]["Assignment"] = assignment;
+        # cur_class.append(quiz)
+        # cur_class.append(assignment)
+        # classlist.append(cur_class)
+    return classlist
 
 # The following is the main function
-driver = webdriver.Chrome()
-driver.get(url)
-login(netid, password)
-click_Push()
-if wait_for(passDUO):
-    # originalsource = driver.page_source
-    homepage = driver.page_source
-    # show_all_quizs_assignments_v2(homepage)
-    print(save_all_quizs_assignments(homepage))
-    #get_classes(homepage)
-    driver.close()
-    driver.quit()
+# driver = webdriver.Chrome()
+# driver.get(url)
+# login(netid, password)
+# # click_Push()
+# if wait_for(passDUO):
+#     # originalsource = driver.page_source
+#     homepage = driver.page_source
+#     # show_all_quizs_assignments_v2(homepage)
+#     all_lists = (save_all_quizs_assignments(homepage))
+#     print(all_lists)
+#     #get_classes(homepage)
+#     driver.close()
+#     driver.quit()
+
+list_get = {'Artificial Intelligence, Section 001': {'Quiz': [['No quizs']], 'Assignment': [['No assignments']]},
+            'AIT - 008 SP19': {'Quiz': [['Quiz 01 (optional, no due date)', 'n/a', 'n/a']], 'Assignment': [['No assignments']]},
+            'Spring 2019 Pre-Orientation Modules': {'Quiz': [['Budgets', 'n/a', '2019-10-04 1:45 AM']], 'Assignment': [['No assignments']]},
+            'ICP  s1s2 Fall2017': {'Quiz': [['no available quizzes']], 'Assignment': [['No assignments']]},
+            'Data Structures Spring 2018': {'Quiz': [['no available quizzes']], 'Assignment': [['No assignments']]},
+            'Basic Algorithms, Section 005': {'Quiz': [['Homework 09, test-part, practice', 'n/a', '2019-11-13 12:00 AM']], 'Assignment': [['No assignments']]},
+            'Intro to Econometrics, Section 004': {'Quiz': [['No quizs']], 'Assignment': [['No assignments']]}}
+
+timemodel = "2019-05-10T08:00 yyyy-mm-ddThh:ss"
+def transfer_time(dic):
+    for clss in dic:
+        for sec in dic[clss]:
+            for info_index in range(len(dic[clss][sec])):
+                if len(dic[clss][sec][info_index]) > 1:
+                    time = dic[clss][sec][info_index][2]
+                    timelist = time.split()
+                    if timelist[0] != "n/a":
+                        newtime = timelist[0] + "T" + timelist[1] + timelist[2]
+                        dic[clss][sec][info_index] = newtime
+    return dic
+print(transfer_time(list_get));
