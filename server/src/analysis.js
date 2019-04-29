@@ -147,13 +147,16 @@ console.log(standard_deviation_user(final_list));
 // Creational design pattern: Prototype
 // It is standard deviation calculator for prediction model
 // We will have deviation for each class of the user and user as well.
+
+
+
 class SD_Calculater{
 
     constructor(user) {
         this.user = user;
         this.user_class_list = user.class;
         this.user_task_list = user.task;
-        this.user_sd = 0;
+        this.user_sd = user.allDeviation;
         this.class_sd_dic = {};
     } 
 
@@ -193,9 +196,33 @@ class SD_Calculater{
 
     }; 
 
+    generate_user_prediction(class_chosen,userpredict){
+        if(this.user_class_list.includes(class_chosen)){
+            consolel.log("Our suggest finish time");
+            let prediction = this.class_sd_dic[class_chosen] * userpredict;
+        }else{
+            console.log("class_chosen does not exist yet");
+            console.log("We will use the user sd for you temporirally");
+            let prediction = userpredict * this.user_sd;
+            consolel.log("Our suggest finish time");
+            console.log(prediction);
+        }
+    }
+
+
 }
 
-
+test_user = {
+    name: "test",
+    netid: "abc",
+    password: "llla",
+    class: [],
+    task: [],
+    tag: [],
+    tip: "Fighting!",
+    allDeviation: 1.5,
+    workingTime: [],
+}
 
 module.exports = {
     standard_deviation_class:standard_deviation_class,
