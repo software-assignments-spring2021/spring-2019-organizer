@@ -1,11 +1,15 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { BrowserRouter as Router, Route} from "react-router-dom";
+import Tag from './Tag.js'
 import '../css/sidebar.css';
 
 class SideBar extends React.Component {
   constructor() {
     super();
+
+    this.handleSave = this.handleSave.bind(this);
+
     this.state = {
       rotate: false,
       rotatetags: false,
@@ -42,6 +46,11 @@ class SideBar extends React.Component {
     });
   }
   
+  handleSave(newTag) {
+    let tags = this.state.tags;
+    tags.push(newTag.name);
+    this.setState({ tags: tags });
+  }
 
   render() {
     const { rotate, subjects } = this.state;
@@ -70,7 +79,7 @@ class SideBar extends React.Component {
 
           <div className={rotatetags ? "show" : "hidden"}>
             {tags.map((tag, i) => 
-            <Nav.Item 
+              <Nav.Item 
                 bsPrefix="submenu"
                 key={i}
               >
@@ -83,6 +92,9 @@ class SideBar extends React.Component {
                 </Nav.Link>
               </Nav.Item>
             )}
+            <Nav.Item bsPrefix="submenu">
+              <Tag handleSave={this.handleSave}/>
+            </Nav.Item>
           </div>
 
           {/* angela's code */}
