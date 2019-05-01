@@ -19,8 +19,8 @@ class App extends Component {
       <Router>
         <div className="App">
           <Sidebar />
-          <Timeline />
           <Stress value={68} />
+          <Timeline />
           <Route exact path="/" />
           <Route path="/schedules" component={Schedule} />
           <Route path="/subject/:subject" component={Schedule} />
