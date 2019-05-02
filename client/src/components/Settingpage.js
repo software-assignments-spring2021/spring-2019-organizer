@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-// import {Router, Route} from "react-router-dom";
 import Setting from './Setting';
 import { Redirect } from 'react-router';
-import SidebarLink from './Sidebar'
-// import Schedule from './Schedule'
+import SidebarLink from './Sidebar';
+import Loader from 'react-loader-spinner'
 import NavLink from 'react-bootstrap/NavLink';
+import '../css/Setting.css';
+
 
 
 const UNAME = '123';
@@ -18,12 +19,15 @@ class Settingpage extends Component {
       userName:'123',
       pwd:'123',
       redirect: false,
-      loginstate: false
+      loginstate: false,
+      loading: false
+      
 
 
     })
 
   }
+    
     handleNickNameChange = (e) =>{
       this.setState({
         NickName:e.target.value
@@ -49,9 +53,15 @@ class Settingpage extends Component {
       })
     }
 
-    handleLogin = () =>{
+    handleLogin = (e) =>{
+      this.setState({loading: true});
+        setTimeout(()=>{
+          this.setState({loading : false});
+        }, 2000)
+      
       if(this.state.userName===UNAME&&this.state.pwd===PWD){
-        alert("Welcome to Organizer, you have been logged in successfully!"); 
+   
+        // alert("Welcome to Organizer, you have been logged in successfully!"); 
         // this.setState({loginstate: true})
         // var userName = this.state.userName;
         // var pwd = this.state.pwd;
@@ -60,13 +70,14 @@ class Settingpage extends Component {
         this.setState({loginstate: true})
 
         if (this.state.redirect) {
+          Redirect = this.fetchData
+          
           
           return <Redirect to='/schedules'/>
           
 
         };
-
-          
+       
            
       }
       else if(this.state.userName!==UNAME){
@@ -92,16 +103,19 @@ class Settingpage extends Component {
 
     
   render() {
+    if (this.state.loading === true){
+      return ( 
+        <Loader type="ThreeDots" color="#somecolor" display = 'flex' alignItems= 'center'
+        justifyContent = 'center' height={200} width={800} />
+        );
+    }
+
     if (this.state.redirect) {
 
       return (
       <NavLink>
         <Redirect to="/schedules" />
         <SidebarLink to="/schedules" label="Schedules"/>
-      
-        {/* <Router>
-          <SidebarLink to="/schedules" label="Schedules"/>
-        </Router> */}
       </NavLink>
       )
       
@@ -111,7 +125,7 @@ class Settingpage extends Component {
     // if (this.state.redirect) {
     //   return 
 
-    //   // return <SidebarLink to="/schedules" label="Schedules"/>
+    //   return <SidebarLink to="/schedules" label="Schedules"/>
 
     // }
 
