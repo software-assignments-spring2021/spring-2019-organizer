@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Nav } from 'react-bootstrap';
-import { Modal, Form, Col } from 'react-bootstrap';
+import { Nav, Modal, Form, Col, Row, Button, Dropdown, InputGroup, FormControl} from 'react-bootstrap';
 
 class Tag extends Component {
   constructor(props) {
@@ -10,9 +9,13 @@ class Tag extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleColorChange = this.handleColorChange.bind(this);
 
     this.state = {
       show: false,
+      tags: props.tags,
+      edit: Array(props.tags.length).fill(0),
+      color: "",
       newTag: { name: "", color: "" }
     }
   }
@@ -28,7 +31,9 @@ class Tag extends Component {
   handleSave(e) {
     e.preventDefault();
     const tag = this.state.newTag;
-    this.setState({ show: false });
+    this.setState({
+      show: false,
+    });
 
     fetch('/tags', {
       method: "POST",
@@ -53,7 +58,80 @@ class Tag extends Component {
     }));
   }
 
+  handleDelete(i) {
+    let tags = this.state.tags;
+    const deleteInfo = {
+      name: tags[i].name
+    };
+    tags.splice(i,1);
+		this.setState({
+			tags: tags
+    });
+    
+    fetch('/tags', {
+      method: "DELETE",
+      body: JSON.stringify(deleteInfo),
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+  handleEdit(i) {
+    let edit = this.state.edit;
+    if (edit[i] === 1) {
+      edit[i] = 0;
+      this.setState({
+        edit: edit,
+        color: ""
+      });
+    } else {
+      edit[i] = 1;
+      const color = this.state.tags[i].color;
+      this.setState({
+        edit: edit,
+        color: color
+      });
+    }
+  }
+
+  handleColorChange(e) {
+    const color = e.target.value;
+    this.setState({
+      color: color
+    });
+  }
+
+  handleSaveEdit(i) {
+    let edit = this.state.edit;
+    edit[i] = 0;
+    let tags = this.state.tags;
+    if (this.state.color !== "")
+      tags[i].color = this.state.color;
+    this.setState({
+      edit: edit,
+      tags: tags,
+      color: ""
+    });
+
+    const updateInfo = tags[i];
+    fetch('/tags', {
+      method: "UPDATE",
+      body: JSON.stringify(updateInfo),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
   render() {
+    const { edit } = this.state;
     return (
       <>
         <Nav.Link 
@@ -61,20 +139,72 @@ class Tag extends Component {
           label="Tag"
           onClick={this.handleShow}
         >
-          + new tag
+          Manage Tags
         </Nav.Link>
 
         <Modal 
             show={this.state.show} onHide={this.handleClose}
-            size="lg" aria-labelledby="contained-modal-title-vcenter" 
+            aria-labelledby="contained-modal-title-vcenter"
+            dialogClassName="modal-25w"
             centered
         >
           <Modal.Header closeButton>
             <Modal.Title>
-              New Tag
+              Manage Tags
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <Row style={{ paddingBottom: '10px' }}>
+              <Col md="4"> <b>Tag Name</b> </Col>
+              <Col md="4"> <b>Tag Color</b> </Col>
+              <Col></Col>
+            </Row>
+            
+            {this.state.tags.map((tag,i)=> 
+              <Row key={i}>
+                <Col md="4">
+                  {tag.name}
+                </Col>
+                <Col md="4">
+                  <InputGroup id={i}>
+                    <p className={ edit[i] ? "edit" : "default"}>{tag.color}</p>
+                    <FormControl
+                      className={ edit[i] ? "default" : "edit"}
+                      defaultValue={tag.color}
+                      aria-label={tag.color}
+                      aria-describedby="basic-addon1"
+                      onChange={this.handleColorChange}
+                    />
+                  </InputGroup>
+                </Col>
+                <Col>
+                  <Button 
+                    variant="light" 
+                    size="sm" 
+                    onClick={this.handleDelete.bind(this, i)}
+                  >
+                    <ion-icon name="trash"></ion-icon>
+                  </Button>
+                  <Button 
+                    variant="light" 
+                    size="sm" 
+                    onClick={this.handleEdit.bind(this, i)}
+                  >
+                    <ion-icon name="create"></ion-icon>
+                  </Button>
+                  <Button
+                    className={ edit[i] ? "default" : "edit"}
+                    variant="light" 
+                    size="sm" 
+                    onClick={this.handleSaveEdit.bind(this, i)}
+                  >
+                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                  </Button>
+                </Col>
+              </Row>
+            )}
+
+            <Dropdown.Divider />
             <Form onSubmit={e => this.handleSave(e)}>
               <Form.Row>
                 <Form.Group as={Col} controlId="name">

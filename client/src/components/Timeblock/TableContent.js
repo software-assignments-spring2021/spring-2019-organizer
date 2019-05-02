@@ -121,7 +121,7 @@ class TableContent extends Component {
               variant="light" 
               size="sm" 
               disabled={this.state.isDone} 
-              onClick={this.state.handleDelete}
+              onClick={this.props.handleDelete}
             >
               <ion-icon name="trash"></ion-icon>
             </Button>

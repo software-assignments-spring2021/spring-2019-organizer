@@ -14,7 +14,7 @@ class SideBar extends React.Component {
       rotate: false,
       rotatetags: false,
       subjects: ['Agile Software Development', 'Machine Learning', 'SSPC'],
-      tags: ['homework', 'else', 'quiz']
+      tags: [{_id:"", name:'homework', color: 'pink'}, {_id:"", name:'else', color: 'purple'}, {_id:"", name:'quiz', color: 'blue'}]
     }
   }
 
@@ -33,12 +33,8 @@ class SideBar extends React.Component {
     fetch('/tags')
     .then(res => res.json())
     .then(data => {
-      const tags = [];
-      for (let tag of data.tags ) {
-        tags.push(tag.name);
-      }
       this.setState({
-        tags: tags
+        tags: data.tags
       });
     })
     .catch(err => {
@@ -48,13 +44,12 @@ class SideBar extends React.Component {
   
   handleSave(newTag) {
     let tags = this.state.tags;
-    tags.push(newTag.name);
+    tags.push(newTag);
     this.setState({ tags: tags });
   }
 
   render() {
-    const { rotate, subjects } = this.state;
-    const { rotatetags, tags } = this.state;
+    const { rotate, subjects, rotatetags, tags } = this.state;
     return (
       <Router>
         <Nav id="sidebar" variant="pills" className="flex-column" >
@@ -85,15 +80,16 @@ class SideBar extends React.Component {
               >
                 <Nav.Link 
                   bsPrefix="sidebarlink submenu" 
-                  href={`/tag/${tag}`}
+                  href={`/tag/${tag.name}`}
                   label="Tag"
                 >
-                  {tag}
+                  {tag.name}
                 </Nav.Link>
               </Nav.Item>
             )}
             <Nav.Item bsPrefix="submenu">
-              <Tag handleSave={this.handleSave}/>
+              <Tag tags={this.state.tags}
+              handleSave={this.handleSave}/>
             </Nav.Item>
           </div>
 
