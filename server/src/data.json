@@ -1,0 +1,51 @@
+{
+    "name": "assignment1",
+    "duetime": "2019-05-07",
+    "opentime": "2019-04-17",
+    "starttime": "2019-04-20",
+    "finishtime": "",
+    "tag": ["5cc90a8de7179a596b1904a3",  "5cc90be0e7179a596b1904d3"],
+    "state": false,
+    "class": "Agile", 
+    "description": "",
+    "difficulty": 0,
+    "predictiontime": 0,
+    "subTask": [],
+    "actualtime": 0
+}
+{
+    "name": "assignment2",
+    "duetime": "2019-05-11",
+    "opentime": "2019-04-30",
+    "starttime": "2019-04-30",
+    "finishtime": "",
+    "tag": ["5cc90ab5e7179a596b1904a6",  "5cc90be0e7179a596b1904d3"],
+    "state": false,
+    "class": "AIT", 
+    "description": "",
+    "difficulty": 0,
+    "predictiontime": 0,
+    "subTask": [],
+    "actualtime": 0
+}
+{
+    "name": "homework",
+    "color": "red"
+}
+{
+    "name": "AIT",
+    "user": "5cca49f0e7179a596b19958a", 
+    "task": ["5cc90cb6e7179a596b1904f0"],
+    "deviation": 0
+}
+{
+    "name": "Eric",
+    "netid": "cz1296",
+    "password": "zzzz",
+    "class": [],
+    "task": ["5cc90c53e7179a596b1904e3", "5cc90cb6e7179a596b1904f0"],
+    "tag": ["5cc90a8de7179a596b1904a3", "5cc90ab5e7179a596b1904a6", "5cc90be0e7179a596b1904d3"],
+    "tip": "",
+    "allDeviation": 0,
+    "workingTime": [0],
+}
