@@ -230,9 +230,10 @@ app.route('/tag')
                 res.send(err);
             } else {
                 // Updating User and Class task list
+                console.log(result);
                 User.updateOne({ netid: result.user }, { $pull: { tag: result._id } })
                 .then(() => {
-                    tag.task.forEac((id) => {
+                    result.task.forEach((id) => {
                         Task.updateMany({ _id: id }, { $pull: { tag: result._id } });
                     });
                 }).then(() => {
@@ -357,7 +358,7 @@ app.route("/user")
     .put(function (req, res) {
     // query is a user object
     const user = req.query;
-    User.findByIdAndUpdate({ _id : task._id },user, (err,curuser) => {
+    User.findByIdAndUpdate({ _id : user._id },user, (err,curuser) => {
         // send back JSON (for example, updated objects... or simply a message saying that this succeeded)
         // ...if error, send back an error message ... optionally, set status to 500
         if(err){
@@ -370,11 +371,22 @@ app.route("/user")
 
     .delete(function (req, res) {
     const user = req.query;
-    User.findOneAndDelete({_id:user._id }, function(err, result) {
+    User.findOneAndDelete({ netid: user.netid }, function (err, result){
         if (err) {
             res.send(err);
         } else {
-            res.status(200).send(result);
+                console.log(result);
+                // Updating tag, class task list
+                result.task.forEach((id) => {
+                    Task.updateMany({ _id: id }, { $pull: {user: result._id } });
+                });
+                result.class.forEach((id) => {
+                    Class.updateMany({ _id: id }, { $pull: {user: result._id } });
+                });
+                result.tag.forEach((id) => {
+                    Class.updateMany({ _id: id }, { $pull: {user: result._id } });
+                });
+                res.status(200).send(result);
         }
     });
 });
@@ -428,14 +440,23 @@ app.route("/class")
     });
 })
 
+
     .delete(function (req, res) {
     const class_new = req.query;
-    Class.findOneAndDelete({_id:class_new._id }, function(err, class_new) {
+    Class.findOneAndDelete({name : class_new.name }, function(err, class_new) {
         if (err) {
             res.send(err);
         } else {
-            User.updateOne({ netid: class_new.user }, { $push: { class: class_new._id } });
-            res.status(200).send(class_new);
+                // Updating User and task list
+                console.log(class_new);
+                User.updateOne({ netid: class_new.user }, { $pull: { class: class_new._id } })
+                .then(() => {
+                    class_new.task.forEach((id) => {
+                        Task.updateMany({ _id: id }, { $pull: { class: class_new._id } });
+                    });
+                }).then(() => {
+                    res.status(200).send(class_new);
+                });
         }
     });
 });
