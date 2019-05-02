@@ -1,16 +1,21 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { BrowserRouter as Router, Route} from "react-router-dom";
+import Tag from './Tag.js'
 import '../css/sidebar.css';
 
 class SideBar extends React.Component {
   constructor() {
     super();
+
+    this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+
     this.state = {
       rotate: false,
       rotatetags: false,
       subjects: ['Agile Software Development', 'Machine Learning', 'SSPC'],
-      tags: ['homework', 'else', 'quiz']
+      tags: [{_id:"", name:'homework', color: 'pink'}, {_id:"", name:'else', color: 'purple'}, {_id:"", name:'quiz', color: 'blue'}]
     }
   }
 
@@ -29,12 +34,8 @@ class SideBar extends React.Component {
     fetch('/tags')
     .then(res => res.json())
     .then(data => {
-      const tags = [];
-      for (let tag of data.tags ) {
-        tags.push(tag.name);
-      }
       this.setState({
-        tags: tags
+        tags: data.tags
       });
     })
     .catch(err => {
@@ -42,10 +43,22 @@ class SideBar extends React.Component {
     });
   }
   
+  handleSave(newTag) {
+    let tags = this.state.tags;
+    tags.push(newTag);
+    this.setState({ tags: tags });
+  }
+
+  handleDelete(tagName) {
+    let tags = this.state.tags;
+    tags = tags.filter(tag => {
+      return tag.name !== tagName;
+    });
+    this.setState({ tags: tags });
+  }
 
   render() {
-    const { rotate, subjects } = this.state;
-    const { rotatetags, tags } = this.state;
+    const { rotate, subjects, rotatetags, tags } = this.state;
     return (
       <Router>
         <Nav id="sidebar" variant="pills" className="flex-column" >
@@ -70,19 +83,24 @@ class SideBar extends React.Component {
 
           <div className={rotatetags ? "show" : "hidden"}>
             {tags.map((tag, i) => 
-            <Nav.Item 
+              <Nav.Item 
                 bsPrefix="submenu"
                 key={i}
               >
                 <Nav.Link 
                   bsPrefix="sidebarlink submenu" 
-                  href={`/tag/${tag}`}
+                  href={`/tag/${tag.name}`}
                   label="Tag"
                 >
-                  {tag}
+                  {tag.name}
                 </Nav.Link>
               </Nav.Item>
             )}
+            <Nav.Item bsPrefix="submenu">
+              <Tag tags={tags}
+              handleSave={this.handleSave}
+              handleDelete={this.handleDelete}/>
+            </Nav.Item>
           </div>
 
           {/* angela's code */}

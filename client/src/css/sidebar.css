@@ -41,6 +41,14 @@
   transition: max-height 0.3s, opacity 150ms;
 }
 
+.default {
+  display: inline;
+}
+
+.edit {
+  display: none;
+}
+
 .active {
   pointer-events: none;
   background-color: #FFFFFF;
