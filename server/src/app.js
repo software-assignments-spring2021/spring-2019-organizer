@@ -316,6 +316,130 @@ app.get('/schedule', (req, res) => {
     }); 
 });
 
-//run the server
+// Michael's part
+
+app.route("/user")
+    // getting all user
+    .get(function(req, res) {
+        User.find({}, function(err, users) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(users);
+            }
+        });
+    })
+    
+    
+    .post(function (req, res) {
+    const user = req.body;
+    const newUser = new User({
+        name: user.name,
+        netid: user.netid,
+        password: user.password,
+        class: user.class,
+        task: user.task,
+        tag: user.tag,
+        tip: user.tip,
+        allDeviation: user.allDeviation,
+        workingTime: user.workingTime,
+    });
+    newUser.save(function(saveErr, users) {
+        if (saveErr) {
+            res.send(error);
+        } else {
+            res.status(200).send(users);
+        }
+    });
+})
+
+// for user to edit
+    .put(function (req, res) {
+    // query is a user object
+    const user = req.query;
+    User.findByIdAndUpdate({ _id : task._id },user, (err,curuser) => {
+        // send back JSON (for example, updated objects... or simply a message saying that this succeeded)
+        // ...if error, send back an error message ... optionally, set status to 500
+        if(err){
+           res.send(err);
+        }else{
+            res.status(200).send(curuser);
+        }
+    });
+})
+
+    .delete(function (req, res) {
+    const user = req.query;
+    User.findOneAndDelete({_id:user._id }, function(err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.status(200).send(result);
+        }
+    });
+});
+
+// for class route handler
+app.route("/class")
+    // getting all classes
+    .get(function(req, res) {
+        Class.find({}, function(err, classes) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(classes);
+            }
+        });
+    })
+    // adding new class
+    .post(function (req, res) {
+        const class_new = req.body;
+        const newclass = new Class({
+            name: class_new.name,
+            user: class_new.user, 
+            task: class_new.task,
+            deviation: class_new.deviation
+        });
+
+        newclass.save(function(saveErr, class_new) {
+            if (saveErr) {
+                res.send(error);
+            } else {
+                // Updating User list
+                User.updateOne({ netid: class_new.user }, { $push: { class: class_new._id } });
+                res.status(200).send(class_new);
+            }
+        });
+    })
+    
+// for user to edit
+    .put(function (req, res) {
+    // query is a user object
+    const class_new = req.query;
+    Class.findByIdAndUpdate({ _id : class_new._id },class_new, (err,curclass) => {
+        // send back JSON (for example, updated objects... or simply a message saying that this succeeded)
+        // ...if error, send back an error message ... optionally, set status to 500
+        if(err){
+           res.send(err);
+        }else{
+            User.updateOne({ netid: class_new.user }, { $push: { class: curclass._id } });
+            res.status(200).send(curclass);
+        }
+    });
+})
+
+    .delete(function (req, res) {
+    const class_new = req.query;
+    Class.findOneAndDelete({_id:class_new._id }, function(err, class_new) {
+        if (err) {
+            res.send(err);
+        } else {
+            User.updateOne({ netid: class_new.user }, { $push: { class: class_new._id } });
+            res.status(200).send(class_new);
+        }
+    });
+});
+
+// run the server
 app.listen(3000, 'localhost');
 console.log("app running on port: ", 3000);
