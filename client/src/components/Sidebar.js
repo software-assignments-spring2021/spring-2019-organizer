@@ -9,6 +9,7 @@ class SideBar extends React.Component {
     super();
 
     this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
 
     this.state = {
       rotate: false,
@@ -45,6 +46,14 @@ class SideBar extends React.Component {
   handleSave(newTag) {
     let tags = this.state.tags;
     tags.push(newTag);
+    this.setState({ tags: tags });
+  }
+
+  handleDelete(tagName) {
+    let tags = this.state.tags;
+    tags = tags.filter(tag => {
+      return tag.name !== tagName;
+    });
     this.setState({ tags: tags });
   }
 
@@ -88,8 +97,9 @@ class SideBar extends React.Component {
               </Nav.Item>
             )}
             <Nav.Item bsPrefix="submenu">
-              <Tag tags={this.state.tags}
-              handleSave={this.handleSave}/>
+              <Tag tags={tags}
+              handleSave={this.handleSave}
+              handleDelete={this.handleDelete}/>
             </Nav.Item>
           </div>
 

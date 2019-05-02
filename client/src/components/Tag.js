@@ -33,20 +33,23 @@ class Tag extends Component {
     const tag = this.state.newTag;
     this.setState({
       show: false,
+      newTag: { name: "", color: "" }
     });
 
-    fetch('/tags', {
-      method: "POST",
-      body: JSON.stringify(tag),
-      headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-      }
-    }).catch(err => {
-      console.log(err);
-    });
-
-    this.props.handleSave(tag);
+    if (tag.name !== "" && tag.color !== "") {
+      fetch('/tags', {
+        method: "POST",
+        body: JSON.stringify(tag),
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+  
+      this.props.handleSave(tag);
+    }
   }
 
   handleChange(e) {
@@ -63,6 +66,7 @@ class Tag extends Component {
     const deleteInfo = {
       name: tags[i].name
     };
+    this.props.handleDelete(tags[i].name);
     tags.splice(i,1);
 		this.setState({
 			tags: tags
