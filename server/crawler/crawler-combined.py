@@ -373,7 +373,7 @@ def save_all_quizs_assignments(originalsource):
             assignment.append(save_get_assigments(classpage))
         except:
             assignment.append(["No assignments"])
-            print("No assignments for this class")
+            # print("No assignments for this class")
 
         try:
             shadowHostnew = driver.find_element_by_css_selector(
@@ -397,30 +397,6 @@ def save_all_quizs_assignments(originalsource):
         # classlist.append(cur_class)
     return classlist
 
-# The following is the main function
-# driver = webdriver.Chrome()
-# driver.get(url)
-# login(netid, password)
-# # click_Push()
-# if wait_for(passDUO):
-#     # originalsource = driver.page_source
-#     homepage = driver.page_source
-#     # show_all_quizs_assignments_v2(homepage)
-#     all_lists = (save_all_quizs_assignments(homepage))
-#     print(all_lists)
-#     #get_classes(homepage)
-#     driver.close()
-#     driver.quit()
-
-list_get = {'Artificial Intelligence, Section 001': {'Quiz': [['No quizs']], 'Assignment': [['No assignments']]},
-            'AIT - 008 SP19': {'Quiz': [['Quiz 01 (optional, no due date)', 'n/a', 'n/a']], 'Assignment': [['No assignments']]},
-            'Spring 2019 Pre-Orientation Modules': {'Quiz': [['Budgets', 'n/a', '2019-10-04 1:45 AM']], 'Assignment': [['No assignments']]},
-            'ICP  s1s2 Fall2017': {'Quiz': [['no available quizzes']], 'Assignment': [['No assignments']]},
-            'Data Structures Spring 2018': {'Quiz': [['no available quizzes']], 'Assignment': [['No assignments']]},
-            'Basic Algorithms, Section 005': {'Quiz': [['Homework 09, test-part, practice', 'n/a', '2019-11-13 12:00 AM']], 'Assignment': [['No assignments']]},
-            'Intro to Econometrics, Section 004': {'Quiz': [['No quizs']], 'Assignment': [['No assignments']]}}
-
-timemodel = "2019-05-10T08:00 yyyy-mm-ddThh:ss"
 def transfer_time(dic):
     for clss in dic:
         for sec in dic[clss]:
@@ -429,7 +405,54 @@ def transfer_time(dic):
                     time = dic[clss][sec][info_index][2]
                     timelist = time.split()
                     if timelist[0] != "n/a":
-                        newtime = timelist[0] + "T" + timelist[1] + timelist[2]
+                        newtime = []
+                        newtime.append(dic[clss][sec][info_index][0])
+                        newtime.append(dic[clss][sec][info_index][1])
+                        newtime.append(timelist[0] + "T" + timelist[1] + timelist[2])
                         dic[clss][sec][info_index] = newtime
     return dic
-print(transfer_time(list_get));
+# The following is the main function
+driver = webdriver.Chrome()
+driver.get(url)
+login(netid, password)
+# click_Push()
+if wait_for(passDUO):
+    # originalsource = driver.page_source
+    homepage = driver.page_source
+    # show_all_quizs_assignments_v2(homepage)
+    all_lists = (save_all_quizs_assignments(homepage))
+    my_dic = transfer_time(all_lists)
+    for key in my_dic:
+        print(key)
+        print(my_dic[key])
+    #get_classes(homepage)
+    driver.close()
+    driver.quit()
+
+# list_get = {'Artificial Intelligence, Section 001': {'Quiz': [['No quizs']], 'Assignment': [['No assignments']]},
+#             'AIT - 008 SP19': {'Quiz': [['Quiz 01 (optional, no due date)', 'n/a', 'n/a']], 'Assignment': [['No assignments']]},
+#             'Spring 2019 Pre-Orientation Modules': {'Quiz': [['Budgets', 'n/a', '2019-10-04 1:45 AM']], 'Assignment': [['No assignments']]},
+#             'ICP  s1s2 Fall2017': {'Quiz': [['no available quizzes']], 'Assignment': [['No assignments']]},
+#             'Data Structures Spring 2018': {'Quiz': [['no available quizzes']], 'Assignment': [['No assignments']]},
+#             'Basic Algorithms, Section 005': {'Quiz': [['Homework 09, test-part, practice', 'n/a', '2019-11-13 12:00 AM']], 'Assignment': [['No assignments']]},
+#             'Intro to Econometrics, Section 004': {'Quiz': [['No quizs']], 'Assignment': [['No assignments']]}}
+#
+# timemodel = "2019-05-10T08:00 yyyy-mm-ddThh:ss"
+# def transfer_time(dic):
+#     for clss in dic:
+#         for sec in dic[clss]:
+#             for info_index in range(len(dic[clss][sec])):
+#                 if len(dic[clss][sec][info_index]) > 1:
+#                     time = dic[clss][sec][info_index][2]
+#                     timelist = time.split()
+#                     if timelist[0] != "n/a":
+#                         newtime = []
+#                         newtime.append(dic[clss][sec][info_index][0])
+#                         newtime.append(dic[clss][sec][info_index][1])
+#                         newtime.append(timelist[0] + "T" + timelist[1] + timelist[2])
+#                         dic[clss][sec][info_index] = newtime
+#     return dic
+# my_dic = transfer_time(list_get)
+# for key in my_dic:
+#     print(key)
+#     print(my_dic[key])
