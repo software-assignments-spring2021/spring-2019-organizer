@@ -342,8 +342,8 @@ app.route("/user")
         task: user.task,
         tag: user.tag,
         tip: user.tip,
-        allDeviation: user.allDeviation,
-        workingTime: user.workingTime,
+        allDeviation: 1,
+        workingTime: [],
     });
     newUser.save(function(saveErr, users) {
         if (saveErr) {
@@ -410,7 +410,7 @@ app.route("/class")
             name: class_new.name,
             user: class_new.user, 
             task: class_new.task,
-            deviation: class_new.deviation
+            deviation: 1
         });
 
         newclass.save(function(saveErr, class_new) {
