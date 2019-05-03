@@ -144,42 +144,76 @@ app.route('/task')
                 res.send(err);
             } else {
                 // Updating User, Class and Tag task list
-                User.updateOne({ netid: task.user }, { $push: { task: task._id } })
+                User.findOneAndUpdate({ netid: task.user }, { $push: { task: task._id } }).exec()
                 .then(() => {
-                    return Class.updateOne({ _id: task.class }, { $push: { task: task._id } });
-                }).then(() => {
+                    return Class.findOneAndUpdate({ _id: task.class }, { $push: { task: task._id } }).exec();    
+                })
+                .then(() => {
+                    const proList = [];
                     task.tag.forEach((t) => {
-                        Tag.updateOne({ _id: t }, { $push: { task: task._id } });
+                        proList.push(Tag.findOneAndUpdate({ _id: t }, { $push: { task: task._id } }).exec());
                     });
-                }).then(() => {
+                    return Promise.all(proList);
+                })
+                .then(() => {
                     res.status(200).send(task);
                 });
-            }
-        });        
+            }        
+        });
     })
     // updating a single task
     .put(function(req, res) {
-        const task = req.query;
+        const task = req.body;
+        const newTag = task.tag;
         Task.findOneAndUpdate({ _id : task._id }, task, function(err, task) {
             if (err) {
                 res.send(err);
+            } else if (!task) {
+                res.status(404).send("Task not found");
             } else {
-                res.status(200).send(task);
+                // Updating tag task list
+                const oldTag = task.tag;
+                const oldList = [];
+                const newList = [];
+                oldTag.forEach((t) => {
+                    if (!newTag.includes(t)) {
+                        oldList.push(Tag.findOneAndUpdate({ _id: t }, { $pull: { task: task._id } }).exec());
+                    }
+                });
+                Promise.all(oldList).then(() => {
+                    newTag.forEach((t) => {
+                        if (!oldTag.includes(t)) {
+                            newList.push(Tag.findOneAndUpdate({ _id: t }, { $push: { task: task._id } }).exec());
+                        }
+                    });
+                    return Promise.all(newList);
+                })
+                .then(() => {
+                    res.status(200).send(task);
+                });
             }
         });
     })
     // delete a single task
     .delete(function(req, res) {
-        const task = req.query;
-        Task.findOneAndDelete({ _id : task.id }, function(err, task) {
+        const task = req.body;
+        Task.findOneAndDelete({ _id : task._id }, function(err, task) {
             if (err) {
                 res.send(err);
             } else {
                 // Updating User and Class task list
-                User.updateOne({ netid: task.user }, { $pull: { task: task._id } })
+                User.findOneAndUpdate({ netid: task.user }, { $pull: { task: task._id } }).exec()
                 .then(() => {
-                    return Class.updateOne({ _id: task.class }, { $pull: { task: task._id } });
-                }).then(() => {
+                    return Class.findOneAndUpdate({ _id: task.class }, { $pull: { task: task._id } }).exec();    
+                })
+                .then(() => {
+                    const proList = [];
+                    task.tag.forEach((t) => {
+                        proList.push(Tag.findOneAndUpdate({ _id: t }, { $pull: { task: task._id } }).exec());
+                    });
+                    return Promise.all(proList);
+                })
+                .then(() => {
                     res.status(200).send(task);
                 });
             }
@@ -204,6 +238,7 @@ app.route('/tag')
         const tag = req.body;
         const newTag = new Tag({
             user: tag.user,
+            task: [],
             name: tag.name,
             color: tag.color
         });
@@ -212,7 +247,7 @@ app.route('/tag')
             if (err) {
                 res.send(err);
             } else {
-                User.updateOne({ netid: tag.user }, { $push: { tag: tag._id } }, function(err) {
+                User.findOneAndUpdate({ netid: tag.user }, { $push: { tag: tag._id } }, function(err) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -224,18 +259,21 @@ app.route('/tag')
     })
     // deleting a tag
     .delete(function(req, res) {
-        const tag = req.query;
+        const tag = req.body;
         Tag.findOneAndDelete({ name : tag.name }, function(err, result) {
             if (err) {
                 res.send(err);
+            } else if (!result) {
+                res.status(404).send('Tag not found');
             } else {
                 // Updating User and Class task list
-                console.log(result);
-                User.updateOne({ netid: result.user }, { $pull: { tag: result._id } })
+                User.findOneAndUpdate({ netid: result.user }, { $pull: { tag: result._id } })
                 .then(() => {
+                    const pList = [];
                     result.task.forEach((id) => {
-                        Task.updateMany({ _id: id }, { $pull: { tag: result._id } });
+                        pList.push(Task.updateMany({ _id: id }, { $pull: { tag: result._id } }).exec());
                     });
+                    return Promise.all(pList);
                 }).then(() => {
                     res.status(200).send(result);
                 });
@@ -309,7 +347,9 @@ app.get('/schedule', (req, res) => {
             dataRefiner.then((d) => {
                 // Sort the tasks according to opentime
                 d.sort((a, b) => {
-                    return new Date(a.opentime) < new Date(b.opentime);
+                    const newa = new Date(a.opentime).getTime();
+                    const newb = new Date(b.opentime).getTime();
+                    return newa - newb;
                 });
                 res.status(200).send(d);
             });
