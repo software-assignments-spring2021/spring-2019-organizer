@@ -9,9 +9,13 @@ import '../css/Setting.css';
 
 class Setting extends Component{
 
+
+
     render(){
 
-        return(           
+
+        return(       
+               
             <div id ="setting">
                 {/* <Col className="titles1"> NYU Classes Organizer</Col>
                 <Col className="titles1"> Please Login to NYU Classes</Col> */}
@@ -30,8 +34,6 @@ class Setting extends Component{
                     <Col>
             
                     <button className="btn btn-primary log-btn" onClick={this.props.handleLogin}>Confirm</button>
-        
-            
                     <button className="btn btn-primary sign" onClick={this.props.handleSign}>Logout</button>
                 
                     </Col>

@@ -9,6 +9,13 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     
 }
+#loader{
+    color: rgb(249, 255, 252);
+    margin-top: 10px;
+    margin-left: 22.5%;
+    margin-bottom: 20px;
+    width: 75%;
+}
 
 .login h2{
     margin-top: 100px;
