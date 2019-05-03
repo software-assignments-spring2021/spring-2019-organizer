@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import TimeBlock from './TimeBlock';
+import TimeBlock from './Timeblock/TimeBlock';
 import '../css/Schedule.css';
 
-//const testArray = {'March 23':["1", "2"], "April 2":["3"], "May 19":["4"]};
 class Schedule extends Component {
   constructor(props){
     super(props);
@@ -98,8 +97,14 @@ class Schedule extends Component {
       else if (this.state.tagFilter !== undefined) {
         const filter = this.state.tagFilter;
         for (const key of Object.keys(oldSchedules)) {
-          const arr = oldSchedules[key].filter(obj => {
-              return obj.tag === filter;
+          const arr = oldSchedules[key].filter((obj, idx) => {
+              let index = null;
+              for (let tag of obj.tag) {
+                if (tag.name === filter) {
+                  index = idx;
+                }
+              }
+              return index !== null;
           });
           if (arr.length !== 0) {
               newSchedules[key] = arr;

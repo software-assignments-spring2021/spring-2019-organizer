@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom';
 import Events from '../components/Timeline/Events.jsx';
 import Sidebar from '../components/Sidebar.js';
 import renderer from 'react-test-renderer';
-import CompleteTable from '../components/CompleteTable.js';
-import TimeBlock from '../components/TimeBlock.js';
-import TableContent from '../components/TableContent.js';
-import FixedTable from '../components/FixedTable.js';
+import TimeBlock from '../components/Timeblock/TimeBlock.js';
+import TableContent from '../components/Timeblock/TableContent.js';
 
 
 it('renders without crashing', () => {

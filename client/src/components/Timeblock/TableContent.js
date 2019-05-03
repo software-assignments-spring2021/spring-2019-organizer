@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Button } from 'react-bootstrap';
 import Change from './Change';
-import '../css/TimeBlock.css';
+import '../../css/TimeBlock.css';
 
 class TableContent extends Component {
   constructor(props){
@@ -121,7 +121,7 @@ class TableContent extends Component {
               variant="light" 
               size="sm" 
               disabled={this.state.isDone} 
-              onClick={this.state.handleDelete}
+              onClick={this.props.handleDelete}
             >
               <ion-icon name="trash"></ion-icon>
             </Button>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import TableContent from './TableContent';
 import Change from './Change';
-import '../css/TimeBlock.css';
+import '../../css/TimeBlock.css';
 
 class TimeBlock extends Component {
   constructor(props){

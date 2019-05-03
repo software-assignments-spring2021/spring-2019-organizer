@@ -147,14 +147,18 @@ console.log(standard_deviation_user(final_list));
 // Creational design pattern: Prototype
 // It is standard deviation calculator for prediction model
 // We will have deviation for each class of the user and user as well.
+
+
+
 class SD_Calculater{
 
     constructor(user) {
         this.user = user;
         this.user_class_list = user.class;
         this.user_task_list = user.task;
-        this.user_sd = 0;
+        this.user_sd = user.allDeviation;
         this.class_sd_dic = {};
+        this.potentialerror = [];
     } 
 
     // generate the original class sd for ths chosen class
@@ -190,14 +194,128 @@ class SD_Calculater{
         }
         this.user_sd = sd_user;
         this.user.allDeviation = sd_user;
-
     }; 
+
+
+    detect_error(){
+        for(let key in this.user_task_list){
+            if(key.actualtime > key.predictiontime * 3){
+                this.potentialerror.push(key)
+            }
+        }
+    }
+ 
+   generate_user_prediction(class_chosen,userpredict){
+        if(this.user_class_list.includes(class_chosen)){
+            consolel.log("Our suggest finish time");
+            let prediction = this.class_sd_dic[class_chosen] * userpredict;
+        }else{
+            console.log("class_chosen does not exist yet");
+            console.log("We will use the user sd for you temporirally");
+            let prediction = userpredict * this.user_sd;
+            consolel.log("Our suggest finish time");
+            console.log(prediction);
+        }
+    }
 
 }
 
 
+}
+
+test_user = {
+    name: "test",
+    netid: "abc",
+    password: "llla",
+    class: [],
+    task: [],
+    tag: [],
+    tip: "Fighting!",
+    allDeviation: 1.5,
+    workingTime: [],
+}
 
 module.exports = {
     standard_deviation_class:standard_deviation_class,
     standard_deviation_user:standard_deviation_user
+};
+
+const testuser2 = {
+    name: "test1",
+    netid: "abc",
+    password: "Iamatestuser",
+    class: [testclass1,testclass2],
+    task: [testtask1_1,testtask2_1,testtask1_2,testtask_2_2],
+    allDeviation: 1,
+    // workingTime: [Number],
+};
+
+const testclass1 = {
+    name: "testclass1",
+    user: testuser2, 
+    task: [testtask1_1,testtask2_1],
+    deviation: 1
+};
+
+const testclass2 = {
+    name: "testclass2",
+    user: testuser2, 
+    task: [testtask1_2,testtask2_2],
+    deviation: 1
+};
+
+const testtask1_1 = {
+    name: "quiz1 for testclass1",
+    duetime: "",
+    opentime: "",
+    starttime: "",
+    finishtime: "",
+    state: "",
+    class: testclass1, 
+    description:"",
+    difficulty: 3,
+    predictiontime: 10,
+    actualtime: 12
+};
+
+const testtask2_1 = {
+    name: "assignment1 for testclass1",
+    duetime: "",
+    opentime: "",
+    starttime: "",
+    finishtime: "",
+    state: "",
+    class: testclass1, 
+    description:"",
+    difficulty: 4,
+    predictiontime: 5,
+    actualtime: 7
+};
+
+const testtask1_2 = {
+    name: "quiz1 for testclass2",
+    duetime: "",
+    opentime: "",
+    starttime: "",
+    finishtime: "",
+    state: "",
+    class: testclass2, 
+    description:"",
+    difficulty: 3,
+    predictiontime: 10,
+    actualtime: 12
+};
+
+const testtask2_2 = {
+    name: "assignment1 for testclass2",
+    duetime: "",
+    opentime: "",
+    starttime: "",
+    finishtime: "",
+    state: "",
+    class: testclass2, 
+    description:"",
+    difficulty: 5,
+    predictiontime: 3,
+    actualtime: 9
 };
