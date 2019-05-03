@@ -4,26 +4,26 @@ createTaskURL = 'localhost:3000/task'
 createClassURL = 'localhost:3000/class'
 
 taskSchema = {
-    name: '',
-    duetime: '',
-    opentime: '',
-    starttime: '',
-    finishtime: '',
-    tag: [],
-    state: '',
-    class: '', 
-    description: '',
-    difficulty: 0,
-    predictiontime: 0,
-#     subTask: [],
-    actualtime: 0    
+    "user": "",
+    "name": "",
+    "duetime": "",
+    "opentime": "",
+    "starttime": "",
+    "finishtime": "",
+    "tag": [],
+    "state": "",
+    "class": "", 
+    "description": "",
+    "difficulty": 0,
+    "predictiontime": 0,
+    "actualtime": 0    
 }
 
 classSchema = {       
-    name: '',
-    user: '', 
-    task: [],
-    deviation: 
+    "name": "",
+    "user": "", 
+    "task": [],
+    "deviation": 0
 }
 
 def postTask():
