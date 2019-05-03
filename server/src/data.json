@@ -1,52 +1,44 @@
+// mock data for Task
 {
-    "name": "assignment1",
+    "user": "",
+    "name": "",
     "duetime": "2019-05-07",
     "opentime": "2019-04-17",
     "starttime": "2019-04-20",
     "finishtime": "",
-    "tag": ["5cc90a8de7179a596b1904a3",  "5cc90be0e7179a596b1904d3"],
+    "tag": [],
     "state": false,
-    "class": "Agile", 
+    "class": "", 
     "description": "",
     "difficulty": 0,
     "predictiontime": 0,
-    "subTask": [],
     "actualtime": 0
 }
+
+// mock data for Tag
 {
-    "name": "assignment2",
-    "duetime": "2019-05-11",
-    "opentime": "2019-04-30",
-    "starttime": "2019-04-30",
-    "finishtime": "",
-    "tag": ["5cc90ab5e7179a596b1904a6",  "5cc90be0e7179a596b1904d3"],
-    "state": false,
-    "class": "AIT", 
-    "description": "",
-    "difficulty": 0,
-    "predictiontime": 0,
-    "subTask": [],
-    "actualtime": 0
-}
-{
-    "user": "cz1296",
+    "user": "",
     "task": [],
-    "name": "homework",
-    "color": "red"
+    "name": "",
+    "color": ""
 }
+
+// mock data for Class
 {
-    "name": "AIT",
-    "user": "5cca49f0e7179a596b19958a", 
-    "task": ["5cc90cb6e7179a596b1904f0"],
+    "name": "",
+    "user": "", 
+    "task": [],
     "deviation": 0
 }
+
+// mock data for User
 {
-    "name": "Eric",
-    "netid": "cz1296",
-    "password": "zzzz",
+    "name": "",
+    "netid": "",
+    "password": "123456",
     "class": [],
-    "task": ["5cc90c53e7179a596b1904e3", "5cc90cb6e7179a596b1904f0"],
-    "tag": ["5cc90a8de7179a596b1904a3", "5cc90ab5e7179a596b1904a6", "5cc90be0e7179a596b1904d3"],
+    "task": [],
+    "tag": [],
     "tip": "",
     "allDeviation": 0,
     "workingTime": [0],

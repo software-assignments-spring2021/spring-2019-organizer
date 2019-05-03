@@ -32,7 +32,7 @@ const taskSchema = new mongoose.Schema({
 // schema for class
 const classSchema = new mongoose.Schema({
     name: String,
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'UserSchema' }, 
+    user: String, 
     task: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TaskSchema' }],
     deviation: Number
 });
