@@ -10,7 +10,7 @@ module.exports = (passport) => {
         (token, refreshToken, profile, done) => {
             return done(null, {
                 profile: profile,
-                email: profile.emails[0],
+                email: profile.emails,
                 token: token
             });
         }
