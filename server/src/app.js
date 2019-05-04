@@ -127,15 +127,15 @@ app.route('/task')
             user: task.user,
             name: task.name,
             duetime: task.duetime,
-            opentime: task.opentime,
-            starttime: task.starttime,
-            finishtime: task.finishtime,
+            opentime: "",
+            starttime: "",
+            finishtime: "",
             tag: task.tag,
-            state: task.stage,
+            state: false,
             class: task.class, 
-            description: task.description,
-            difficulty: 0,
-            predictiontime: 0,
+            description: "",
+            difficulty: task.difficulty,
+            predictiontime: task.predictiontime,
             actualtime: 0
         });
     
@@ -260,7 +260,7 @@ app.route('/tag')
     // deleting a tag
     .delete(function(req, res) {
         const tag = req.body;
-        Tag.findOneAndDelete({ name : tag.name }, function(err, result) {
+        Tag.findOneAndDelete({ _id : tag._id }, function(err, result) {
             if (err) {
                 res.send(err);
             } else if (!result) {
@@ -476,7 +476,7 @@ app.route("/class")
     // deleting a class
     .delete(function (req, res) {
     const class_new = req.body;
-    Class.findOneAndDelete({name : class_new.name }, function(err, class_new) {
+    Class.findOneAndDelete({ name : class_new.name }, function(err, class_new) {
         if (err) {
             res.send(err);
         } else {
