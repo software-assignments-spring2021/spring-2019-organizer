@@ -17,17 +17,21 @@ class TimeBlock extends Component {
 	}
 
   handleDelete = (i) => {
-		if (this.state.tasks.length === 1) this.props.handleDelete();
+		let tasks = this.state.tasks;
+    const deleteInfo = {
+			_id: tasks[i]._id
+    };
+		if (tasks.length === 1) this.props.handleDelete();
 		else {
-			this.state.tasks.splice(i,1);
+			tasks.splice(i,1);
 			this.setState({
-				tasks:this.state.tasks
+				tasks: tasks
 			});
 		}
 
 		fetch('/task', {
       method: 'DELETE',
-      body: JSON.stringify({taskid: 'somestring'}), // set taskid
+      body: JSON.stringify(deleteInfo), // set taskid
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -54,6 +58,7 @@ class TimeBlock extends Component {
   }
 
   render() {
+		const user = this.state.tasks[0].user;
 		return (
 			<Card id="cardlook" className="text-left">
 				<Card.Header as="h5">
@@ -69,7 +74,8 @@ class TimeBlock extends Component {
 							<Col>Estimated</Col>
 							<Col>Tags</Col>
 							<Col> 
-								<Change 
+								<Change
+									user={user}
 									task={null}
 									handleUpdate={this.handleUpdate}
               		handleSave={this.handleSave}

@@ -31,13 +31,15 @@ class Tag extends Component {
   handleSave(e) {
     e.preventDefault();
     const tag = this.state.newTag;
+    tag.user = this.props.user;
     this.setState({
       show: false,
       newTag: { name: "", color: "" }
     });
 
     if (tag.name !== "" && tag.color !== "") {
-      fetch('/tags', {
+      // data format: {"user": "", "name": "", "color": ""}
+      fetch('/tag', {
         method: "POST",
         body: JSON.stringify(tag),
         headers: {
@@ -64,7 +66,7 @@ class Tag extends Component {
   handleDelete(i) {
     let tags = this.state.tags;
     const deleteInfo = {
-      name: tags[i].name
+      _id: tags[i]._id
     };
     this.props.handleDelete(tags[i].name);
     tags.splice(i,1);
@@ -72,7 +74,8 @@ class Tag extends Component {
 			tags: tags
     });
     
-    fetch('/tags', {
+    // data format: {_id: ""}
+    fetch('/tag', {
       method: "DELETE",
       body: JSON.stringify(deleteInfo),
       headers: {
@@ -121,17 +124,20 @@ class Tag extends Component {
       color: ""
     });
 
-    const updateInfo = tags[i];
-    fetch('/tags', {
-      method: "UPDATE",
-      body: JSON.stringify(updateInfo),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).catch(err => {
-      console.log(err);
-    });
+    if (this.state.color !== "") {
+      let updateInfo = tags[i];
+      // data format: {_id: "", "name": "", color: ""}
+      fetch('/tag', {
+        method: "PUT",
+        body: JSON.stringify(updateInfo),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+    }
   }
 
   render() {
