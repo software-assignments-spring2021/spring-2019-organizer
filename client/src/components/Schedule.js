@@ -9,9 +9,9 @@ class Schedule extends Component {
       subjectFilter: props.match.params !== {} ? props.match.params.subject : '',
       tagFilter: props.match.params !== {} ? props.match.params.tag : '',
       schedules: {
-      '2019-05-10' : [{ _id: "", classname: 'Agile Software Development', name: 'HW10', duetime: '2019-05-10T08:00', predictiontime: 1.5, tag: [{_id: "", name:'homework',color:'pink'}], difficulty: 2, state: false, starttime: '...'},
-      { _id: "", classname: 'Machine Learning', name: 'Homework 3', duetime: '2019-05-10T08:00', predictiontime: 8, tag: [{_id: "", name:'homework',color:'pink'}, {name:'else',color:'purple'}], difficulty: 5, state: false, starttime: ''}],
-      '2019-05-15': [{ _id: "", classname: 'SSPC', name: 'Final Paper', duetime: '2019-05-15T15:30', predictiontime: 5, tag: [{_id: "", name:'homework',color:'pink'}], difficulty: 4, state: true, starttime: ''}]
+      '2019-05-10' : [{ _id: "", class: "1", classname: 'Agile Software Development', name: 'HW10', duetime: '2019-05-10T08:00', predictiontime: 1.5, tag: [{_id: "", name:'homework',color:'pink'}], difficulty: 2, state: false, starttime: '...'},
+      { _id: "", class: "2", classname: 'Machine Learning', name: 'Homework 3', duetime: '2019-05-10T08:00', predictiontime: 8, tag: [{_id: "", name:'homework',color:'pink'}, {name:'else',color:'purple'}], difficulty: 5, state: false, starttime: ''}],
+      '2019-05-15': [{ _id: "", class: "3", classname: 'SSPC', name: 'Final Paper', duetime: '2019-05-15T15:30', predictiontime: 5, tag: [{_id: "", name:'homework',color:'pink'}], difficulty: 4, state: true, starttime: ''}]
       }
     };
   }
@@ -48,7 +48,6 @@ class Schedule extends Component {
   }
 
   handleUpdate(idx, updateInfo) {
-    console.log(updateInfo);
     const key = updateInfo.duetime.slice(0,10);
     const schedules_old = this.state.schedules;
 
@@ -62,7 +61,6 @@ class Schedule extends Component {
     this.setState({
       schedules: schedules_new
     });
-    console.log(this.state.schedules);
   }
 
   handleSave(saveInfo) {

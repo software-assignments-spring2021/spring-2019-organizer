@@ -48,10 +48,10 @@ class Change extends Component {
     this.props.handleSave(taskData);
     this.setState({ show: false });
     
-    delete taskData.classname;
+    const {classname, ...data} = taskData;
     fetch('/task',{
       method: "POST",
-      body: JSON.stringify(taskData),
+      body: JSON.stringify(data),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -73,10 +73,10 @@ class Change extends Component {
     this.props.handleUpdate(taskData);
     this.setState({ show: false });
 
-    delete taskData.classname;
+    const {classname, ...data} = taskData;
     fetch('/task',{
       method: "PUT",
-      body: JSON.stringify(taskData),
+      body: JSON.stringify(data),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -157,7 +157,7 @@ class Change extends Component {
 
     return (
       <>
-        <button class={this.state.task === null ? "btn btn-primary custom" : "btn btn-light btn-sm"} 
+        <button className={this.state.task === null ? "btn btn-primary custom" : "btn btn-light btn-sm"} 
         disabled={this.props.disabled === null ? false : this.props.disabled} onClick={this.handleShow}>
           {this.state.task === null ? "Add New Task" : <ion-icon name="create"></ion-icon>}
         </button>
@@ -230,7 +230,7 @@ class Change extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <button class="btn btn-primary custom" 
+            <button className="btn btn-primary custom" 
             onClick={this.state.task === null ? this.handleSave: this.handleUpdate}>
               Save
             </button>

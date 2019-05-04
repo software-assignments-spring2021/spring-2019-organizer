@@ -15,7 +15,7 @@ class SideBar extends React.Component {
       rotate: false,
       rotatetags: false,
       subjects: ['Agile Software Development', 'Machine Learning', 'SSPC'],
-      tags: [{user:"m", name:'homework', color: 'pink'}, {user:"m", name:'else', color: 'purple'}, {user:"m", name:'quiz', color: 'blue'}]
+      tags: [{_id: "", user:"m", name:'homework', color: 'pink'}, {_id: "", user:"m", name:'else', color: 'purple'}, {_id: "", user:"m", name:'quiz', color: 'blue'}]
     }
   }
 
@@ -29,10 +29,10 @@ class SideBar extends React.Component {
       });
     })
     .catch(err => {
-        console.log(err);
+      console.log(err);
     });
 
-    // data format: [{"user": "", "task": [], "name": "", "color": ""}]
+    // data format: [{_id: "", "user": "", "task": [], "name": "", "color": ""}]
     fetch('/tag')
     .then(res => res.json())
     .then(data => {
@@ -41,7 +41,7 @@ class SideBar extends React.Component {
       });
     })
     .catch(err => {
-        console.log(err);
+      console.log(err);
     });
   }
   
