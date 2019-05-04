@@ -12,6 +12,7 @@ class Change extends Component {
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleTagChange = this.handleTagChange.bind(this);
+    this.handleClassChange = this.handleClassChange.bind(this);
     this.handleOptionChange = this.handleOptionChange.bind(this);
   
     this.state = {
@@ -19,7 +20,15 @@ class Change extends Component {
       task: props.task,
       option: props.task === null ? '3' : props.task.difficulty.toString(),
       tags: null,
-      newTask: { class: '', name: '', duetime: '', estimated: '', tag: [], difficulty: 3 }
+      newTask: { 
+        user: props.user,
+        name: "",
+        duetime: "",
+        tag: [],
+        class: "",
+        classname: "", 
+        difficulty: 3,
+        predictiontime: "" }
     };
   }
 
@@ -35,12 +44,14 @@ class Change extends Component {
     e.preventDefault();
     const taskData = this.state.newTask;
     taskData.difficulty = parseInt(this.state.option);
-    taskData.estimated = parseInt(taskData.estimated);
+    taskData.predictiontime = parseInt(taskData.predictiontime);
+    this.props.handleSave(taskData);
     this.setState({ show: false });
-
+    
+    const {classname, ...data} = taskData;
     fetch('/task',{
       method: "POST",
-      body: JSON.stringify(taskData),
+      body: JSON.stringify(data),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -52,20 +63,20 @@ class Change extends Component {
     }).catch(err => {
       console.log(err);
     });
-
-    this.props.handleSave(taskData);
   }
 
   handleUpdate(e) {
     e.preventDefault();
     const taskData = this.state.task;
     taskData.difficulty = parseInt(this.state.option);
-    taskData.estimated = parseInt(taskData.estimated);
+    taskData.predictiontime = parseInt(taskData.predictiontime);
+    this.props.handleUpdate(taskData);
     this.setState({ show: false });
 
+    const {classname, ...data} = taskData;
     fetch('/task',{
-      method: "UPDATE",
-      body: JSON.stringify(taskData),
+      method: "PUT",
+      body: JSON.stringify(data),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -77,8 +88,6 @@ class Change extends Component {
     }).catch(err => {
       console.log(err);
     });
-
-    this.props.handleUpdate(taskData);
   }
 
   handleChange(e) {
@@ -96,7 +105,6 @@ class Change extends Component {
   }
 
   handleTagChange(selectedOption) {
-    console.log(`Option selected:`, selectedOption);
     if (this.state.task === null) {
       this.setState(prevState => ({
         newTask: {...prevState.newTask, tag: selectedOption}
@@ -104,6 +112,26 @@ class Change extends Component {
     } else {
       this.setState(prevState => ({
         task: {...prevState.task, tag: selectedOption}
+      }));
+    }
+  }
+
+  handleClassChange(selectedOption) {
+    if (this.state.task === null) {
+      this.setState(prevState => ({
+        newTask: {
+          ...prevState.newTask,
+          class: selectedOption.class,
+          classname: selectedOption.classname
+        }
+      }));
+    } else {
+      this.setState(prevState => ({
+        task: {
+          ...prevState.task, 
+          class: selectedOption.class,
+          classname: selectedOption.classname
+        }
       }));
     }
   }
@@ -122,14 +150,14 @@ class Change extends Component {
         tags.push({
           value: tag.name,
           label: tag.name,
-          color: tag.color
+          _id: tag._id
         });
       }
     }
 
     return (
       <>
-        <button class={this.state.task === null ? "btn btn-primary custom" : "btn btn-light btn-sm"} 
+        <button className={this.state.task === null ? "btn btn-primary custom" : "btn btn-light btn-sm"} 
         disabled={this.props.disabled === null ? false : this.props.disabled} onClick={this.handleShow}>
           {this.state.task === null ? "Add New Task" : <ion-icon name="create"></ion-icon>}
         </button>
@@ -146,11 +174,12 @@ class Change extends Component {
           <Modal.Body>
             <Form onSubmit={e => this.handleSave(e)}>
               <Form.Row>
-                <Form.Group as={Col} md="4" controlId="class">
+                <Form.Group as={Col} md="4" controlId="classname">
                   <Form.Label>Subject </Form.Label>
-                  <Form.Control required name="class" type="text" 
-                  defaultValue={this.state.task === null ? "" : this.state.task.class}
-                  onChange={this.handleChange}/>
+                  <Classes 
+                  classes={this.state.task === null ? null : this.state.task.classname}
+                  handleClassChange={this.handleClassChange}
+                  />
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="name">
                   <Form.Label>Task </Form.Label>
@@ -173,10 +202,10 @@ class Change extends Component {
                   handleTagChange={this.handleTagChange}
                   />
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="estimated">
+                <Form.Group as={Col} md="4" controlId="predictiontime">
                   <Form.Label>Estimated hours to finish </Form.Label>
-                  <Form.Control required name="estimated" type="number" 
-                  defaultValue={this.state.task === null ? "" : this.state.task.estimated}
+                  <Form.Control required name="predictiontime" type="number" 
+                  defaultValue={this.state.task === null ? "" : this.state.task.predictiontime}
                   onChange={this.handleChange}/>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="difficulty">
@@ -201,7 +230,7 @@ class Change extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <button class="btn btn-primary custom" 
+            <button className="btn btn-primary custom" 
             onClick={this.state.task === null ? this.handleSave: this.handleUpdate}>
               Save
             </button>
@@ -217,24 +246,25 @@ class Tags extends Component {
     super(props);
     this.state = {
       options: [
-        { value: 'homework', label: 'homework', color: 'pink' },
-        { value: 'else', label: 'else', color: 'purple' },
-        { value: 'quiz', label: 'quiz', color: 'blue' }
+        { value: 'homework', label: 'homework', _id: '' },
+        { value: 'else', label: 'else', _id: '' },
+        { value: 'quiz', label: 'quiz', _id: '' }
       ],
       selectedOption: props.tags
     }
   }
 
   componentDidMount() {
-    fetch('/tags')
+    // data format: [{_id: "", user": "", "task": [], "name": "", "color": ""}]
+    fetch('/tag')
     .then(res => res.json())
     .then(data => {
       const options = [];
-      for (let tag of data.tags ) {
+      for (let tag of data ) {
         options.push({
           value: tag.name,
           label: tag.name,
-          color: tag.color
+          _id: tag._id
         });
       }
       this.setState({
@@ -249,10 +279,9 @@ class Tags extends Component {
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
     const finalOptions = []
-    for (let option of selectedOption) {
+    for (const option of selectedOption) {
       finalOptions.push({
-        name: option.value,
-        color: option.color
+        _id: option._id
       });
     }
     this.props.handleTagChange(finalOptions);
@@ -268,6 +297,71 @@ class Tags extends Component {
       />
     )
   }
+}
+
+class Classes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: [
+        { value: '1', label: 'Agile Software Development'},
+        { value: '2', label: 'Machine Learning'},
+        { value: '3', label: 'SSPC'}
+      ],
+      selectedOption: props.classes
+    }
+  }
+
+  componentDidMount() {
+    fetch('/class')
+    .then(res => res.json())
+    .then(data => {
+      const options = [];
+      for (const clss of data) {
+        options.push({
+          value: clss._id,
+          label: clss.name,
+        });
+      }
+      this.setState({
+        options: options
+      });
+    })
+    .catch(err => {
+        console.log(err);
+    });
+  }
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    const finalOption = {
+      class: selectedOption.value,
+      classname: selectedOption.label
+    };
+    this.props.handleClassChange(finalOption);
+  }
+
+  render() {
+    let selectedOption = this.state.selectedOption;
+    if (typeof(selectedOption) === "string") {
+      for (const obj of this.state.options) {
+        if (obj.label === selectedOption) {
+          selectedOption = {
+            value: obj.value,
+            label: obj.label
+          }
+        }
+      }
+    }
+    return (
+      <Select
+        value={selectedOption}
+        onChange={this.handleChange}
+        options={this.state.options}
+      />
+    )
+  }
+
 }
 
 export default Change;

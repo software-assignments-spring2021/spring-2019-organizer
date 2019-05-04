@@ -9,23 +9,36 @@ class Schedule extends Component {
       subjectFilter: props.match.params !== {} ? props.match.params.subject : '',
       tagFilter: props.match.params !== {} ? props.match.params.tag : '',
       schedules: {
-      '2019-05-10' : [{ class: 'Agile Software Development', name: 'HW10', duetime: '2019-05-10T08:00', estimated: 1.5, tag: [{name:'homework',color:'pink'}], difficulty: 2, state: false, starttime: '...'},
-      { class: 'Machine Learning', name: 'Homework 3', duetime: '2019-05-10T08:00', estimated: 8, tag: [{name:'homework',color:'pink'}, {name:'else',color:'purple'}], difficulty: 5, state: false}],
-      '2019-05-15': [{ class: 'SSPC', name: 'Final Paper', duetime: '2019-05-15T15:30', estimated: 5, tag: [{name:'homework',color:'pink'}], difficulty: 4, state: true}]
+      '2019-05-10' : [{ _id: "", class: "1", classname: 'Agile Software Development', name: 'HW10', duetime: '2019-05-10T08:00', predictiontime: 1.5, tag: [{_id: "", name:'homework',color:'pink'}], difficulty: 2, state: false, starttime: '...'},
+      { _id: "", class: "2", classname: 'Machine Learning', name: 'Homework 3', duetime: '2019-05-10T08:00', predictiontime: 8, tag: [{_id: "", name:'homework',color:'pink'}, {name:'else',color:'purple'}], difficulty: 5, state: false, starttime: ''}],
+      '2019-05-15': [{ _id: "", class: "3", classname: 'SSPC', name: 'Final Paper', duetime: '2019-05-15T15:30', predictiontime: 5, tag: [{_id: "", name:'homework',color:'pink'}], difficulty: 4, state: true, starttime: ''}]
       }
     };
   }
 
   componentDidMount() {
-    fetch('/schedules')
-    .then(res => res.json())
-    .then(data => {
-      this.setState({
-        tasks: data.tasks
-      });
-    })
-    .catch(err => {
-        console.log(err);
+    Promise.all([
+      fetch('/schedule'),
+      fetch('/class'),
+    ]).then(([schedules, classes]) => {
+      let newSchedules = {};
+      for (const obj of schedules) {
+        const due = obj.duetime.slice(0,10);
+        let class_name;
+        for (const class_obj of classes) {
+          if (class_obj._id === obj.class)
+            class_name = class_obj.name;
+        }
+        due.classname = class_name;
+        if (newSchedules.hasOwnProperty(due)) {
+          newSchedules[due].push(obj);
+        } else {
+          newSchedules[due] = [obj];
+        }
+      }
+      this.setState({ schedules: newSchedules });
+    }).catch((err) => {
+      console.log(err);
     });
   }
     
@@ -35,7 +48,6 @@ class Schedule extends Component {
   }
 
   handleUpdate(idx, updateInfo) {
-    console.log(updateInfo);
     const key = updateInfo.duetime.slice(0,10);
     const schedules_old = this.state.schedules;
 
@@ -49,11 +61,9 @@ class Schedule extends Component {
     this.setState({
       schedules: schedules_new
     });
-    console.log(this.state.schedules);
   }
 
   handleSave(saveInfo) {
-    console.log(saveInfo);
     const key = saveInfo.duetime.slice(0,10);
     const schedules_old = this.state.schedules;
     if (schedules_old.hasOwnProperty(key)) {
@@ -74,7 +84,6 @@ class Schedule extends Component {
     Object.keys(unordered).sort().forEach(function(key) {
       ordered[key] = unordered[key];
     });
-    console.log(ordered);
 
     return ordered;
   }

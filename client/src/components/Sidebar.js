@@ -15,31 +15,33 @@ class SideBar extends React.Component {
       rotate: false,
       rotatetags: false,
       subjects: ['Agile Software Development', 'Machine Learning', 'SSPC'],
-      tags: [{_id:"", name:'homework', color: 'pink'}, {_id:"", name:'else', color: 'purple'}, {_id:"", name:'quiz', color: 'blue'}]
+      tags: [{_id: "", user:"m", name:'homework', color: 'pink'}, {_id: "", user:"m", name:'else', color: 'purple'}, {_id: "", user:"m", name:'quiz', color: 'blue'}]
     }
   }
 
   componentDidMount() {
-    fetch('/classes')
+    // data format: [{"user": "", "task": [], "name": "", "deviation": 0}]
+    fetch('/class')
     .then(res => res.json())
     .then(data => {
       this.setState({
-        subjects: data.classes
+        subjects: data
       });
     })
     .catch(err => {
-        console.log(err);
+      console.log(err);
     });
 
-    fetch('/tags')
+    // data format: [{_id: "", "user": "", "task": [], "name": "", "color": ""}]
+    fetch('/tag')
     .then(res => res.json())
     .then(data => {
       this.setState({
-        tags: data.tags
+        tags: data
       });
     })
     .catch(err => {
-        console.log(err);
+      console.log(err);
     });
   }
   
@@ -59,6 +61,7 @@ class SideBar extends React.Component {
 
   render() {
     const { rotate, subjects, rotatetags, tags } = this.state;
+    const user = tags[0].user;
     return (
       <Router>
         <Nav id="sidebar" variant="pills" className="flex-column" >
@@ -98,6 +101,7 @@ class SideBar extends React.Component {
             )}
             <Nav.Item bsPrefix="submenu">
               <Tag tags={tags}
+              user={user}
               handleSave={this.handleSave}
               handleDelete={this.handleDelete}/>
             </Nav.Item>

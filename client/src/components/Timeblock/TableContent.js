@@ -12,16 +12,27 @@ class TableContent extends Component {
 
     this.state = {
       task: props.task,
-      isStarted: props.task.hasOwnProperty('starttime') ? true : false,
+      isStarted: props.task.starttime !== "" ? true : false,
       isDone: props.task.state
     };
   }
 
   handleStart = () => {
-    this.setState({isStarted: true}); // to delete after connect to db
+    this.setState({isStarted: true}); 
+
+    // set starttime
+    const date = new Date().getDate(); //Current Date
+    const month = new Date().getMonth() + 1; //Current Month
+    const year = new Date().getFullYear(); //Current Year
+    const hours = new Date().getHours(); //Current Hours
+    const min = new Date().getMinutes(); //Current Minutes
+    const starttime = year+"-"+month+"-"+date+"T"+hours+":"+min;
     fetch('/task', {
-      method: 'UPDATE',
-      body: JSON.stringify({taskid: 'somestring'}), // set taskid
+      method: 'PUT',
+      body: JSON.stringify({
+        _id: this.state.task._id,
+        starttime: starttime
+      }),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -45,9 +56,21 @@ class TableContent extends Component {
   
   handleDone = () => {
     this.setState({isDone: true});
-    fetch('/done', {
-      method: 'UPDATE',
-      body: JSON.stringify({taskid: 'somestring'}), // set taskid
+
+    //set finishtime
+    const date = new Date().getDate(); //Current Date
+    const month = new Date().getMonth() + 1; //Current Month
+    const year = new Date().getFullYear(); //Current Year
+    const hours = new Date().getHours(); //Current Hours
+    const min = new Date().getMinutes(); //Current Minutes
+    const finishtime = year+"-"+month+"-"+date+"T"+hours+":"+min;
+    fetch('/task', {
+      method: 'PUT',
+      body: JSON.stringify({
+        _id: this.state.task._id,
+        state: true,
+        finishtime: finishtime
+      }), 
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -66,13 +89,14 @@ class TableContent extends Component {
         duetime = (h-12).toString() + ':' + duetime.slice(3,5);
       indicator = 'PM';
     }
+    const user = this.state.task.user;
     return (
       <Row 
         bsPrefix={this.state.isDone ? "row done" : "row"} 
         style={{ textAlign: 'center' }}
       >
           <Col>
-            <p ref='Subject'>{this.state.task.class}</p>
+            <p ref='Subject'>{this.state.task.classname}</p>
           </Col>
           <Col>
             <p ref='Name'> {this.state.task.name}</p>
@@ -81,7 +105,7 @@ class TableContent extends Component {
             <p ref='Duetime'> { duetime } { indicator } </p>
           </Col>
           <Col>
-            <p ref='Estimated'> {this.state.task.estimated} Hours</p>
+            <p ref='Estimated'> {this.state.task.predictiontime} Hours</p>
           </Col>
           <Col>
             {this.state.task.tag.map((tag, i) => 
@@ -112,7 +136,8 @@ class TableContent extends Component {
               <ion-icon name="checkmark-circle-outline"></ion-icon>
             </Button> 
             <Change 
-              disabled={this.state.isDone} 
+              disabled={this.state.isDone}
+              user={user} 
               task={this.state.task}
               handleUpdate={this.handleUpdate}
               handleSave={this.handleSave}
