@@ -5,7 +5,7 @@ import Schedule from './components/Schedule';
 import Settingpage from './components/Settingpage';
 import Figures from './components/Figures';
 import Timeline from './components/Timeline';
-import Stress from './components/Stress';
+import LiquidGauge from './components/Gauge/LiquidGauge';
 // import {GoogleLogin} from 'react-google-login';
 // import config from './config.json';
 import './css/Timeline.css';
@@ -21,7 +21,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Sidebar />
-          <Stress value={68} />
+          <LiquidGauge value={68} text={false}/>
           <Timeline />
           <Route path="/schedules" component={Schedule} />
           <Route path="/subject/:subject" component={Schedule} />
