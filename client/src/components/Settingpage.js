@@ -20,9 +20,8 @@ class Settingpage extends Component {
       redirect: false, //redirect to schedule page
       loginstate: false, 
       loadingstate: false, //state of spinner
-      loading: false //spinner loader
-      
-
+      loading: false, //spinner loader
+      user: null
 
     })
 
@@ -61,11 +60,6 @@ class Settingpage extends Component {
           this.setState({loading : false});
         }, 700)
         this.setState({loginstate: true})
-        this.state.user = { 
-          name: "", 
-          netid: "", 
-          password: "" 
-        };
         this.setState({user: {name: this.state.nickname, netid: this.state.nickname, password: this.state.nickname}});
         // var this.state.user.name = this.state.nickname;
         // var this.state.user.netid = this.state.netid;
