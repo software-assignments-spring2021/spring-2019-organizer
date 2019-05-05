@@ -6,13 +6,35 @@ import Settingpage from './components/Settingpage';
 import Figures from './components/Figures';
 import Timeline from './components/Timeline';
 import Stress from './components/Stress';
+import Homepage from './components/Homepage';
+import {GoogleLogin} from 'react-google-login';
 import './css/Timeline.css';
 
 //const testprofile = 'https://raw.githubusercontent.com/nyu-software-engineering/organizer/master/documentation/web_mockup_Mark/home_page.png';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { isAutheticated: false, user: null, token: ''};
+  }
+  logout = () => {
+    this.setState({isAuthenticated: false, token: '', user: null})
+  };
+  googleResponse = (e) => {};
+
+  onFailure = (error) => {
+    alert(error);
+  }
 
   render() {
+    <div>
+      <GoogleLogin
+      clientId="XXXXXXXXXX"
+      buttonText="Login"
+      onSuccess={this.googleResponse}
+      onFailure={this.googleResponse}
+      />
+    </div>
     
     return (
       
@@ -21,7 +43,7 @@ class App extends Component {
           <Sidebar />
           <Stress value={68} />
           <Timeline />
-          <Route exact path="/" />
+          <Route exact path="/" component={Homepage}/>
           <Route path="/schedules" component={Schedule} />
           <Route path="/subject/:subject" component={Schedule} />
           <Route path="/tag/:tag" component={Schedule} />
