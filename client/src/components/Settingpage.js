@@ -5,71 +5,29 @@ import SidebarLink from './Sidebar';
 import Loader from 'react-loader-spinner'
 import NavLink from 'react-bootstrap/NavLink';
 import '../css/Setting.css';
-// import user from '/server/src/app.js';
 
 
-
-const UNAME = '123';
-const PWD = '123';
+// const UNAME = '123';
+// const PWD = '123';
 
 class Settingpage extends Component {
   constructor(props){
     super(props);
     this.state=({
-      NickName: "",
-      netid:'123',
-      password:'123',
-      redirect: false,
-      loginstate: false,
-      loadingstate: false,
-      loading: false
+      // nickName: "",
+      // netid:'123',
+      // password:'123',
+      redirect: false, //redirect to schedule page
+      loginstate: false, 
+      loadingstate: false, //state of spinner
+      loading: false //spinner loader
       
 
 
     })
 
   }
-  // postData(`/user`, {netid, password})
-  // .then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
-  // .catch(error => console.error(error));
-
-  // function postData(url = ``, data = {}) {
-  //   // Default options are marked with *
-  //     return fetch(url, {
-  //         method: "POST", // *GET, POST, PUT, DELETE, etc.
-  //         mode: "cors", // no-cors, cors, *same-origin
-  //         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-  //         credentials: "same-origin", // include, *same-origin, omit
-  //         headers: {
-  //             "Content-Type": "application/json",
-  //             // "Content-Type": "application/x-www-form-urlencoded",
-  //         },
-  //         redirect: "follow", // manual, *follow, error
-  //         referrer: "no-referrer", // no-referrer, *client
-  //         body: JSON.stringify(data), // body data type must match "Content-Type" header
-  //     })
-  //     .then(response => response.json()); // parses JSON response into native Javascript objects 
-  // }
-    // componentDidMount(){
-    //   fetch('/schedules')
-    //     .then(res => {
-    //       if (res.status === 200 & this.state.loginstate === true){
-
-    //       }
-    //       else if (res.status === 200 & this.state.loginstate === false){
-    //         //redirect to Settingpage
-    //       }
-    //       else{
-    //         const error = new Error(res.error);
-    //         throw error;
-    //       }
-    //     })
-    //     .catch(err => {
-    //       console.error(err);
-    //       this.setState({ loadingstate: false});
-    //     });
-    // }
-    
+  
     handleNickNameChange = (e) =>{
       this.setState({
         NickName:e.target.value
@@ -96,42 +54,75 @@ class Settingpage extends Component {
     }
 
     handleLogin = (e) =>{
+      this.setState({redirect: true})
+      this.setState({loginstate: true})
       this.setState({loading: true});
         setTimeout(()=>{
           this.setState({loading : false});
-        }, 2000)
+        }, 700)
+        this.setState({loginstate: true})
+        this.state.user = { 
+          name: "", 
+          netid: "", 
+          password: "" 
+        };
+        this.setState({user: {name: this.state.nickname, netid: this.state.nickname, password: this.state.nickname}});
+        // var this.state.user.name = this.state.nickname;
+        // var this.state.user.netid = this.state.netid;
+        // var this.state.user.password = this.state.password;
+
+        fetch('/user',{
+          method: "POST",
+          body: JSON.stringify(this.user),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        }).catch(err => {
+          console.log(err);
+        });
       
-      if(this.state.netid===UNAME&&this.state.password===PWD){
+        
+        // Redirect = this.fetchData
+
+        //if user and password matches
+        return <Redirect to='/schedules'/>
+        
+
+        // else stay on the same page
+      }
+      
+      
    
         // alert("Welcome to Organizer, you have been logged in successfully!"); 
-        // this.setState({loginstate: true})
-        // var userName = this.state.userName;
-        // var pwd = this.state.pwd;
+        
+    //     if(this.state.netid===UNAME&&this.state.password===PWD){
 
-        this.setState({redirect: true})
-        this.setState({loginstate: true})
+    //     this.setState({redirect: true})
+    //     this.setState({loginstate: true})
 
-        if (this.state.redirect & this.state.loginstate) {
-          Redirect = this.fetchData
+    //     if (this.state.redirect & this.state.loginstate) {
+    //       Redirect = this.fetchData
           
           
-          return <Redirect to='/schedules'/>
+    //       return <Redirect to='/schedules'/>
           
 
-        };
+    //     };
        
            
-      }
-      else if(this.state.netid!==UNAME){
-        alert("Fail to log in: Username is wrong!");
-      }
-      else if(this.state.password!==PWD){
-        alert("Fail to log in: Passwoed is wrong! ");
-      }
-      else{
-        alert("Fail to login");
-      }
-    }
+    //   }
+    //   else if(this.state.netid!==UNAME){
+    //     alert("Fail to log in: Username is wrong!");
+    //   }
+    //   else if(this.state.password!==PWD){
+    //     alert("Fail to log in: Passwoed is wrong! ");
+    //   }
+    //   else{
+    //     alert("Fail to login");
+    //   }
+    // }
+    
     
     //handle logout
     handleSign = () =>{
@@ -163,13 +154,7 @@ class Settingpage extends Component {
       
 
     }
-    
-    // if (this.state.redirect) {
-    //   return 
 
-    //   return <SidebarLink to="/schedules" label="Schedules"/>
-
-    // }
 
     else{
     
