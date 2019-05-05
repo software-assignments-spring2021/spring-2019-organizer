@@ -12,6 +12,7 @@ class SideBar extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
 
     this.state = {
+      user: "",
       rotate: false,
       rotatetags: false,
       subjects: ['Agile Software Development', 'Machine Learning', 'SSPC'],
@@ -24,8 +25,12 @@ class SideBar extends React.Component {
     fetch('/class')
     .then(res => res.json())
     .then(data => {
+      const subjects = [];
+      for (const obj of data) {
+        subjects.push(obj.name);
+      }
       this.setState({
-        subjects: data
+        subjects: subjects
       });
     })
     .catch(err => {
@@ -37,7 +42,8 @@ class SideBar extends React.Component {
     .then(res => res.json())
     .then(data => {
       this.setState({
-        tags: data
+        tags: data,
+        user: data[0].user
       });
     })
     .catch(err => {
@@ -60,8 +66,7 @@ class SideBar extends React.Component {
   }
 
   render() {
-    const { rotate, subjects, rotatetags, tags } = this.state;
-    const user = tags[0].user;
+    const { user, rotate, subjects, rotatetags, tags } = this.state;
     return (
       <Router>
         <Nav id="sidebar" variant="pills" className="flex-column" >
@@ -100,7 +105,7 @@ class SideBar extends React.Component {
               </Nav.Item>
             )}
             <Nav.Item bsPrefix="submenu">
-              <Tag tags={tags}
+              <Tag
               user={user}
               handleSave={this.handleSave}
               handleDelete={this.handleDelete}/>

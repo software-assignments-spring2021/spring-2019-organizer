@@ -49,6 +49,7 @@ class Change extends Component {
     this.setState({ show: false });
     
     const {classname, ...data} = taskData;
+    data.tag = data.tag.map(obj=>obj._id);
     fetch('/task',{
       method: "POST",
       body: JSON.stringify(data),
@@ -56,10 +57,6 @@ class Change extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    // }).then(response => {
-    //   response.json().then(data =>{
-    //     console.log("Successful" + data);
-    //   })
     }).catch(err => {
       console.log(err);
     });
@@ -74,6 +71,7 @@ class Change extends Component {
     this.setState({ show: false });
 
     const {classname, ...data} = taskData;
+    data.tag = data.tag.map(obj=>obj._id);
     fetch('/task',{
       method: "PUT",
       body: JSON.stringify(data),
@@ -81,10 +79,6 @@ class Change extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    // }).then(response => {
-    //   response.json().then(data =>{
-    //     console.log("Successful" + data);
-    //   })
     }).catch(err => {
       console.log(err);
     });
@@ -150,6 +144,7 @@ class Change extends Component {
         tags.push({
           value: tag.name,
           label: tag.name,
+          color: tag.color,
           _id: tag._id
         });
       }
@@ -245,17 +240,12 @@ class Tags extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: [
-        { value: 'homework', label: 'homework', _id: '' },
-        { value: 'else', label: 'else', _id: '' },
-        { value: 'quiz', label: 'quiz', _id: '' }
-      ],
+      options: [],
       selectedOption: props.tags
     }
   }
 
   componentDidMount() {
-    // data format: [{_id: "", user": "", "task": [], "name": "", "color": ""}]
     fetch('/tag')
     .then(res => res.json())
     .then(data => {
@@ -264,6 +254,7 @@ class Tags extends Component {
         options.push({
           value: tag.name,
           label: tag.name,
+          color: tag.color,
           _id: tag._id
         });
       }
@@ -281,6 +272,8 @@ class Tags extends Component {
     const finalOptions = []
     for (const option of selectedOption) {
       finalOptions.push({
+        name: option.value,
+        color: option.color,
         _id: option._id
       });
     }
