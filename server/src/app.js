@@ -257,6 +257,20 @@ app.route('/tag')
             }
         });
     })
+    // updating a tag
+    .put(function(req, res) {
+        const tag = req.body;
+        Tag.findOneAndUpdate({ _id: tag._id }, tag, { new: true }, function(err, tag) {
+            if (err) {
+                res.send(err);
+            } else if (!tag) {
+                res.status(404).send("Task not found");
+            } else {
+                // Updating tag list
+                res.send(tag);
+            }
+        });
+    })
     // deleting a tag
     .delete(function(req, res) {
         const tag = req.body;
