@@ -6,8 +6,8 @@ import Settingpage from './components/Settingpage';
 import Figures from './components/Figures';
 import Timeline from './components/Timeline';
 import Stress from './components/Stress';
-import {GoogleLogin} from 'react-google-login';
-import config from './config.json';
+// import {GoogleLogin} from 'react-google-login';
+// import config from './config.json';
 import './css/Timeline.css';
 
 //const testprofile = 'https://raw.githubusercontent.com/nyu-software-engineering/organizer/master/documentation/web_mockup_Mark/home_page.png';
