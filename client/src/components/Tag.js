@@ -13,11 +13,25 @@ class Tag extends Component {
 
     this.state = {
       show: false,
-      tags: props.tags,
-      edit: Array(props.tags.length).fill(0),
+      tags: [],
+      edit: [],
       color: "",
       newTag: { name: "", color: "" }
     }
+  }
+
+  componentDidMount() {
+    fetch('/tag')
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        tags: data,
+        edit: Array(data.length).fill(0)
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 
   handleShow() {
@@ -38,7 +52,6 @@ class Tag extends Component {
     });
 
     if (tag.name !== "" && tag.color !== "") {
-      // data format: {"user": "", "name": "", "color": ""}
       fetch('/tag', {
         method: "POST",
         body: JSON.stringify(tag),
@@ -126,7 +139,6 @@ class Tag extends Component {
 
     if (this.state.color !== "") {
       let updateInfo = tags[i];
-      // data format: {_id: "", "name": "", color: ""}
       fetch('/tag', {
         method: "PUT",
         body: JSON.stringify(updateInfo),
@@ -141,7 +153,7 @@ class Tag extends Component {
   }
 
   render() {
-    const { edit } = this.state;
+    const { tags, edit } = this.state;
     return (
       <>
         <Nav.Link 
@@ -170,7 +182,7 @@ class Tag extends Component {
               <Col></Col>
             </Row>
             
-            {this.state.tags.map((tag,i)=> 
+            {tags.map((tag,i)=> 
               <Row key={i}>
                 <Col md="4">
                   {tag.name}
@@ -231,7 +243,7 @@ class Tag extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <button class="btn btn-primary custom" 
+            <button className="btn btn-primary custom" 
             onClick={this.handleSave}>
               Save
             </button>

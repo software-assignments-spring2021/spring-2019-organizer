@@ -17,19 +17,22 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
-    Promise.all([
-      fetch('/schedule'),
-      fetch('/class'),
-    ]).then(([schedules, classes]) => {
+   
+    const urls = ['/schedule', '/class'];
+    Promise.all(urls.map(u=>fetch(u)))
+    .then(responses =>
+      Promise.all(responses.map(res => res.json()))
+    )
+    .then(texts => {
       let newSchedules = {};
-      for (const obj of schedules) {
+      for (const obj of texts[0]) {
         const due = obj.duetime.slice(0,10);
         let class_name;
-        for (const class_obj of classes) {
+        for (const class_obj of texts[1]) {
           if (class_obj._id === obj.class)
             class_name = class_obj.name;
         }
-        due.classname = class_name;
+        obj.classname = class_name;
         if (newSchedules.hasOwnProperty(due)) {
           newSchedules[due].push(obj);
         } else {
