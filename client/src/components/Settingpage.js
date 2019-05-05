@@ -106,7 +106,7 @@ class Settingpage extends Component {
           
           
     //       return <Redirect to='/schedules'/>
-          
+           
 
     //     };
        
@@ -123,7 +123,7 @@ class Settingpage extends Component {
     //   }
     // }
     
-    
+
     //handle logout
     handleSign = () =>{
       if (this.state.loginstate === false){
