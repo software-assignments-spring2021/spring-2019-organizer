@@ -5,6 +5,7 @@ import SidebarLink from './Sidebar';
 import Loader from 'react-loader-spinner'
 import NavLink from 'react-bootstrap/NavLink';
 import '../css/Setting.css';
+// import user from '/server/src/app.js';
 
 
 
@@ -16,10 +17,11 @@ class Settingpage extends Component {
     super(props);
     this.state=({
       NickName: "",
-      userName:'123',
-      pwd:'123',
+      netid:'123',
+      password:'123',
       redirect: false,
       loginstate: false,
+      loadingstate: false,
       loading: false
       
 
@@ -27,6 +29,46 @@ class Settingpage extends Component {
     })
 
   }
+  // postData(`/user`, {netid, password})
+  // .then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
+  // .catch(error => console.error(error));
+
+  // function postData(url = ``, data = {}) {
+  //   // Default options are marked with *
+  //     return fetch(url, {
+  //         method: "POST", // *GET, POST, PUT, DELETE, etc.
+  //         mode: "cors", // no-cors, cors, *same-origin
+  //         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+  //         credentials: "same-origin", // include, *same-origin, omit
+  //         headers: {
+  //             "Content-Type": "application/json",
+  //             // "Content-Type": "application/x-www-form-urlencoded",
+  //         },
+  //         redirect: "follow", // manual, *follow, error
+  //         referrer: "no-referrer", // no-referrer, *client
+  //         body: JSON.stringify(data), // body data type must match "Content-Type" header
+  //     })
+  //     .then(response => response.json()); // parses JSON response into native Javascript objects 
+  // }
+    // componentDidMount(){
+    //   fetch('/schedules')
+    //     .then(res => {
+    //       if (res.status === 200 & this.state.loginstate === true){
+
+    //       }
+    //       else if (res.status === 200 & this.state.loginstate === false){
+    //         //redirect to Settingpage
+    //       }
+    //       else{
+    //         const error = new Error(res.error);
+    //         throw error;
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.error(err);
+    //       this.setState({ loadingstate: false});
+    //     });
+    // }
     
     handleNickNameChange = (e) =>{
       this.setState({
@@ -59,7 +101,7 @@ class Settingpage extends Component {
           this.setState({loading : false});
         }, 2000)
       
-      if(this.state.userName===UNAME&&this.state.pwd===PWD){
+      if(this.state.netid===UNAME&&this.state.password===PWD){
    
         // alert("Welcome to Organizer, you have been logged in successfully!"); 
         // this.setState({loginstate: true})
@@ -69,7 +111,7 @@ class Settingpage extends Component {
         this.setState({redirect: true})
         this.setState({loginstate: true})
 
-        if (this.state.redirect) {
+        if (this.state.redirect & this.state.loginstate) {
           Redirect = this.fetchData
           
           
@@ -80,10 +122,10 @@ class Settingpage extends Component {
        
            
       }
-      else if(this.state.userName!==UNAME){
+      else if(this.state.netid!==UNAME){
         alert("Fail to log in: Username is wrong!");
       }
-      else if(this.state.pwd!==PWD){
+      else if(this.state.password!==PWD){
         alert("Fail to log in: Passwoed is wrong! ");
       }
       else{
