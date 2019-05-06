@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import TimeBlock from './Timeblock/TimeBlock';
 import '../css/Schedule.css';
+import Timeline from './Timeline';
+import LiquidGauge from './Gauge/LiquidGauge';
+import '../css/Timeline.css';
 
 class Schedule extends Component {
   constructor(props){
@@ -155,7 +158,8 @@ class Schedule extends Component {
 
     return (
       <div className="Schdule">
-
+        <LiquidGauge value={68} text={false}/>
+        <Timeline />
         <h4 id="title"> 
           {subjectFlag ? `Tasks for ${subject}` : ""} 
         </h4>

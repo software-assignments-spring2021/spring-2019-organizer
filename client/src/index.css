@@ -12,9 +12,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-Profile {
-  position: fixed;
-  top: 0px;
-  z-index: 20
-}

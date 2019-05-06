@@ -8,11 +8,8 @@ require('echarts/lib/chart/line');
 
 //simple style
 const linestyle = {
-    left: '30%',
-    position: 'relative',
-    top: '100px',
-    width: '600px',
-    height: '400px'
+    width: '100%',
+    height: '100%'
 }
 
 //a line chart component to analyze the students predicted time vs. actual time

@@ -21,10 +21,8 @@ class BubbleObject {
 
 
 const barStyle = {
-    left: '30%',
-    top: '100px',
-    width: '600px',
-    height: '400px'
+    width: '100%',
+    height: '100%'
 }
 
 //a bubble chart component to analyze the time stamps of 'done time'
