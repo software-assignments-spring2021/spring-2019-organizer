@@ -1,0 +1,13 @@
+.carousel-cell {
+    width: 100%; /* full width */
+    height: 160px; /* height of carousel */
+    margin-right: 10px;
+}
+
+.Figures {
+    width: 80%;
+    height: 60%;
+    position: fixed;
+    right: 0;
+    bottom: 20%
+}

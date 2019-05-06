@@ -4,11 +4,6 @@ import Sidebar from './components/Sidebar';
 import Schedule from './components/Schedule';
 import Settingpage from './components/Settingpage';
 import Figures from './components/Figures';
-import Timeline from './components/Timeline';
-import LiquidGauge from './components/Gauge/LiquidGauge';
-// import {GoogleLogin} from 'react-google-login';
-// import config from './config.json';
-import './css/Timeline.css';
 
 //const testprofile = 'https://raw.githubusercontent.com/nyu-software-engineering/organizer/master/documentation/web_mockup_Mark/home_page.png';
 
@@ -21,8 +16,6 @@ class App extends Component {
       <Router>
         <div className="App">
           <Sidebar />
-          <LiquidGauge value={68} text={false}/>
-          <Timeline />
           <Route path="/schedules" component={Schedule} />
           <Route path="/subject/:subject" component={Schedule} />
           <Route path="/tag/:tag" component={Schedule} />

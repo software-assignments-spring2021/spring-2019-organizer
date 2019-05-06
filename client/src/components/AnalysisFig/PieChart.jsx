@@ -12,11 +12,8 @@ require('echarts/lib/chart/helper/labelHelper');
 
 //simple style
 const piestyle = {
-    left: '30%',
-    position: 'relative',
-    top: '100px',
-    width: '600px',
-    height: '400px'
+    width: '100%',
+    height: '100%'
 }
 
 
@@ -51,8 +48,8 @@ class PieChart extends React.Component{
             visualMap: [{
                 min: 0,
                 max: 30,
-                left: '1%',
-                bottom: '1%',
+                left: '10%',
+                bottom: '10%',
                 inRange: {
                     colorLightness: [0.2, 1],
                 },
