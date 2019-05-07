@@ -12,9 +12,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const auth = require('./oauth');
 const cookieSession = require('cookie-session');
+const cors = require('cors');
 
 //set up middleware
+const corsOption = {
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    exposedHeaders: ['x-auth-token']
+};
 const app = express();
+app.use(cors(corsOption));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -26,6 +34,14 @@ app.use(cookieSession({
 
 // initialize the passport
 app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+    if (req.session.user !== undefined) {
+        res.locals.user = req.session.user;
+    }
+    next();
+});
 
 // configure strategy
 auth(passport);
@@ -39,26 +55,32 @@ app.get('/auth/google', passport.authenticate('google', {
 app.get('/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-        req.session.token = req.user.token;
-        console.log(req.user.email);
-        res.redirect('/');
+        if (!req.user) {
+            return res.send(401, 'User Not Authenticated');
+        } else {
+            req.session.token = req.user.token;
+            req.session.user = req.user.id;
+            req.token = { id: req.user.id };
+            res.setHeader('x-auth-token', req.token);
+            return res.status(200).send(JSON.stringify(req.user));
+        }
     }
 );
 
 // homepage
-app.get('/', (req, res) => {
-    if (req.session.token) {
-        res.cookie('token', req.session.token);
-        res.json({
-            status: 'session cookie set'
-        });
-    } else {
-        res.cookie('token', '');
-        res.json({
-            status: 'session cookie not set'
-        });
-    }
-});
+// app.get('/', (req, res) => {
+//     if (req.session.token) {
+//         res.cookie('token', req.session.token);
+//         res.json({
+//             status: 'session cookie set'
+//         });
+//     } else {
+//         res.cookie('token', '');
+//         res.json({
+//             status: 'session cookie not set'
+//         });
+//     }
+// });
 
 // login router
 app.get('/login', (req, res) => {
@@ -70,7 +92,6 @@ app.get('/logout', (req, res) => {
     // invoking passport logout method to remove req.user
     req.logout();
     req.session = null;
-    res.redirect('/');
 });
 
 // router for handling task CRUD
