@@ -2,6 +2,118 @@
 //We have level of difficulties for each people
 // we have prediction time of people for each task
 
+// Real analysis 
+
+require('./db');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const Class = mongoose.model('Class');
+const Task = mongoose.model('Task');
+const Tag = mongoose.model('Tag');
+class SD_Calculater{
+    constructor(user) {
+        this.user = user;
+        this.user_class_list = user.class;
+        this.user_task_list = user.task;
+        this.user_sd = user.allDeviation;
+        this.class_sd_dic = {};
+        this.potentialerror = [];
+    } 
+
+    // generate the original class sd for ths chosen class
+    generate_class_sd(class_obj){
+        let sd_class = 0;
+        let n = 1;
+        for (let key in class_obj.task){
+            if(key.actualtime !== 0 && key.predictiontime !== 0){
+            sd_class = (key.actualtime / key.predictiontime) + sd_class * (n - 1);
+            sd_class = sd_class / n;
+            n += 1;
+            }
+        }
+        sd_class = Math.round(sd_class * 100) / 100;
+        const newclass = new Class({
+            name: class_obj.name,
+            user: class_obj.user, 
+            task: class_obj.task,
+            deviation: sd_class
+        });
+        Class.findOneAndUpdate({ _id : class_obj._id },newclass, (err,curclass) => {
+            // send back JSON (for example, updated objects... or simply a message saying that this succeeded)
+            // ...if error, send back an error message ... optionally, set status to 500
+            if(err){
+                console.log("err in updating class sd")
+            }else{
+                User.findOneAndUpdate({ netid: class_obj.user }, { $push: { class: curclass._id } });
+            }
+        });
+        this.class_sd_dic[class_obj] = sd_class;
+    };
+
+    
+    // generate the original user sd based on the raw input
+    generate_user_sd(){
+        let sd_user = 0;
+        let totalnum = 0;
+        for (let class_cur in this.user.class){
+            this.generate_class_sd(class_cur);
+        }
+        for (let key in this.user.class){
+            if(key.actualtime !== 0 && key.predictiontime !==0){
+             sd_user = key.deviation * key.task.length + sd_user * totalnum;
+             totalnum = totalnum + key.task.length
+             sd_user = sd_user / totalnum
+            }
+        }
+        const newUser = new User({
+            name: this.user.name,
+            netid: this.user.netid,
+            password: this.user.password,
+            class: this.user.class,
+            task: this.user.task,
+            tag: this.user.tag,
+            tip: this.user.tip,
+            allDeviation: sd_user,
+            workingTime: [],
+        });
+        User.findOneAndUpdate({ _id : this.user._id }, newUser, (err,curuser) => {
+            // send back JSON (for example, updated objects... or simply a message saying that this succeeded)
+            // ...if error, send back an error message ... optionally, set status to 500
+            if(err){
+                console.log("user sd update error")
+            }else{
+                console.log("success in user sd update")
+            }
+        });
+        this.user_sd = sd_user;
+    }; 
+
+// if the prediction is too far away from actual
+    detect_error(){
+        for(let key in this.user_task_list){
+            if(key.actualtime > key.predictiontime * 3){
+                this.potentialerror.push(key)
+            }
+        }
+    }
+ 
+   generate_user_prediction(class_chosen,userpredict){
+        if(class_chosen.task.length > 1){
+            consolel.log("Our suggest finish time");
+            let prediction = this.class_sd_dic[class_chosen] * userpredict;
+            return prediction
+        }else{
+            console.log("class_chosen does not exist yet");
+            console.log("We will use the user sd for you temporirally");
+            let prediction = userpredict * this.user_sd;
+            consolel.log("Our suggest finish time");
+            console.log(prediction);
+            return prediction
+        }
+    }
+
+}
+
 //For analysis
 //sample 1
 const dic_predictime_class1 = {
@@ -139,126 +251,14 @@ predictime_list = [dic_predictime_class1,dic_predictime_class2,dic_predictime_cl
 realtime_list = [dic_realtime_class1,dic_realtime_class2,dic_predictime_class3];
 final_list = gather_class_sd(predictime_list,realtime_list);
 
-console.log((standard_deviation_class(dic_realtime_class1,dic_predictime_class1)));
-console.log((standard_deviation_class(dic_realtime_class2,dic_predictime_class2)));
-console.log((standard_deviation_class(dic_realtime_class3,dic_predictime_class3)));
-console.log(standard_deviation_user(final_list));
+// console.log((standard_deviation_class(dic_realtime_class1,dic_predictime_class1)));
+// console.log((standard_deviation_class(dic_realtime_class2,dic_predictime_class2)));
+// console.log((standard_deviation_class(dic_realtime_class3,dic_predictime_class3)));
+// console.log(standard_deviation_user(final_list));
 
 // Creational design pattern: Prototype
 // It is standard deviation calculator for prediction model
 // We will have deviation for each class of the user and user as well.
-
-
-require('./db');
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
-const Class = mongoose.model('Class');
-const Task = mongoose.model('Task');
-const Tag = mongoose.model('Tag');
-class SD_Calculater{
-
-    constructor(user) {
-        this.user = user;
-        this.user_class_list = user.class;
-        this.user_task_list = user.task;
-        this.user_sd = user.allDeviation;
-        this.class_sd_dic = {};
-        this.potentialerror = [];
-    } 
-
-    // generate the original class sd for ths chosen class
-    generate_class_sd(class_obj){
-        let sd_class = 0;
-        let n = 1;
-        for (let key in class_obj.task){
-            if(key.actualtime !== 0 && key.predictiontime !== 0){
-            sd_class = (key.actualtime / key.predictiontime) + sd_class * (n - 1);
-            sd_class = sd_class / n;
-            n += 1;
-            }
-        }
-        sd_class = Math.round(sd_class * 100) / 100;
-        const newclass = new Class({
-            name: class_obj.name,
-            user: class_obj.user, 
-            task: class_obj.task,
-            deviation: sd_class
-        });
-        Class.findOneAndUpdate({ _id : class_obj._id },newclass, (err,curclass) => {
-            // send back JSON (for example, updated objects... or simply a message saying that this succeeded)
-            // ...if error, send back an error message ... optionally, set status to 500
-            if(err){
-                console.log("err in updating class sd")
-            }else{
-                User.findOneAndUpdate({ netid: class_obj.user }, { $push: { class: curclass._id } });
-            }
-        });
-        this.class_sd_dic[class_obj] = sd_class;
-    };
-
-    
-    // generate the original user sd based on the raw input
-    generate_user_sd(){
-        let sd_user = 0;
-        let totalnum = 0;
-        for (let class_cur in this.user.class){
-            this.generate_class_sd(class_cur);
-        }
-        for (let key in this.user.class){
-            if(key.actualtime !== 0 && key.predictiontime !==0){
-             sd_user = key.deviation * key.task.length + sd_user * totalnum;
-             totalnum = totalnum + key.task.length
-             sd_user = sd_user / totalnum
-            }
-        }
-        const newUser = new User({
-            name: this.user.name,
-            netid: this.user.netid,
-            password: this.user.password,
-            class: this.user.class,
-            task: this.user.task,
-            tag: this.user.tag,
-            tip: this.user.tip,
-            allDeviation: sd_user,
-            workingTime: [],
-        });
-        User.findOneAndUpdate({ _id : this.user._id }, newUser, (err,curuser) => {
-            // send back JSON (for example, updated objects... or simply a message saying that this succeeded)
-            // ...if error, send back an error message ... optionally, set status to 500
-            if(err){
-                console.log("user sd update error")
-            }else{
-                console.log("success in user sd update")
-            }
-        });
-        this.user_sd = sd_user;
-    }; 
-
-// if the prediction is too far away from actual
-    detect_error(){
-        for(let key in this.user_task_list){
-            if(key.actualtime > key.predictiontime * 3){
-                this.potentialerror.push(key)
-            }
-        }
-    }
- 
-   generate_user_prediction(class_chosen,userpredict){
-        if(class_chosen.task.length > 1){
-            consolel.log("Our suggest finish time");
-            let prediction = this.class_sd_dic[class_chosen] * userpredict;
-            return prediction
-        }else{
-            console.log("class_chosen does not exist yet");
-            console.log("We will use the user sd for you temporirally");
-            let prediction = userpredict * this.user_sd;
-            consolel.log("Our suggest finish time");
-            console.log(prediction);
-            return prediction
-        }
-    }
-
-}
 
 
 test_user = {
