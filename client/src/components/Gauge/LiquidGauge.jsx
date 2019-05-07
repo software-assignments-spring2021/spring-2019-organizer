@@ -4,15 +4,80 @@ const d3 = require('d3');
 //simple style for the liquid gauge
 const style = {
     position: 'absolute',
-    left: '80%',
-    marginTop: '10px'
+    left: '88%',
+    marginTop: '2%'
 }
 
 class LiquidGauge extends React.Component {
     constructor(props) {
         super(props);
         this.loadDefault = this.loadDefault.bind(this);
+        this.pred = this.pred.bind(this);
+        this.state = {
+            schedules: {}
+        };
     }
+
+    componentDidMount() {
+        const urls = ['/schedule', '/class'];
+        Promise.all(urls.map(u=>fetch(u)))
+        .then(responses =>
+        Promise.all(responses.map(res => res.json()))
+        )
+        .then(texts => {
+        let newSchedules = {};
+        for (const obj of texts[0]) {
+            const due = obj.duetime.slice(0,10);
+            let class_name;
+            for (const class_obj of texts[1]) {
+            if (class_obj._id === obj.class)
+                class_name = class_obj.name;
+            }
+            obj.classname = class_name;
+            if (newSchedules.hasOwnProperty(due)) {
+            newSchedules[due].push(obj);
+            } else {
+            newSchedules[due] = [obj];
+            }
+        }
+            this.setState({ schedules: this.sortByDate(newSchedules) });
+            this.loadLiquidGauge('stress', this.pred(), this.props.text);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    pred() {
+        const l1 = [];
+        const l2 = [];
+        const l = [];
+        for(const key of Object.keys(this.state.schedules)){
+            console.log(key + 'T00:00:00.000-04:00');
+            l2.push(new Date(key + 'T00:00:00.000-04:00'));
+            l1.push(key);
+        }
+        const f = l2[0];
+        let j = 0;
+        for(let i = 0; i < 7; ++i) {
+            if(l2[j].toDateString() === f.toDateString()) {
+                l.push(l1[j]);
+                ++j;
+            }
+            f.setDate(f.getDate() + 1);
+        }
+        //workload computation
+        let wl = 0;
+        //console.log(l);
+        for(const d of l) {
+            for(const li of this.state.schedules[d]) {
+                wl += li.difficulty;
+            }
+        }
+        //console.log(wl);
+        return wl * 12;
+    }
+    
+
     loadDefault = function() {
         //adding linear scaler to change the color based on the stress level
         const ls = d3.scaleLinear()
@@ -43,9 +108,20 @@ class LiquidGauge extends React.Component {
         };
     }
 
+    sortByDate(unordered) {
+        const ordered = {};
+    
+        Object.keys(unordered).sort().forEach(function(key) {
+          ordered[key] = unordered[key];
+        });
+    
+        return ordered;
+      }
+
     loadLiquidGauge(eleid, value, text, myconfig) {
         const config = myconfig || this.loadDefault();
         const gauge = d3.select('#' + eleid);
+        //console.log(value);
         const radius = Math.min(parseInt(gauge.style("width")),
             parseInt(gauge.style("height"))) / 2;
         let locationX = parseInt(gauge.style("width")) / 2 - radius;
@@ -226,9 +302,6 @@ class LiquidGauge extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.loadLiquidGauge('stress', this.props.value, this.props.text);
-    }
     render() {
         return (
             <svg id='stress' width='70' height='70' style={style}></svg>
