@@ -47,11 +47,13 @@ class Timeline extends React.Component{
           l2.push(new Date(key + 'T00:00:00.000-04:00'));
           l1.push(key);
       }
-      const f = l2[0];
+      let f = new Date();
+      f.setDate(f.getDate() - 1);
       let j = 0;
+      while(l2[j] < f && j < l2.length) {
+        j += 1;
+      }
     for(let i = 0; i < 14; ++i) {
-        // console.log(l2[j].toDateString());
-        // console.log(f.toDateString());
         if(l2[j].toDateString() === f.toDateString()) {
             this.dots[i].current.update(l2[j].toDateString(), 
                 this.gethwtext(this.state.schedules[l1[j]]));

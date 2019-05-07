@@ -34,6 +34,7 @@ class BubbleChart extends React.Component{
         this.colors = [
             'rgba(251, 118, 123, 0.7)', 
             'rgba(129, 227, 238, 0.7)',
+            'rgba(207, 68, 114, 0.7)'
         ]
         //a variable size array of input courses
         this.series = []
@@ -71,7 +72,8 @@ class BubbleChart extends React.Component{
                     lineStyle: {
                         type: 'dashed'
                     }
-                }
+                },
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
             },
             yAxis: {
                 splitLine: {
