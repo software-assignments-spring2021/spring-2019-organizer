@@ -11,6 +11,19 @@ const linestyle = {
     width: '100%',
     height: '100%'
 }
+const linedivstyle = {
+    height: '70%'
+}
+
+
+//style for text
+const textStyle = {
+    position: 'absolute',
+    height: '10%',
+    bottom: '0',
+    fontWeight: 'bold'
+}
+
 
 //a line chart component to analyze the students predicted time vs. actual time
 class LineChart extends React.Component{
@@ -55,8 +68,15 @@ class LineChart extends React.Component{
     }
     render() {
         return (
-            <div className="linediv" style={linestyle}>
+            <div style={linedivstyle}>
+            
+            <div className="linediv" style={linestyle}>       
             </div>
+            <span className="bubble" style={textStyle}> Blue line is the estimated time spent on your assignments during the day. 
+            Red line is the actual time spent on your assignments during the day.</span>
+            </div>
+
+
         )
     }
 }

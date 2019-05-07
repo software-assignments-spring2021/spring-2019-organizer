@@ -7,10 +7,22 @@ require('echarts/lib/component/title');
 require('echarts/lib/chart/bar');
 require('echarts/lib/component/legend');
 
-const barStyle = {
+const BarStyle = {
     width: '100%',
     height: '100%'
 }
+
+const bardivstyle = {
+    height: '70%'
+}
+const textStyle = {
+    position: 'absolute',
+    height: '10%',
+    bottom: '0',
+    fontWeight: 'bold'
+    
+}
+
 
 //a bar chart component
 class Barchart extends React.Component{
@@ -64,9 +76,15 @@ class Barchart extends React.Component{
 
     render() {
         return (
-            <div className="chartdiv" style={barStyle}>
+        <div style={bardivstyle}>
+
+            <div className="chartdiv" style={BarStyle}>       
             </div>
+            <span className="bubble" style={textStyle}> Estimated and actual time spent on each assignments </span>
+        </div>
         )
+        
+
     }
 }
 

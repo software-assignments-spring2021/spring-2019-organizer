@@ -20,10 +20,22 @@ class BubbleObject {
 }
 
 
-const barStyle = {
+const BubbleStyle = {
     width: '100%',
     height: '100%'
 }
+
+const Bubbledivstyle = {
+    height: '70%'
+}
+const textStyle = {
+    position: 'absolute',
+    height: '10%',
+    bottom: '0',
+    fontWeight: 'bold'
+}
+
+
 
 //a bubble chart component to analyze the time stamps of 'done time'
 class BubbleChart extends React.Component{
@@ -88,8 +100,18 @@ class BubbleChart extends React.Component{
 
     render() {
         return (
-            <div className="bubblediv" style={barStyle}>
+        <div style={Bubbledivstyle}>
+
+            
+            <div className="bubblediv" style={BubbleStyle}>       
             </div>
+            <span className="bubble" style={textStyle}> The bigger the circles are, the more diffcult the tasks are. 
+            Horizontal Axis represent due date throughout the week.
+            Vertical Axis represent due time during the day. </span>
+        </div>
+        
+
+            
         )
     }
 }

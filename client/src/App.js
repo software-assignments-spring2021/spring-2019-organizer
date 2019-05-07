@@ -26,7 +26,7 @@ class App extends Component {
             mode: 'cors',
             cache: 'default'
         };
-        fetch('http://localhost:5000/auth/google', options).then(r => {
+        fetch('/auth/google', options).then(r => {
             const token = r.headers.get('x-auth-token');
             r.json().then(user => {
               console.log(token);
@@ -45,7 +45,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Sidebar />
+          {/* <Sidebar /> */}
           
           <Route exact path="/" render={() => {
             return <Login auth={this.state.isAuthenticated} res={this.googleResponse} onFailure={this.onFailure} />;

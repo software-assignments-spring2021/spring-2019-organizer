@@ -11,9 +11,21 @@ require('echarts/lib/chart/pie/labelLayout');
 require('echarts/lib/chart/helper/labelHelper');
 
 //simple style
-const piestyle = {
+const piedivstyle = {
     width: '100%',
     height: '100%'
+}
+
+const piestyle = {
+    height: '70%'
+}
+
+//style for text
+const textStyle = {
+    position: 'absolute',
+    height: '10%',
+    bottom: '0',
+    fontWeight: 'bold'
 }
 
 
@@ -99,8 +111,17 @@ class PieChart extends React.Component{
     }
     render() {
         return (
-            <div className="piediv" style={piestyle}>
+        <div style={piedivstyle}>
+            
+            <div className="piediv" style={piestyle}>       
             </div>
+            <span className="bubble" style={textStyle}> The big pie represents your workloads from all classes 
+            The portion of the pie represent your specific workloads frome each class. </span>
+        </div>
+            
+
+            
+            
         )
     }
 }
