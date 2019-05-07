@@ -41,12 +41,12 @@ class Schedule extends Component {
           newSchedules[due] = [obj];
         }
       }
-      this.setState({ schedules: newSchedules });
+      this.setState({ schedules: this.sortByDate(newSchedules) });
     }).catch((err) => {
       console.log(err);
     });
   }
-    
+
   handleDelete(key) {
     delete this.state.schedules[key];
     this.setState({schedules: this.state.schedules});
@@ -158,7 +158,7 @@ class Schedule extends Component {
     return (
       <div className="Schedule">
         <LiquidGauge value={68} text={false}/>
-        <Timeline />
+        <Timeline value={this.state.schedules}/>
         <h4 id="title"> 
           {subjectFlag ? `Tasks for ${subject}` : ""} 
         </h4>
@@ -167,6 +167,7 @@ class Schedule extends Component {
           {tagFlag ? `Tasks for ${tag}` : ""} 
         </h4>
         <div className="block">
+
         { Object.keys(schedules).map((key, index) =>
             <TimeBlock 
             key={key}
