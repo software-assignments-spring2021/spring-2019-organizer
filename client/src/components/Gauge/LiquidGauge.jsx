@@ -3,7 +3,7 @@ const d3 = require('d3');
 
 //simple style for the liquid gauge
 const style = {
-    position: 'relative',
+    position: 'absolute',
     left: '80%',
     marginTop: '10px'
 }

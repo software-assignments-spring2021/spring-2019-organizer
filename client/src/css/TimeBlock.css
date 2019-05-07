@@ -1,8 +1,8 @@
 #cardlook {
-  margin-top: 10px;
-  margin-left: 22.5%;
+  margin-top: 30px;
   margin-bottom: 20px;
-  width: 75%;
+  width: 100%;
+  left: 20%;
 }
 
 .done {
@@ -12,4 +12,11 @@
 .custom {
   border: #57068C;
   background-color: #57068C;
+}
+
+.block {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  width: 75%;
 }
