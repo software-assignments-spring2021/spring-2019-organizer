@@ -5,4 +5,5 @@
 node_modules
 coverage
 server/crawler/info.py
+__pycache__
 *~
