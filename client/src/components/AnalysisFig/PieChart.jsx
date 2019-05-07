@@ -36,12 +36,12 @@ class PieChart extends React.Component{
         });
         const myname = this.props.name;
         myChart.setOption({
-            backgroundColor: '#2c343c',
+            backgroundColor: '#fff',
             title: {
                 text: myname,
                 left: 'center',
                 textStyle: {
-                    color: 'rgb(255, 255, 255)'
+                    color: '#2c343c'
                 } //not working currently
             },
             tooltip: {},
@@ -80,14 +80,14 @@ class PieChart extends React.Component{
                 label: {
                     normal: {
                         textStyle: {
-                            color: 'rgb(255, 255, 255)'
+                            color: '#2c343c'
                         }
                     }
                 },
                 labelLine: {
                     normal: {
                         lineStyle: {
-                            color: 'rgb(255, 255, 255)'
+                            color: '#2c343c'
                         },
                         smooth: 0.2,
                         length: 10,

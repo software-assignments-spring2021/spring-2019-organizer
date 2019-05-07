@@ -9,20 +9,25 @@ require('flickity');
 //sample test data:
 const piedata = [
   {name: 'Agile', value: 12},//value in hour
-  {name: 'Operating System', value: 7},
-  {name: 'Machine Learning', value: 17}
+  {name: 'AIT', value: 7},
+  {name: 'Graphics', value: 17}
 ];
 
 //testing data
 const mydata = [
     //input format: [day, hour, workload, hw name, course]
-    [[1, 11, 4, 'lab1', 'Operating Systems'], 
-    [1, 11.6, 3, 'lab2', 'Operating Systems']],
-    [[3, 6, 3, 'quiz', 'Agile'],
-    [7, 7, 2, 'quiz', 'Agile']]
+    [['Mon', 11, 4, 'Quiz', 'AIT'], 
+    ['Mon', 11.6, 3, 'Quiz', 'AIT']],
+    [['Wed', 6, 3, 'asssignment', 'Agile'],
+    ['Sun', 7, 2, 'assignment', 'Agile'],
+    ['Sat', 8, 2, 'assignment', 'Agile']],
+    [['Tue', 23, 4, 'homework', 'Graphics'], 
+    ['Mon', 20, 3, 'homework', 'Graphics'],
+    ['Wed', 19, 4, 'homework', 'Graphics'], 
+    ['Fri', 14, 7, 'homework', 'Graphics']]
   ];
   
-  const mycourses = ['Operating Systems', 'Agile'];
+  const mycourses = ['AIT', 'Agile', 'Graphics'];
   
   //figures to analysis a student's performance
   class Figures extends Component {
@@ -41,12 +46,12 @@ const mydata = [
     render() {
       return (
         <div className="Figures" data-flickity='{ "wrapAround": true }' >
-          <Barchart className='carousel-cell' xdata={['hw1', 'hw2', 'hw3', 'hw4', 'hw5']}
-              pdata={[5, 20, 30, 50, 20]} adata={[10, 20, 30, 45, 18]} name='Example'/>
+          <Barchart className='carousel-cell' xdata={['Agile', 'Quiz 6', 'Problem Set 5', 'homework', 'Budgets']}
+              pdata={[5, 20, 30, 50, 20]} adata={[10, 20, 30, 45, 18]} name='Predicted vs. Actual'/>
           <LineChart className='carousel-cell' predTime={[0, 16, 19, 14, 15]}
-              actualTime={[20, 21, 11, 18, 20]}/>
-          <BubbleChart className='carousel-cell' courses={mycourses} data={mydata} name='bubblechart'/> 
-          <PieChart className='carousel-cell' name='pie chart' data={piedata}/>
+              actualTime={[20, 21, 11, 18, 20]} name='Predicted vs. Actual'/>
+          <BubbleChart className='carousel-cell' courses={mycourses} data={mydata} name='Finishing Time'/> 
+          <PieChart className='carousel-cell' name='Predicted Intensity for Next Week' data={piedata}/>
         </div>
       );
     }

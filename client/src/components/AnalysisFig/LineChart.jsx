@@ -28,6 +28,12 @@ class LineChart extends React.Component{
         const predTime = this.props.predTime;
         const actualTime = this.props.actualTime;
         myChart.setOption({
+            title: {
+                text: this.props.name
+            },
+            legend: {
+                data: ['predicted', 'actual']
+            },
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
@@ -38,17 +44,19 @@ class LineChart extends React.Component{
                 type: 'value'
             },
             series: [{
+                name: 'predicted',
                 data: predTime,
                 type: 'line',
                 areaStyle: {
-                    color: 'rgba(128, 128, 128, 0.5)'
+                    color: 'rgba(140, 160, 215, 0.5)'
                 }
             },
             {
+                name: 'actual',
                 data: actualTime,
                 type: 'line',
                 areaStyle: {
-                    color: 'rgba(128, 128, 128, 0.5)'
+                    color: 'rgba(161, 77, 160, 0.5)'
                 }
             }]
         });
