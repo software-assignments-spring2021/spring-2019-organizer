@@ -5,17 +5,18 @@ import Schedule from './components/Schedule';
 import Settingpage from './components/Settingpage';
 import Figures from './components/Figures';
 import Timeline from './components/Timeline';
-import Stress from './components/Stress';
+// import Stress from './components/Stress';
 import {GoogleLogin} from 'react-google-login';
 import config from './config.json';
 import './css/Timeline.css';
+import { constants } from 'zlib';
 
 //const testprofile = 'https://raw.githubusercontent.com/nyu-software-engineering/organizer/master/documentation/web_mockup_Mark/home_page.png';
 
 class App extends Component {
   constructor() {
     super();
-    this.state = { isAutheticated: false, user: null, token: ''};
+    this.state = { isAuthenticated: false, user: null, token: ''};
   }
   logout = () => {
     this.setState({isAuthenticated: false, token: '', user: null})
@@ -32,8 +33,9 @@ class App extends Component {
         fetch('http://localhost:5000/auth/google', options).then(r => {
             const token = r.headers.get('x-auth-token');
             r.json().then(user => {
+              console.log(token);
                 if (token) {
-                    this.setState({isAuthenticated: true, user, token})
+                  this.setState({isAuthenticated: true, user, token})
                 }
             });
         })
@@ -44,31 +46,14 @@ class App extends Component {
   }
 
   render() {
-    const content = !!this.state.isAuthenticated ?
-      (
-      <Redirect to="/schedules"/>
-      ) : 
-      (
-        <div>
-          <GoogleLogin
-          clientId={config.GOOGLE_CLIENT_ID}
-          buttonText="Login"
-          onSuccess={this.googleResponse}
-          onFailure={this.onFailure}
-          />
-      </div>
-
-      )
-    
-    
     return (
-      
       <Router>
         <div className="App">
-          <Sidebar />
-          <Stress value={68} />
-          <Timeline />
-          <Route exact path="/" render={() => ({content})}/>
+          { this.state.isAuthenticated ? <Sidebar /> : ""}
+          
+          <Route exact path="/" render={() => {
+            return <Login auth={this.state.isAuthenticated} res={this.googleResponse} onFailure={this.onFailure} />;
+          }}/>
           <Route path="/schedules" component={Schedule} />
           <Route path="/subject/:subject" component={Schedule} />
           <Route path="/tag/:tag" component={Schedule} />
@@ -81,5 +66,19 @@ class App extends Component {
   }
 }
 
+function Login(props) {
+  return (props.auth ?
+    <Redirect to="/schedules"/>
+    : 
+    <div>
+      <GoogleLogin
+        clientId={config.GOOGLE_CLIENT_ID}
+        buttonText="Login"
+        onSuccess={props.res}
+        onFailure={props.onFailure}
+      />
+    </div>
+    )
+}
 
 export default App;
