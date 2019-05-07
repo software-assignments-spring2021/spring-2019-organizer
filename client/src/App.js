@@ -4,12 +4,8 @@ import Sidebar from './components/Sidebar';
 import Schedule from './components/Schedule';
 import Settingpage from './components/Settingpage';
 import Figures from './components/Figures';
-import Timeline from './components/Timeline';
-// import Stress from './components/Stress';
 import {GoogleLogin} from 'react-google-login';
 import config from './config.json';
-import './css/Timeline.css';
-import { constants } from 'zlib';
 
 //const testprofile = 'https://raw.githubusercontent.com/nyu-software-engineering/organizer/master/documentation/web_mockup_Mark/home_page.png';
 
