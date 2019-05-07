@@ -409,7 +409,7 @@ app.route("/user")
     .put(function (req, res) {
         // query is a user object
         const user = req.query;
-        User.findOneAndUpdate({ _id : user._id },user, (err,curuser) => {
+        User.findOneAndUpdate({netid : user.netid },user, (err,curuser) => {
             // send back JSON (for example, updated objects... or simply a message saying that this succeeded)
             // ...if error, send back an error message ... optionally, set status to 500
             if(err){
