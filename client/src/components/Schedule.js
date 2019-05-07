@@ -3,7 +3,6 @@ import TimeBlock from './Timeblock/TimeBlock';
 import '../css/Schedule.css';
 import Timeline from './Timeline';
 import LiquidGauge from './Gauge/LiquidGauge';
-import '../css/Timeline.css';
 
 class Schedule extends Component {
   constructor(props){
@@ -155,9 +154,9 @@ class Schedule extends Component {
       tagFlag = true;
       tag = this.state.tagFilter;
     }
-
+    
     return (
-      <div className="Schdule">
+      <div className="Schedule">
         <LiquidGauge value={68} text={false}/>
         <Timeline />
         <h4 id="title"> 
@@ -167,7 +166,7 @@ class Schedule extends Component {
         <h4 id="title"> 
           {tagFlag ? `Tasks for ${tag}` : ""} 
         </h4>
-        
+        <div className="block">
         { Object.keys(schedules).map((key, index) =>
             <TimeBlock 
             key={key}
@@ -178,7 +177,8 @@ class Schedule extends Component {
             handleSave={this.handleSave.bind(this)}
             />
         ) }
-      </div>
+        </div>
+        </div>
     );
   }
 }

@@ -1,12 +1,36 @@
-.Timeline {
-    position: relative;
-    left: 20%;
-	display: block;
-	margin: 100px;
-	height: 4px;
-	background: #9b2;
+.lineDiv {
+	position: absolute;
+	width: 100%;
+	height: 50%;
+	margin-top: 2%;
 }
-.Timeline::before {
+
+.flickity-button {
+	background: transparent;
+}
+
+.Timeline .flickity-viewport {
+	position: absolute;
+	height: 100%;
+	width: 98%;
+}
+
+.Timeline .carousel-cell {
+    width: 23%; /* full width */
+    height: 100%; /* height of carousel */
+    margin-right: 10px;
+}
+
+.line {
+    position: absolute;
+	display: block;
+	height: 4px;
+	width: 70%;
+	top: 55%;
+	right: 4%;
+	background: #9d79bc;
+}
+.line::before {
     content: "";
 	position: absolute;
 	top: -8px;
@@ -14,10 +38,10 @@
 	width: 0;
 	height: 0;
     border-radius: 50%;
-	border: 10px solid #9b2;
+	border: 10px solid #9d79bc;
 }
 
-.Timeline::after {
+.line::after {
 	content: "";
 	position: absolute;
 	top: -8px;
@@ -25,31 +49,38 @@
 	width: 0;
 	height: 0;
   border-radius: 10px;
-	border: 10px solid #9b2;
+	border: 10px solid #9d79bc;
 }
-.Timeline::before {
+.line::before {
 	left: -5px;
 }
-.Timeline::after {
+.line::after {
 	right: -10px;
 	border: 10px solid transparent;
 	border-right: 0;
-	border-left: 20px solid #9b2;
+	border-left: 20px solid #9d79bc;
     border-radius: 3px;
 }
 
 /* ---- Timeline elements ---- */
+.Timeline {
+	position: absolute;
+	width: 68%;
+	height: 100%;
+	right: 5%;
+	top: 5%;
+	padding: 10px;
+}
 
-.Timeline li {
-    list-style: none;
-	position: relative;
-	top: -77px;
-	float: left;
+.timenode {
+	position: absolute;
+	top: 23%;
+	left: 50%;
 	width: 150px;
 	transform: rotate(-45deg);
 	font: bold 14px arial;
 }
-.Timeline li::before {
+.timenode::before {
 	content: "";
 	position: absolute;
 	top: 3px;
@@ -57,7 +88,7 @@
 	display: block;
 	width: 6px;
 	height: 6px;
-	border: 8px solid #9b2;
+	border: 8px solid #9d79bc;
 	border-radius: 50%;
     background: #eee;
 }
@@ -66,14 +97,13 @@
 
 .details {
 	display: none;
-
 	position: absolute;
 	left: -85px;
 	top: 60px;
 	padding: 15px;
 	border-radius: 3px;
-	border-right: 2px solid rgba(0,0,0,.1);
-	border-bottom: 2px solid rgba(0,0,0,.1);
+	border-right: 2px solid rgba(126,31,134,.3);
+	border-bottom: 2px solid rgba(126,31,134,.3);
 	transform: rotate(45deg);
 	font: 12px arial;
 	background: #fff;
@@ -89,22 +119,23 @@
 	border: 10px solid transparent;
 	border-bottom-color: #fff;
 	border-top: 0;
+	z-index: -1;
 }
 
 /* ---- Hover effects ---- */
 
-li:hover {
+.timenode:hover {
     cursor: pointer;
     font-size: 12px;
-    color: #28e;
+    color: #7e1f82;
     transition: font-size .3s;
 }
-li:hover::before {
+.timenode:hover::before {
     border-width: 6px;
-    border-color: #28e;
+    border-color: #7e1f82;
     transition: border-width .3s;
 }
-.Timeline li:hover .details {
+.timenode:hover .details {
 	display: block;
     color: #444;
 }
