@@ -14,17 +14,19 @@ const auth = require('./oauth');
 const cookieSession = require('cookie-session');
 const cors = require('cors');
 
-//set up middleware
-const corsOption = {
-    origin: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    exposedHeaders: ['x-auth-token']
-};
 const app = express();
-app.use(cors(corsOption));
+
+//set up middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:5000");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials', true);
+    next(); 
+    });
+app.options('*', cors());
 
 // create a new cookie session middleware
 app.use(cookieSession({
