@@ -154,10 +154,10 @@ class Schedule extends Component {
       tagFlag = true;
       tag = this.state.tagFilter;
     }
-//<LiquidGauge value={68} text={false}/>
+    
     return (
       <div className="Schedule">
-        
+        <LiquidGauge value={68} text={false}/>
         <Timeline />
         <h4 id="title"> 
           {subjectFlag ? `Tasks for ${subject}` : ""} 
