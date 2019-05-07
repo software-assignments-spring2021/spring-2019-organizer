@@ -39,26 +39,40 @@ class Timeline extends React.Component{
         }
       }
       this.setState({ schedules: this.sortByDate(newSchedules)});
+      console.log(this.state.schedules);
       const l1 = [];
       const l2 = [];
       for(const key of Object.keys(this.state.schedules)){
-          l2.push(new Date(key));
+          console.log(key + 'T00:00:00.000-04:00');
+          l2.push(new Date(key + 'T00:00:00.000-04:00'));
           l1.push(key);
       }
       const f = l2[0];
       let j = 0;
     for(let i = 0; i < 14; ++i) {
-        console.log(l2[j].toDateString());
-        console.log(f.toDateString());
+        // console.log(l2[j].toDateString());
+        // console.log(f.toDateString());
         if(l2[j].toDateString() === f.toDateString()) {
-            this.dots[i].current.update(l2[j].toDateString(), 'hi');
+            this.dots[i].current.update(l2[j].toDateString(), 
+                this.gethwtext(this.state.schedules[l1[j]]));
             ++j;
+        } else {
+            this.dots[i].current.update('', 'enjoy your day off');
         }
         f.setDate(f.getDate() + 1);
     }
     }).catch((err) => {
       console.log(err);
     });
+    }
+
+    gethwtext(hwarr) {
+        let text = '';
+        for(const obj of hwarr) {
+            text += obj['classname'] + ': ' + obj['name'] + '\r\n'; 
+        }
+        console.log(text);
+        return text;
     }
 
     sortByDate(unordered) {
