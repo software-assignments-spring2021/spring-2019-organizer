@@ -31,17 +31,6 @@ const mydata = [
   
   //figures to analysis a student's performance
   class Figures extends Component {
-    componentDidMount() {
-      // const group = document.querySelector('.Figures').children;
-      // console.log(group)
-      // for(const ele of group) {
-      //   new flickity( ele, {
-      //     cellAlign: 'left',
-      //     contain: true
-      //   }
-      //   )
-      // }
-    }
 
     render() {
       return (
