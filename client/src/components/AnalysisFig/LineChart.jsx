@@ -63,29 +63,24 @@ class LineChart extends React.Component{
         if(l2[j] > f) {
             --j;
         }
-        let avep = 0;
-        let avea = 0;
         const y1data = [];
         const y2data = [];
         for(let i = 0; i < 5; ++i) {
+            console.log(l2[j].toDateString())
+            console.log(f.toDateString());
             if(j >= 0 && l2[j].toDateString() === f.toDateString()) {
                 const mydata = this.getPAdata(this.state.schedules[l1[j]]);
                 console.log(mydata);
-                if(mydata[0] === 0) {
-                    mydata[0] = avep;
-                }
-                if(mydata[1] === 0) {
-                    mydata[1] = avea;
-                }
-                avep = mydata[0];
-                avea = mydata[1];
                 y1data.push(mydata[0]);
                 y2data.push(mydata[1]);
                 --j;
+            } else {
+                y1data.push(5);
+                y2data.push(5);
             }
             f.setDate(f.getDate() - 1);
         }
-        this.drawChart(xdata, y1data, y2data);
+        this.drawChart(xdata, y1data.reverse(), y2data.reverse());
     }).catch((err) => {
         console.log(err);
     });

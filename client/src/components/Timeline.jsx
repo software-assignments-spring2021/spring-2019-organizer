@@ -47,6 +47,7 @@ class Timeline extends React.Component{
           l2.push(new Date(key + 'T00:00:00.000-04:00'));
           l1.push(key);
       }
+      const today = new Date();
       let f = new Date();
       f.setDate(f.getDate() - 1);
       let j = 0;
@@ -62,7 +63,11 @@ class Timeline extends React.Component{
                 this.gethwtext(this.state.schedules[l1[j]]));
             ++j;
         } else {
+          if(f.toDateString() === today.toDateString()) {
+            this.dots[i].current.update(today.toDateString(), 'enjoy your day off');
+          } else {
             this.dots[i].current.update('', 'enjoy your day off');
+          }
         }
         f.setDate(f.getDate() + 1);
     }

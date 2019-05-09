@@ -56,8 +56,11 @@ class LiquidGauge extends React.Component {
             l2.push(new Date(key + 'T00:00:00.000-04:00'));
             l1.push(key);
         }
-        const f = l2[0];
+        const f = new Date();
         let j = 0;
+        while(l2[j] < f) {
+            ++j;
+        }
         for(let i = 0; i < 7; ++i) {
             if(l2[j].toDateString() === f.toDateString()) {
                 l.push(l1[j]);
@@ -70,11 +73,11 @@ class LiquidGauge extends React.Component {
         //console.log(l);
         for(const d of l) {
             for(const li of this.state.schedules[d]) {
-                wl += li.difficulty;
+                wl += li.predictiontime;
             }
         }
         console.log(wl);
-        return wl * 3;
+        return wl;
     }
     
 
