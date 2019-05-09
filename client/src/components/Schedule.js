@@ -100,7 +100,7 @@ class Schedule extends Component {
         const filter = this.state.subjectFilter;
         for (const key of Object.keys(oldSchedules)) {
           const arr = oldSchedules[key].filter(obj => {
-              return obj.class === filter;
+              return obj.classname === filter;
           });
           if (arr.length !== 0) {
               newSchedules[key] = arr;
