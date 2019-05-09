@@ -85,9 +85,16 @@ class Schedule extends Component {
     
   sortByDate(unordered) {
     const ordered = {};
+    let date = new Date().getDate(); //Current Date
+    if (date < 10) date = "0"+date;
+    let month = new Date().getMonth() + 1; //Current Month
+    if (month < 10) month = "0"+month;
+    const year = new Date().getFullYear(); //Current Year
+    const current = year+"-"+month+"-"+date;
 
     Object.keys(unordered).sort().forEach(function(key) {
-      ordered[key] = unordered[key];
+      if (key > current)
+        ordered[key] = unordered[key];
     });
 
     return ordered;
@@ -161,13 +168,10 @@ class Schedule extends Component {
         <Timeline value={this.state.schedules}/>
         <h4 id="title"> 
           {subjectFlag ? `Tasks for ${subject}` : ""} 
-        </h4>
-
-        <h4 id="title"> 
           {tagFlag ? `Tasks for ${tag}` : ""} 
         </h4>
-        <div className="block">
 
+        <div className="block">
         { Object.keys(schedules).map((key, index) =>
             <TimeBlock 
             key={key}
@@ -179,7 +183,7 @@ class Schedule extends Component {
             />
         ) }
         </div>
-        </div>
+      </div>
     );
   }
 }
