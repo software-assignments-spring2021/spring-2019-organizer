@@ -100,7 +100,9 @@ class PieChart extends React.Component{
             const toadd = {name: '', value: 0};
             toadd.name = course;
             toadd.value = fut[course];
+            piedata.push(toadd);
         }
+        console.log(piedata);
         this.drawChart(piedata);
         }).catch((err) => {
             console.log(err);
@@ -134,7 +136,7 @@ class PieChart extends React.Component{
             tooltip: {},
             visualMap: [{
                 min: 0,
-                max: 30,
+                max: 50,
                 left: '10%',
                 bottom: '10%',
                 inRange: {

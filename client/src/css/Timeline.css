@@ -79,6 +79,7 @@
 	width: 150px;
 	transform: rotate(-45deg);
 	font: bold 14px arial;
+	z-index: 20;
 }
 
 .timenode::before {
@@ -120,7 +121,6 @@
 	border: 10px solid transparent;
 	border-bottom-color: #fff;
 	border-top: 0;
-	z-index: -1;
 }
 
 /* ---- Hover effects ---- */

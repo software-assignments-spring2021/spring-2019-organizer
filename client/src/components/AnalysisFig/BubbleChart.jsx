@@ -11,7 +11,7 @@ class BubbleObject {
     constructor(name, data, itemStyle) {
         this.type = 'scatter';
         this.symbolSize = function (data) {
-            return 10 * data[2];
+            return Math.sqrt(data[2]) * 10;
         };
         this.name = name;
         this.data = data;
@@ -50,7 +50,7 @@ class BubbleChart extends React.Component{
         let i;
         for (i = 0; i < courses.length; ++i) {
             const newobject = new BubbleObject(courses[i],
-                info.data[i],
+                info[i],
                 {normal: {color: colors[i]}});
             series.push(newobject);
         }
@@ -99,7 +99,7 @@ class BubbleChart extends React.Component{
                     const date = new Date(hw.finishtime + ':00.000-04:00');
                     const hour = date.getHours();
                     const day = date.toDateString().slice(0, 3);
-                    const dif = hw.difficulty * hw.actualtime / 1.4;
+                    const dif = hw.actualtime / 1.4;
                     if(!info[course]) {
                         info[course] = [[day, hour, dif, hw.name, course]];
                     } else {

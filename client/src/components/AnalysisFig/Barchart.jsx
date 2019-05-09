@@ -56,6 +56,7 @@ class Barchart extends React.Component{
             const xdata = [];
             const y1data = [];
             const y2data = [];
+            let num = 0;
             for(const date of l1) {
                 const hws = this.state.schedules[date];
                 console.log(hws);
@@ -69,7 +70,14 @@ class Barchart extends React.Component{
                         xdata.push(course + ' ' + hwname);
                         y1data.push(hw.predictiontime);
                         y2data.push(hw.actualtime);
+                        ++num;
+                        if(num >= 7) {
+                            break;
+                        }
                     }
+                }
+                if(num >= 7) {
+                    break;
                 }
             }
             console.log(xdata);
