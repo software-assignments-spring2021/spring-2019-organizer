@@ -4,6 +4,7 @@ import BubbleChart from './AnalysisFig/BubbleChart';
 import PieChart from './AnalysisFig/PieChart';
 import React, { Component } from 'react';
 import '../css/Figurecell.css';
+import Sidebar from './Sidebar';
 require('flickity');
 
 //sample test data:
@@ -34,6 +35,8 @@ const mydata = [
 
     render() {
       return (
+        <div>
+        <Sidebar />
         <div className="Figures" data-flickity='{ "wrapAround": true }' >
           <Barchart className='carousel-cell' xdata={['Agile', 'Quiz 6', 'Problem Set 5', 'homework', 'Budgets']}
               pdata={[5, 20, 30, 50, 20]} adata={[10, 20, 30, 45, 18]} name='Predicted vs. Actual'/>
@@ -41,6 +44,7 @@ const mydata = [
               actualTime={[20, 21, 11, 18, 20]} name='Predicted vs. Actual'/>
           <BubbleChart className='carousel-cell' courses={mycourses} data={mydata} name='Finishing Time'/> 
           <PieChart className='carousel-cell' name='Predicted Intensity for Next Week' data={piedata}/>
+        </div>
         </div>
       );
     }

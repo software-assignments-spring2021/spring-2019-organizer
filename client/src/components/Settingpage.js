@@ -5,6 +5,7 @@ import SidebarLink from './Sidebar';
 import Loader from 'react-loader-spinner'
 import NavLink from 'react-bootstrap/NavLink';
 import '../css/Setting.css';
+import Sidebar from './Sidebar';
 
 
 // const UNAME = '123';
@@ -153,7 +154,8 @@ class Settingpage extends Component {
     else{
     
     return (
-      <div className="Settingpage">   
+      <div className="Settingpage">
+        <Sidebar />   
         <Setting         
           handleUserNameChange={this.handleUserNameChange}
           handlePwdChange={this.handlePwdChange}
