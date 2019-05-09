@@ -54,10 +54,9 @@ class Timeline extends React.Component{
       while(l2[j] < f && j < l2.length) {
         j += 1;
       }
-      if(l2[j] > f && j > 0) {
-        --j;
-      }
     for(let i = 0; i < 14; ++i) {
+        console.log(l2[j].toDateString());
+        console.log(f.toDateString());
         if(l2[j].toDateString() === f.toDateString()) {
             this.dots[i].current.update(l2[j].toDateString(), 
                 this.gethwtext(this.state.schedules[l1[j]]));
