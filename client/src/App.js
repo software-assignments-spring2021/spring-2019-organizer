@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect} from "react-router-dom";
+import { BrowserRouter as Router, Route} from "react-router-dom";
 import Sidebar from './components/Sidebar';
 import Schedule from './components/Schedule';
 import Settingpage from './components/Settingpage';
