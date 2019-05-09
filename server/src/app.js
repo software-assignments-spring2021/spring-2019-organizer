@@ -9,6 +9,8 @@ const Tag = mongoose.model('Tag');
 // OAuthentication
 const passport = require('passport');
 const express = require('express');
+const path = require('path');
+const frontendPath = path.resolve(__dirname, './build');
 const bodyParser = require('body-parser');
 const auth = require('./oauth');
 const cookieSession = require('cookie-session');
@@ -17,16 +19,12 @@ const cors = require('cors');
 const app = express();
 
 //set up middleware
+
+// Setting up CORS
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:5000");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Credentials', true);
-    next(); 
-    });
-app.options('*', cors());
+app.use(express.static(frontendPath));
 
 // create a new cookie session middleware
 app.use(cookieSession({
@@ -49,12 +47,16 @@ app.use((req, res, next) => {
 auth(passport);
 
 // authenticate request
-app.get('/auth/google', passport.authenticate('google', {
+app.post('/auth/google', passport.authenticate('google', {
     scope: ['profile']
 }));
 
 // runs the functions in strategy
-app.get('/auth/google/callback',
+app.post('/auth/google/callback',
+    (req, res, next) => {
+        console.log('in auth/google/callback');
+        next();
+    },
     passport.authenticate('google'),
     (req, res) => {
         if (!req.user) {
@@ -68,21 +70,6 @@ app.get('/auth/google/callback',
         }
     }
 );
-
-// homepage
-// app.get('/', (req, res) => {
-//     if (req.session.token) {
-//         res.cookie('token', req.session.token);
-//         res.json({
-//             status: 'session cookie set'
-//         });
-//     } else {
-//         res.cookie('token', '');
-//         res.json({
-//             status: 'session cookie not set'
-//         });
-//     }
-// });
 
 // login router
 app.get('/login', (req, res) => {
@@ -100,7 +87,8 @@ app.get('/logout', (req, res) => {
 app.route('/task')
     // getting all tasks
     .get(function(req, res) {
-        Task.find({}, function(err, results) {
+        const netid = req.query.user;
+        Task.find({ user: netid }, function(err, results) {
             if (err) {
                 return res.status(500).send(err);
             } else {
@@ -115,7 +103,7 @@ app.route('/task')
                         const data = task.toObject();
 
                         // Fetching all tags
-                        const newP = Tag.find({}).exec();
+                        const newP = Tag.find({ user: netid }).exec();
                         newP.then(function(tags) {
                             const ids = tagsID.map((t) => { 
                                 return t.toString(); 
@@ -248,7 +236,8 @@ app.route('/task')
 app.route('/tag')
     // getting all tag
     .get(function(req, res) {
-        Tag.find({}, function(err, tags) {
+        const netid = req.query.user;
+        Tag.find({ user: netid }, function(err, tags) {
             if (err) {
                 res.status(500).send(err);
             } else {
@@ -320,7 +309,8 @@ app.route('/tag')
 
 // router for sending all tasks according to time format
 app.get('/schedule', (req, res) => {
-    Task.find({}, (err, results) => {
+    const netid = req.query.user;
+    Task.find({ user: netid }, (err, results) => {
         if (err) {
             res.redirect('/');
         } else {
@@ -358,7 +348,7 @@ app.get('/schedule', (req, res) => {
                     const data = task.toObject();
 
                     // Fetching all tags
-                    const newP = Tag.find({}).exec();
+                    const newP = Tag.find({ user: netid }).exec();
                     newP.then(function(tags) {
                         const ids = tagsID.map((t) => { 
                             return t.toString(); 
@@ -468,7 +458,8 @@ app.route("/user")
 app.route("/class")
     // getting all classes
     .get(function(req, res) {
-        Class.find({}, function(err, classes) {
+        const netid = req.query.user;
+        Class.find({ user: netid }, function(err, classes) {
             if (err) {
                 res.status(500).send(err);
             } else {

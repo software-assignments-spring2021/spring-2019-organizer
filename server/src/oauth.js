@@ -8,6 +8,7 @@ module.exports = (passport) => {
             callbackURL: 'http://localhost:5000/auth/google/callback'
         },
         (token, refreshToken, profile, done) => {
+            console.log('token', token);
             return done(null, {
                 profile: profile,
                 email: profile.emails,
