@@ -54,7 +54,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          {/* <Sidebar /> */}
+          <Sidebar />
           <Route exact path="/" render={() => {
             return <Login auth={this.state.isAuthenticated} googleResponse={this.googleResponse} onFailure={this.onFailure} />;
           }}/>
