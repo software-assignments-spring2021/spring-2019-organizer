@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar';
 import Schedule from './components/Schedule';
 import Settingpage from './components/Settingpage';
 import Figures from './components/Figures';
-import {GoogleLogin} from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 import config from './config.json';
 
 //const testprofile = 'https://raw.githubusercontent.com/nyu-software-engineering/organizer/master/documentation/web_mockup_Mark/home_page.png';
@@ -15,30 +15,39 @@ class App extends Component {
     this.state = { isAuthenticated: false, user: null, token: ''};
   }
   logout = () => {
-    this.setState({isAuthenticated: false, token: '', user: null})
-  };
+    this.setState({isAuthenticated: false, token: '', user: null});
+  }
   googleResponse = (response) => {
-    const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)], 
-    {type : 'application/json'});
-        const options = {
-            method: 'POST',
-            body: tokenBlob,
-            mode: 'cors',
-            cache: 'default'
-        };
-        fetch('http://localhost:5000/auth/google', options).then(r => {
-            const token = r.headers.get('x-auth-token');
-            r.json().then(user => {
-              console.log(token);
-                if (token) {
-                  this.setState({isAuthenticated: true, user, token})
-                }
-            });
-        })
+    // const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)], {type : 'application/json'});
+    // const options = {
+    //     method: 'POST',
+    //     body: tokenBlob,
+    //     mode: 'cors',
+    //     cache: 'default'
+    // };
+    const token = { token : response.accessToken };
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(token),
+        mode: 'cors',
+    };
+    fetch('/auth/google', options)
+    .then((res) => {
+      console.log(res);
+        // const token = res.headers.get('x-auth-token');
+        res.json();
+    })
+    .then(user => {
+      console.log(user);
+        // if (token) {
+        //   this.setState({isAuthenticated: true, user, token})
+        // }
+    });
   };
   
   onFailure = (error) => {
-    alert(error);
+    console.log(error);
   }
 
   render() {
@@ -46,9 +55,8 @@ class App extends Component {
       <Router>
         <div className="App">
           <Sidebar />
-          
           <Route exact path="/" render={() => {
-            return <Login auth={this.state.isAuthenticated} res={this.googleResponse} onFailure={this.onFailure} />;
+            return <Login auth={this.state.isAuthenticated} googleResponse={this.googleResponse} onFailure={this.onFailure} />;
           }}/>
           <Route path="/schedules" component={Schedule} />
           <Route path="/subject/:subject" component={Schedule} />
@@ -70,7 +78,7 @@ function Login(props) {
       <GoogleLogin
         clientId={config.GOOGLE_CLIENT_ID}
         buttonText="Login"
-        onSuccess={props.res}
+        onSuccess={props.googleResponse}
         onFailure={props.onFailure}
       />
     </div>
