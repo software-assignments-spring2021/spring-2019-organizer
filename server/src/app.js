@@ -9,8 +9,6 @@ const Tag = mongoose.model('Tag');
 // OAuthentication
 const passport = require('passport');
 const express = require('express');
-const path = require('path');
-const frontendPath = path.resolve(__dirname, './build');
 const bodyParser = require('body-parser');
 const auth = require('./oauth');
 const cookieSession = require('cookie-session');
@@ -24,7 +22,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(frontendPath));
 
 // create a new cookie session middleware
 app.use(cookieSession({
@@ -47,26 +44,20 @@ app.use((req, res, next) => {
 auth(passport);
 
 // authenticate request
-app.post('/auth/google', passport.authenticate('google', {
-    scope: ['profile']
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['email']
 }));
 
 // runs the functions in strategy
-app.post('/auth/google/callback',
-    (req, res, next) => {
-        console.log('in auth/google/callback');
-        next();
-    },
+app.get('/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
         if (!req.user) {
             return res.send(401, 'User Not Authenticated');
         } else {
             req.session.token = req.user.token;
-            req.session.user = req.user.id;
-            req.token = { id: req.user.id };
-            res.setHeader('x-auth-token', req.token);
-            return res.status(200).send(JSON.stringify(req.user));
+            req.session.user = req.user.email.slice(0, -8);
+            res.redirect('http://localhost:3000/schedules');
         }
     }
 );
@@ -87,7 +78,7 @@ app.get('/logout', (req, res) => {
 app.route('/task')
     // getting all tasks
     .get(function(req, res) {
-        const netid = req.query.user;
+        const netid = req.session.user;
         Task.find({ user: netid }, function(err, results) {
             if (err) {
                 return res.status(500).send(err);
@@ -138,7 +129,7 @@ app.route('/task')
             user: task.user,
             name: task.name,
             duetime: task.duetime,
-            opentime: "",
+            opentime: task.opentime,
             starttime: "",
             finishtime: "",
             tag: task.tag,
@@ -236,7 +227,7 @@ app.route('/task')
 app.route('/tag')
     // getting all tag
     .get(function(req, res) {
-        const netid = req.query.user;
+        const netid = req.session.user;
         Tag.find({ user: netid }, function(err, tags) {
             if (err) {
                 res.status(500).send(err);
@@ -309,7 +300,7 @@ app.route('/tag')
 
 // router for sending all tasks according to time format
 app.get('/schedule', (req, res) => {
-    const netid = req.query.user;
+    const netid = req.session.user;
     Task.find({ user: netid }, (err, results) => {
         if (err) {
             res.redirect('/');
@@ -458,7 +449,7 @@ app.route("/user")
 app.route("/class")
     // getting all classes
     .get(function(req, res) {
-        const netid = req.query.user;
+        const netid = req.session.user;
         Class.find({ user: netid }, function(err, classes) {
             if (err) {
                 res.status(500).send(err);

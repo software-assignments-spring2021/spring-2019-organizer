@@ -7,11 +7,9 @@ module.exports = (passport) => {
             clientSecret: '6OSTNWm9NUQjd7JpbbkuVt4N',
             callbackURL: 'http://localhost:5000/auth/google/callback'
         },
-        (token, refreshToken, profile, done) => {
-            console.log('token', token);
+        (token, refreshToken, email, done) => {
             return done(null, {
-                profile: profile,
-                email: profile.emails,
+                email: email.emails[0]['value'],
                 token: token
             });
         }
