@@ -73,12 +73,12 @@ class LiquidGauge extends React.Component {
                 wl += li.difficulty;
             }
         }
-        //console.log(wl);
-        return wl * 12;
+        console.log(wl);
+        return wl * 3;
     }
     
 
-    loadDefault = function() {
+    loadDefault = function(value) {
         //adding linear scaler to change the color based on the stress level
         const ls = d3.scaleLinear()
             .domain([0, 20, 40, 60, 80, 100])
@@ -97,7 +97,7 @@ class LiquidGauge extends React.Component {
             waveRise: true, // Control if the wave should rise from 0 to it's full height, or start at it's full height.
             waveHeightScaling: true, // Controls wave size scaling at low and high fill percentages. When true, wave height reaches it's maximum at 50% fill, and minimum at 0% and 100% fill. This helps to prevent the wave from making the wave circle from appear totally full or empty when near it's minimum or maximum fill.
             waveAnimate: true, // Controls if the wave scrolls or is static.
-            waveColor: ls(this.props.value), // The color of the fill wave.
+            waveColor: ls(value), // The color of the fill wave.
             waveOffset: 0, // The amount to initially offset the wave. 0 = no offset. 1 = offset of one full wave.
             textVertPosition: .5, // The height at which to display the percentage text withing the wave circle. 0 = bottom, 1 = top.
             textSize: 1, // The relative height of the text to display in the wave circle. 1 = 50%
@@ -119,7 +119,7 @@ class LiquidGauge extends React.Component {
       }
 
     loadLiquidGauge(eleid, value, text, myconfig) {
-        const config = myconfig || this.loadDefault();
+        const config = myconfig || this.loadDefault(value);
         const gauge = d3.select('#' + eleid);
         //console.log(value);
         const radius = Math.min(parseInt(gauge.style("width")),
