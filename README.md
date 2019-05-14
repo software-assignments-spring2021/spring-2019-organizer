@@ -43,7 +43,10 @@
    3. First run our server: from commandline, do `cd server` and install dependencies by `npm install`. Go to src (`cd src`)and run `node app.js`
    4. Then go to the client directory (`cd client`) install or dependencies by running `npm install` and then `npm start`
    5. Please **DO NOT USE** `npm audit fix`
-  
+
+## How to read our analysis:
+
+> Our application provides various ways to help students to have a better sense of their deadlines. The schedules page shows some tasks and displays a timeline and a stress level gauge. The analysis page serves 3 kinds of figures. The first two provides insight into how well students can predict workload on assignments. The third figure shows the timestamp when a student puts a task as `done'. The fourth figure uses some algorithm to predict the percentages of time to spend on each course in the coming week.
 <h4>Testing</h4>
    To run frontend tests, make sure you are in `client` directory.
   
