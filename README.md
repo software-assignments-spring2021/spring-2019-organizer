@@ -16,7 +16,9 @@
   [CONTRIBUBTING.md](https://github.com/nyu-software-engineering/organizer/blob/master/CONTRIBUTING.md)
   
  <h2>Building and Testing </h2>
- 
+
+> **IMPORTANT:** Our application requires *NYU NetID* and *password*. Since we do not have done anything to protect user information, **PLEASE DO NOT INPUT YOUR NYU ACCOUNT INFORMATION**. To see how our application works, refer to the build steps in the section below. The data is for testing purpose only from our database deployed on mlab.
+
 <h4>Development Code Building and Testing</h4>
   
    1. Clone our repository
@@ -38,13 +40,13 @@
          ├── src
          └── test
       </pre>
-   3. Go to client directory (`cd client`) or server directory and install or dependencies by running <code>npm install</code>
-   4. Please **DO NOT USE** `npm audit fix`
-   5. To build our app:
-      1. From client directory: 
-         * To build: <code>npm run build</code>
-         * To run: <code>npm start</code>
-  
+   3. First run our server: from commandline, do `cd server` and install dependencies by `npm install`. Go to src (`cd src`)and run `node app.js`
+   4. Then go to the client directory (`cd client`) install or dependencies by running `npm install` and then `npm start`
+   5. Please **DO NOT USE** `npm audit fix`
+
+## How to read our analysis:
+
+> Our application provides various ways to help students to have a better sense of their deadlines. The schedules page shows some tasks and displays a timeline and a stress level gauge. The analysis page serves 3 kinds of figures. The first two provides insight into how well students can predict workload on assignments. The third figure shows the timestamp when a student puts a task as `done'. The fourth figure uses some algorithm to predict the percentages of time to spend on each course in the coming week.
 <h4>Testing</h4>
    To run frontend tests, make sure you are in `client` directory.
   
