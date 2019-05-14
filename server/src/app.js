@@ -78,8 +78,8 @@ app.get('/logout', (req, res) => {
 app.route('/task')
     // getting all tasks
     .get(function(req, res) {
-        const netid = req.session.user;
-        Task.find({ user: netid }, function(err, results) {
+        // const netid = req.session.user;
+        Task.find({}, function(err, results) {
             if (err) {
                 return res.status(500).send(err);
             } else {
@@ -94,7 +94,7 @@ app.route('/task')
                         const data = task.toObject();
 
                         // Fetching all tags
-                        const newP = Tag.find({ user: netid }).exec();
+                        const newP = Tag.find({}).exec();
                         newP.then(function(tags) {
                             const ids = tagsID.map((t) => { 
                                 return t.toString(); 
@@ -227,8 +227,8 @@ app.route('/task')
 app.route('/tag')
     // getting all tag
     .get(function(req, res) {
-        const netid = req.session.user;
-        Tag.find({ user: netid }, function(err, tags) {
+        // const netid = req.session.user;
+        Tag.find({}, function(err, tags) {
             if (err) {
                 res.status(500).send(err);
             } else {
@@ -300,8 +300,8 @@ app.route('/tag')
 
 // router for sending all tasks according to time format
 app.get('/schedule', (req, res) => {
-    const netid = req.session.user;
-    Task.find({ user: netid }, (err, results) => {
+    // const netid = req.session.user;
+    Task.find({}, (err, results) => {
         if (err) {
             res.redirect('/');
         } else {
@@ -339,7 +339,7 @@ app.get('/schedule', (req, res) => {
                     const data = task.toObject();
 
                     // Fetching all tags
-                    const newP = Tag.find({ user: netid }).exec();
+                    const newP = Tag.find({}).exec();
                     newP.then(function(tags) {
                         const ids = tagsID.map((t) => { 
                             return t.toString(); 
@@ -449,8 +449,8 @@ app.route("/user")
 app.route("/class")
     // getting all classes
     .get(function(req, res) {
-        const netid = req.session.user;
-        Class.find({ user: netid }, function(err, classes) {
+        // const netid = req.session.user;
+        Class.find({}, function(err, classes) {
             if (err) {
                 res.status(500).send(err);
             } else {
