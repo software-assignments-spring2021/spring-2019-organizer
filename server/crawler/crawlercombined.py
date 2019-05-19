@@ -5,15 +5,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
 import time
 import datetime
-# from info import netid, password
-# netid = "tz904"
-# password = "885600JJjj!"
-
-
+import requests
 
 url = 'http://newclasses.nyu.edu'
 month_table = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
-
 
 # n represents netid
 # p represents password
@@ -27,14 +22,6 @@ def login(n, p,driver):
     passwordBox.clear()
     passwordBox.send_keys(p)
     submitBtn.click()
-#
-# # This function is to find the duo-button to click
-# def click_Push():
-#     shadowHost = driver.find_element_by_id('duo_iframe')
-#     for i in range(400, 500, 10):
-#         for j in range(0, 140, 10):
-#             actionChain = webdriver.ActionChains(driver).move_to_element_with_offset(shadowHost, i, j).click()
-#             actionChain.perform()
 
 # This function is to check if we can find the duo location
 def passDUO(driver):
@@ -49,7 +36,7 @@ def passDUO(driver):
 # This function to force quit if we wait for too long
 def wait_for(condition_function,driver):
     start_time = time.time()
-    while time.time() < start_time + 15:
+    while time.time() < start_time + 30:
         if condition_function(driver):
             return True
         else:
@@ -86,7 +73,6 @@ def find_class_names(page):
 # One version is to let user choose a class name
 # Another version is to give the function a chosen name by adding a new parameter
 def chooselink(namelst):
-    print(namelst)
     classtouse = input("choose the class name from list ")
     shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classtouse +'"]')
     actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
@@ -120,7 +106,6 @@ def find_tag_names(page):
 # One version is to let user choose a tag name
 # Another version is to give the function a chosen tag name by adding a new parameter
 def choosetag(taglst,driver):
-    print(taglst)
     tagtouse = input("choose the tag name from list ")
     shadowHostnew = driver.find_element_by_css_selector('.Mrphs-toolsNav__menuitem--link[title="'+ tagtouse +'"]')
     actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
@@ -142,7 +127,6 @@ def find_all_quizs(page):
             title = page[start_name: end_name + 1]
             # find the time
             start_time = page.find('<span class="currentSort">',end_name) + 24
-            #print(page[start_time:start_time+26])
             start_time = page.find('>',start_time) + 1
             end_time = page.find('<',start_time) - 1
             time = page[start_time:end_time + 1]
@@ -153,9 +137,11 @@ def find_all_quizs(page):
             currentquiz.append(title)
             currentquiz.append(time)
             currentquiz.append(due)
-            quizs.append(currentquiz)
+            if (len(due) > 2 and (due[-2:] == 'AM' or due[-2:] == 'PM')):
+                quizs.append(currentquiz)
             page = page[end_due::]
-            return quizs
+
+        return quizs
     except:
         return ["The name you searched does not exist in this page"]
 
@@ -187,10 +173,7 @@ def select_assignments(r):
     if (due_date_string != ''):
         due_date = time_transform(assignments_columns[4].text)
         if (status == 'Not Started' and due_date > datetime.datetime.now()):
-            # attachmant = assignments_columns[0]
-            # open_date = assignments_columns[3]
             title = assignments_columns[1].find_element_by_css_selector('a[name="asnActionLink"]').text
-            print(title, due_date)
             count += 1
     return count
 
@@ -206,10 +189,7 @@ def save_select_assignments(r):
     if (due_date_string != ''):
         due_date = time_transform(assignments_columns[4].text)
         if (status == 'Not Started' and due_date > datetime.datetime.now()):
-            # attachmant = assignments_columns[0]
-            # open_date = assignments_columns[3]
             title = assignments_columns[1].find_element_by_css_selector('a[name="asnActionLink"]').text
-            # print(title, due_date)
             count += 1
     return [count,[title,due_date]]
 
@@ -228,12 +208,10 @@ def save_get_assigments(page,driver):
     all_assignments = []
     for r in assignments_rows:
         if save_select_assignments(r)[1][0] != "nothing":
-            # print(save_select_assignments(r))
             newcount += save_select_assignments(r)[0]
             all_assignments.append(save_select_assignments(r)[1])
     if newcount == 0:
         print("No Assignments")
-    # print(all_assignments
     return all_assignments
 
 #
@@ -263,9 +241,7 @@ def time_transform(time):
 def show_all_lists_of_quizs(originalsource,driver):
     namelst = find_class_names(originalsource,driver)
     namelst.pop(0)
-    print(["Title", "Time limit","Due Date"])
     for classname in namelst:
-        print(classname)
         shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
         actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
         actionChain1.perform()
@@ -309,7 +285,6 @@ def show_all_quizs_assignments(originalsource):
     namelst = find_class_names(originalsource)
     namelst.pop(0)
     for classname in namelst:
-        print(classname)
         print("Quiz")
         shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
         actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
@@ -369,7 +344,7 @@ def save_all_quizs_assignments(originalsource,driver):
     namelst.pop(0)
     classlist = {}
     for classname in namelst:
-        classlist[classname] = {};
+        classlist[classname] = {}
         cur_class = []
         cur_class.append(classname)
         quiz = []
@@ -383,7 +358,6 @@ def save_all_quizs_assignments(originalsource,driver):
         except:
             print("meet error in assignments")
             assignment.append(["No assignments"])
-            # print("No assignments for this class")
 
         try:
             shadowHostnew = driver.find_element_by_css_selector(
@@ -401,11 +375,6 @@ def save_all_quizs_assignments(originalsource,driver):
         except:
             quiz.append(["No quizs"])
         classlist[classname] = quiz + assignment
-        # classlist[classname]["Quiz"] = quiz;
-        # classlist[classname]["Assignment"] = assignment;
-        # cur_class.append(quiz)
-        # cur_class.append(assignment)
-        # classlist.append(cur_class)
     return classlist
 
 def transfer_time(dic):
@@ -419,7 +388,6 @@ def transfer_time(dic):
                        if timelist[0] != "n/a" and len(timelist) > 1:
                           newtime = []
                           newtime.append(dic[clss][info_index][0])
-                          # newtime.append(dic[clss][sec][info_index][1])
                           if timelist[2] == "PM":
                               newhour = timelist[1][0] + timelist[1][1]
                               newhour = int(newhour)
@@ -437,47 +405,23 @@ def transfer_time(dic):
                         timelist = timelist.split('/')
                         newtime = []
                         newtime.append(dic[clss][info_index][0])
-                        # newtime.append(dic[clss][sec][info_index][1])
                         newtime.append(timelist[0] + "-" + timelist[1] + "-" + timelist[2] + "T" +timelist[3] +":"+ timelist[4] + ":00")
                         dic[clss][info_index] = newtime
     return dic
-# The following is the main function
-# driver = webdriver.Chrome()
-# driver.get(url)
-# login(netid, password)
-# # click_Push()
-# if wait_for(passDUO):
-#     # originalsource = driver.page_source
-#     homepage = driver.page_source
-#     # show_all_quizs_assignments_v2(homepage)
-#     all_lists = (save_all_quizs_assignments(homepage))
-#     my_dic = transfer_time(all_lists)
-#     for key in my_dic:
-#         print(key)
-#         print(my_dic[key])
-#     #get_classes(homepage)
-#     driver.close()
-#     driver.quit()
-
 
 def postTask(createTaskURL, taskSchema):
     response = requests.post(createTaskURL, taskSchema)
-    print(response.json())
 
 
 def postClass(createClassURL, classnew):
     response = requests.post(createClassURL, classnew)
-    print(response.json())
     return response.json()['_id']
 
-
-import requests
 global dic_class
 global dic_task
 dic_class = {}
 dic_task = []
 def main(n, p):
-    print('he')
     createTaskURL = 'http://localhost:5000/task'
     createClassURL = 'http://localhost:5000/class'
     netid = n
@@ -485,20 +429,13 @@ def main(n, p):
     driver = webdriver.Chrome()
     driver.get(url)
     login(netid, password,driver)
-    # click_Push()
     if wait_for(passDUO,driver):
-        # originalsource = driver.page_source
         homepage = driver.page_source
         all_lists = (save_all_quizs_assignments(homepage,driver))
         my_dic = transfer_time(all_lists)
-        # for key in my_dic:
-        #     print(key)
-        #     print(my_dic[key])
-        # get_classes(homepage)
         driver.close()
         driver.quit()
     print(my_dic)
-    # my_dic = {'Artificial Intelligence, Section 001': [['No quizs'], ['Problem set 5', '2019-05-13T05:00:00']], 'AIT - 008 SP19': [['Quiz 06 MongoDB', '2019-05-07T23:00']], 'Spring 2019 Pre-Orientation Modules': [['Budgets', '2019-10-04T1:45']]}
     for class_name in my_dic.keys():
         if class_name in dic_class.keys():
             class_id = dic_class[class_name]
@@ -552,84 +489,3 @@ def main(n, p):
                         "actualtime": 0
                     }
                     postTask(createTaskURL, newtaskSchema)
-
-# main(n, p)
-
-
-createTaskURL = 'localhost:5000/task'
-createClassURL = 'localhost:5000/class'
-
-taskSchema = {
-    "user": "",
-    "name": "",
-    "duetime": "",
-    "opentime": "",
-    "starttime": "",
-    "finishtime": "",
-    "tag": [],
-    "state": "",
-    "class": "",
-    "description": "",
-    "difficulty": 0,
-    "predictiontime": 0,
-    "actualtime": 0
-}
-
-classSchema = {
-    "name": "",
-    "user": "",
-    "task": [],
-    "deviation": 0
-}
-
-
-
-
-# print(type(datetime.datetime(2019, 5, 13, 5, 30)))
-# print(type(datetime.datetime(2019, 5, 13, 5, 30)) == "<class 'datetime.datetime'>")
-# print([datetime.datetime(2019, 5, 13, 5, 30).strftime('%Y/%m/%d/%I/%M')])
-# print(datetime.datetime(2019, 5, 13, 20, 30))
-# time = datetime.datetime(2019, 5, 13, 20, 30)
-# timelist = time.strftime('%Y/%m/%d/%H/%M')
-# timelist = timelist.split('/')
-# print(timelist[0] + "-" + timelist[1] + "-" + timelist[2] + "T" + timelist[3] + ":" + timelist[4] + ":00")
-# print(type("ddfdf") )
-# timelist = '2019-11-13 11:00 PM'
-# timelist = timelist.split()
-# newhour = timelist[1][0] + timelist[1][1]
-# newhour = int(newhour)
-# newhour += 12
-# newhour = str(newhour)
-# newexacthour = newhour
-# for i in range(len(timelist[1]) - 2):
-#     newexacthour += timelist[1][i + 2]
-# print(newexacthour)
-
-# newtime.append(timelist[0] + "T" + timelist[1])
-# list_get = {'Artificial Intelligence, Section 001': {'Quiz': [['No quizs']], 'Assignment': [['No assignments']]},
-#             'AIT - 008 SP19': {'Quiz': [['Quiz 01 (optional, no due date)', 'n/a', 'n/a']], 'Assignment': [['No assignments']]},
-#             'Spring 2019 Pre-Orientation Modules': {'Quiz': [['Budgets', 'n/a', '2019-10-04 1:45 AM']], 'Assignment': [['No assignments']]},
-#             'ICP  s1s2 Fall2017': {'Quiz': [['no available quizzes']], 'Assignment': [['No assignments']]},
-#             'Data Structures Spring 2018': {'Quiz': [['no available quizzes']], 'Assignment': [['No assignments']]},
-#             'Basic Algorithms, Section 005': {'Quiz': [['Homework 09, test-part, practice', 'n/a', '2019-11-13 12:00 AM']], 'Assignment': [['No assignments']]},
-#             'Intro to Econometrics, Section 004': {'Quiz': [['No quizs']], 'Assignment': [['No assignments']]}}
-#
-# timemodel = "2019-05-10T08:00 yyyy-mm-ddThh:ss"
-# def transfer_time(dic):
-#     for clss in dic:
-#         for sec in dic[clss]:
-#             for info_index in range(len(dic[clss][sec])):
-#                 if len(dic[clss][sec][info_index]) > 1:
-#                     time = dic[clss][sec][info_index][2]
-#                     timelist = time.split()
-#                     if timelist[0] != "n/a":
-#                         newtime = []
-#                         newtime.append(dic[clss][sec][info_index][0])
-#                         newtime.append(dic[clss][sec][info_index][1])
-#                         newtime.append(timelist[0] + "T" + timelist[1] + timelist[2])
-#                         dic[clss][sec][info_index] = newtime
-#     return dic
-# my_dic = transfer_time(list_get)
-# for key in my_dic:
-#     print(key)
-#     print(my_dic[key])

@@ -3,6 +3,7 @@ import TimeBlock from './Timeblock/TimeBlock';
 import '../css/Schedule.css';
 import Timeline from './Timeline';
 import LiquidGauge from './Gauge/LiquidGauge';
+import SideBar from './Sidebar';
 
 class Schedule extends Component {
   constructor(props){
@@ -164,6 +165,7 @@ class Schedule extends Component {
     
     return (
       <div className="Schedule">
+        <SideBar />
         <LiquidGauge value={68} text={false}/>
         <Timeline value={this.state.schedules}/>
         <h4 id="title"> 

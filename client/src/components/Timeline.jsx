@@ -98,7 +98,8 @@ class Timeline extends React.Component{
     return (
         <div className="lineDiv">
         <div className="line"></div>
-        <div className="Timeline" data-flickity='{ 
+        <div className="Timeline">
+        <div className='View' data-flickity='{ 
          "groupCells": 2, "cellAlign": "left", "setGallerySize": false,
          "fade": true }'>
             <Dot ref={this.dots[0]}/>
@@ -115,6 +116,7 @@ class Timeline extends React.Component{
             <Dot ref={this.dots[11]}/>
             <Dot ref={this.dots[12]}/>
             <Dot ref={this.dots[13]}/>
+        </div>
         </div>
         </div>
     );

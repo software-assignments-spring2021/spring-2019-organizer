@@ -37,11 +37,9 @@ classSchema = {
 
 def postTask():
         response = requests.post(createTaskURL, taskSchema)
-        print(response.json())
 
 def postClass():
         response = requests.post(createClassURL, classSchema)
-        print(response.json())
 
 def forever_one_second():
     x = datetime.today()
@@ -52,13 +50,13 @@ def forever_one_second():
     t.start()
 
 def forever_oneday_start():
-    print('hi')
     x = datetime.today()
     oneday = 86400
-    
-    for i in range(5):
-        t = Timer(86400*i, lambda : crawlercombined.main(arg1, arg2))
-        t.start()
+    crawlercombined.main(arg1, arg2)
+
+    # for i in range(5):
+    #     t = Timer(86400*i, lambda : crawlercombined.main(arg1, arg2))
+    #     t.start()
 
 
 forever_oneday_start()

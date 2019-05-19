@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import Setting from './Setting';
 import '../css/Setting.css';
 import Sidebar from './Sidebar';
+import { Redirect } from "react-router-dom";
 
 class Settingpage extends Component {
   constructor(props){
     super(props);
     this.handleChange = this.handleChange.bind(this);
-
+    this.state = {
+      loggedin: false
+    };
   }
 
   handleChange(usr, id, pw) {
@@ -24,14 +27,26 @@ class Settingpage extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    }).catch(err => {
-      console.log(err);
-    });
+    })
+    .then((res) => {
+      console.log(res);
+      if (res.ok) {
+        console.log();
+        this.setState({loggedin: true});
+      }
+    })
+    .catch(err => {
+      if (err) {
+        console.log(err);
+        alert('There might be some issue while crawling your tasks, try to make sure your netid and password are enter correctly')
+      }
+    })
   }
   
     
   render() {
       return (
+      !this.state.loggedin ?
       <div className="Settingpage">
         <div className="Warning">
           <span className="alert">Warning: Please be aware that we will store your netid and password as plain text!</span><br></br>
@@ -45,6 +60,7 @@ class Settingpage extends Component {
           
         />
       </div>
+      : <Redirect to='/schedules' />
       );
       
       }

@@ -414,8 +414,10 @@ app.route("/user")
                 crawlerProcess.stderr.on('data', (data) => {
                     console.log(String(data));
                 });
-                res.status(200).send(users);
-                res.redirect('http://localhost:3000/schedules');
+                crawlerProcess.on('close', (data) => {
+                    console.log(String(data));
+                    res.status(200).send('ok');
+                });
             }
         });
     })
