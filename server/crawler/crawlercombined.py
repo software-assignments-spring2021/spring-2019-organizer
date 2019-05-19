@@ -6,11 +6,8 @@ from selenium.common.exceptions import StaleElementReferenceException, NoSuchEle
 import time
 import datetime
 # from info import netid, password
-
-# insert your netid and password here for now
-# We will have a better version
-netid = "tz904"
-password = "885600JJjj!"
+# netid = "tz904"
+# password = "885600JJjj!"
 
 
 
@@ -479,28 +476,29 @@ global dic_class
 global dic_task
 dic_class = {}
 dic_task = []
-def main():
+def main(n, p):
+    print('he')
     createTaskURL = 'http://localhost:5000/task'
     createClassURL = 'http://localhost:5000/class'
-    # netid = "tz904"
-    # password = "520064463Bl!"
-    # driver = webdriver.Chrome()
-    # driver.get(url)
-    # login(netid, password,driver)
-    # # click_Push()
-    # if wait_for(passDUO,driver):
-    #     # originalsource = driver.page_source
-    #     homepage = driver.page_source
-    #     all_lists = (save_all_quizs_assignments(homepage,driver))
-    #     my_dic = transfer_time(all_lists)
-    #     # for key in my_dic:
-    #     #     print(key)
-    #     #     print(my_dic[key])
-    #     # get_classes(homepage)
-    #     driver.close()
-    #     driver.quit()
-    # print(my_dic)
-    my_dic = {'Artificial Intelligence, Section 001': [['No quizs'], ['Problem set 5', '2019-05-13T05:00:00']], 'AIT - 008 SP19': [['Quiz 06 MongoDB', '2019-05-07T23:00']], 'Spring 2019 Pre-Orientation Modules': [['Budgets', '2019-10-04T1:45']]}
+    netid = n
+    password = p
+    driver = webdriver.Chrome()
+    driver.get(url)
+    login(netid, password,driver)
+    # click_Push()
+    if wait_for(passDUO,driver):
+        # originalsource = driver.page_source
+        homepage = driver.page_source
+        all_lists = (save_all_quizs_assignments(homepage,driver))
+        my_dic = transfer_time(all_lists)
+        # for key in my_dic:
+        #     print(key)
+        #     print(my_dic[key])
+        # get_classes(homepage)
+        driver.close()
+        driver.quit()
+    print(my_dic)
+    # my_dic = {'Artificial Intelligence, Section 001': [['No quizs'], ['Problem set 5', '2019-05-13T05:00:00']], 'AIT - 008 SP19': [['Quiz 06 MongoDB', '2019-05-07T23:00']], 'Spring 2019 Pre-Orientation Modules': [['Budgets', '2019-10-04T1:45']]}
     for class_name in my_dic.keys():
         if class_name in dic_class.keys():
             class_id = dic_class[class_name]
@@ -554,7 +552,8 @@ def main():
                         "actualtime": 0
                     }
                     postTask(createTaskURL, newtaskSchema)
-main()
+
+# main(n, p)
 
 
 createTaskURL = 'localhost:5000/task'

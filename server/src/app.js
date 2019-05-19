@@ -14,8 +14,10 @@ const auth = require('./oauth');
 const cookieSession = require('cookie-session');
 const cors = require('cors');
 
-const app = express();
+// child process
+const spawn = require('child_process').spawn;
 
+const app = express();
 //set up middleware
 
 // Setting up CORS
@@ -405,7 +407,15 @@ app.route("/user")
             if (saveErr) {
                 res.send(saveErr);
             } else {
+                const crawlerProcess = spawn('python3', ["../crawler/request.py", users.netid, users.password]);
+                crawlerProcess.stdout.on('data', (data) => {
+                    console.log(String(data));
+                });
+                crawlerProcess.stderr.on('data', (data) => {
+                    console.log(String(data));
+                });
                 res.status(200).send(users);
+                res.redirect('http://localhost:3000/schedules');
             }
         });
     })

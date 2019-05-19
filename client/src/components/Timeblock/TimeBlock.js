@@ -41,7 +41,7 @@ class TimeBlock extends Component {
     .catch((err)=>console.log(err))
 	}
 	
-	handleUpdate(i, undateInfo) {
+	handleUpdate(i, updateInfo) {
 		if (this.state.tasks.length === 1) this.props.handleDelete();
 		else {
 			this.state.tasks.splice(i,1);
@@ -50,7 +50,7 @@ class TimeBlock extends Component {
 			});
 		}
 
-    this.props.handleUpdate(i, undateInfo);
+    this.props.handleUpdate(i, updateInfo);
   }
 
   handleSave(saveInfo) {
@@ -58,7 +58,7 @@ class TimeBlock extends Component {
   }
 
   render() {
-		const user = this.state.tasks[0].user;
+		const user = 'tz904';
 		return (
 			<Card id="cardlook" className="text-left">
 				<Card.Header as="h5">

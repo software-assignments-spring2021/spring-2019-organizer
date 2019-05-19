@@ -1,177 +1,55 @@
 import React, { Component } from 'react';
 import Setting from './Setting';
-import { Redirect } from 'react-router';
-import SidebarLink from './Sidebar';
-import Loader from 'react-loader-spinner'
-import NavLink from 'react-bootstrap/NavLink';
 import '../css/Setting.css';
 import Sidebar from './Sidebar';
-
-
-// const UNAME = '123';
-// const PWD = '123';
 
 class Settingpage extends Component {
   constructor(props){
     super(props);
-    this.state=({
-      // nickName: "",
-      // netid:'123',
-      // password:'123',
-      redirect: false, //redirect to schedule page
-      loginstate: false, 
-      loadingstate: false, //state of spinner
-      loading: false, //spinner loader
-      user: null
-
-    })
+    this.handleChange = this.handleChange.bind(this);
 
   }
-  
-    handleNickNameChange = (e) =>{
-      this.setState({
-        NickName:e.target.value
-      })
-    }
-  
 
-    handleUserNameChange = (e) =>{
-      this.setState({
-        userName:e.target.value
-      })
-    }
-
-    handlePwdChange = (e) =>{
-      this.setState({
-        pwd:e.target.value
-      })
-    }
-
-    handleNickNameChange = (e) =>{
-      this.setState({
-        NickName:e.target.value
-      })
-    }
-
-    handleLogin = (e) =>{
-      this.setState({redirect: true})
-      this.setState({loginstate: true})
-      this.setState({loading: true});
-        setTimeout(()=>{
-          this.setState({loading : false});
-        }, 700)
-        this.setState({loginstate: true})
-        this.setState({user: {name: this.state.nickname, netid: this.state.nickname, password: this.state.nickname}});
-        // var this.state.user.name = this.state.nickname;
-        // var this.state.user.netid = this.state.netid;
-        // var this.state.user.password = this.state.password;
-
-        fetch('/user',{
-          method: "POST",
-          body: JSON.stringify(this.user),
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        }).catch(err => {
-          console.log(err);
-        });
-      
-        
-        // Redirect = this.fetchData
-
-        //if user and password matches
-        return <Redirect to='/schedules'/>
-        
-
-        // else stay on the same page
+  handleChange(usr, id, pw) {
+    const newUsr = {
+      name: usr,
+      netid: id,
+      password: pw
+    };
+    console.log(newUsr);
+    fetch('/user',{
+      method: "POST",
+      body: JSON.stringify(newUsr),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       }
-      
-      
-   
-        // alert("Welcome to Organizer, you have been logged in successfully!"); 
-        
-    //     if(this.state.netid===UNAME&&this.state.password===PWD){
-
-    //     this.setState({redirect: true})
-    //     this.setState({loginstate: true})
-
-    //     if (this.state.redirect & this.state.loginstate) {
-    //       Redirect = this.fetchData
-          
-          
-    //       return <Redirect to='/schedules'/>
-           
-
-    //     };
-       
-           
-    //   }
-    //   else if(this.state.netid!==UNAME){
-    //     alert("Fail to log in: Username is wrong!");
-    //   }
-    //   else if(this.state.password!==PWD){
-    //     alert("Fail to log in: Passwoed is wrong! ");
-    //   }
-    //   else{
-    //     alert("Fail to login");
-    //   }
-    // }
-    
-
-    //handle logout
-    handleSign = () =>{
-      if (this.state.loginstate === false){
-        alert("You have not logged in")
-      }
-      else{
-        alert("Logout successfully!");
-     }
-    }
-
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+  
     
   render() {
-    if (this.state.loading === true){
-      return ( 
-        <Loader type="ThreeDots" color="#somecolor" display = 'flex' alignItems= 'center'
-        justifyContent = 'center' height={200} width={800} />
-        );
-    }
-
-    if (this.state.redirect) {
-
       return (
-      <NavLink>
-        <Redirect to="/schedules" />
-        <SidebarLink to="/schedules" label="Schedules"/>
-      </NavLink>
-      )
-      
-
-    }
-
-
-    else{
-    
-    return (
       <div className="Settingpage">
+        <div className="Warning">
+          <span className="alert">Warning: Please be aware that we will store your netid and password as plain text!</span><br></br>
+          It is because our crawler need to use your plain password to fetch your NYUclasses data.
+          We are still trying to find way to solve this problem but for now we strongly encourage you to explore our website as guest! 
+        </div>
         <Sidebar />   
+        <span className="instruction">Type in your NYU info below if you want to let Organizer to fetch your data in NYUclasses</span>
         <Setting         
-          handleUserNameChange={this.handleUserNameChange}
-          handlePwdChange={this.handlePwdChange}
-          handleSign={this.handleSign} //handle logout
-          handleLogin={this.handleLogin}   
-          handleNickNameChange={this.handleNickNameChange} 
+          handleChange={this.handleChange} 
           
         />
-   
       </div>
-    
-    );
-    
-    }
+      );
+      
+      }
     
   }
-}
+
 
 export default Settingpage;

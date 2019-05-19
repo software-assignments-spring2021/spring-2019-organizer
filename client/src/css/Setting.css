@@ -22,11 +22,35 @@
 }
 
 .log-box{
+    position: relative;
     background-color: #fff;
     width:300px;
     margin: auto;
     border: 2px solid #3a3a3a;
     font-weight: bold;
+    top: 125px;
+}
+
+.Warning {
+    position: relative;
+    text-align: center;
+    top: 75px;
+    width: 800px;
+    margin: auto;
+    left: 60px;
+    border: 2px solid #57068C;
+}
+
+.alert {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.instruction {
+    position: relative;
+    font-size: 20px;
+    top: 100px;
+    left: 60px;
 }
 
 .log-box tr{
