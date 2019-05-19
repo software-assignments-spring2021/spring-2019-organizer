@@ -43,7 +43,7 @@ class SideBar extends React.Component {
     .then(data => {
       this.setState({
         tags: data,
-        user: data[0].user
+        user: 'tz904'
       });
     })
     .catch(err => {

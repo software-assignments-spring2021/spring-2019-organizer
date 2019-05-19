@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from "react-router-dom";
-import Sidebar from './components/Sidebar';
 import Schedule from './components/Schedule';
 import Settingpage from './components/Settingpage';
 import Figures from './components/Figures';
@@ -18,7 +17,6 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Sidebar />
           <Route exact path="/" render={() => { return <Login/>;}}/>
           <Route exact path="/schedules" component={Schedule} />
           <Route path="/subject/:subject" component={Schedule} />

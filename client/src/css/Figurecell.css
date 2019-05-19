@@ -1,3 +1,5 @@
+@import url("https://unpkg.com/flickity@2/dist/flickity.min.css");
+
 .Figures .carousel-cell {
     width: 100%; /* full width */
     height: 160px; /* height of carousel */
