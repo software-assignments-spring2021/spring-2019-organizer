@@ -62,6 +62,9 @@ class LiquidGauge extends React.Component {
             ++j;
         }
         for(let i = 0; i < 7; ++i) {
+            if(!l2[j]) {
+                break;
+            }
             if(l2[j].toDateString() === f.toDateString()) {
                 l.push(l1[j]);
                 ++j;
