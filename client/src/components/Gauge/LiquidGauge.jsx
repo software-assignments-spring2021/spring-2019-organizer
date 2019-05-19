@@ -5,7 +5,8 @@ const d3 = require('d3');
 const style = {
     position: 'absolute',
     left: '88%',
-    marginTop: '2%'
+    marginTop: '2%',
+    fontFamily: 'Kodchasan, sans-serif'
 }
 
 class LiquidGauge extends React.Component {
@@ -62,6 +63,9 @@ class LiquidGauge extends React.Component {
             ++j;
         }
         for(let i = 0; i < 7; ++i) {
+            if(!l2[j]) {
+                break;
+            }
             if(l2[j].toDateString() === f.toDateString()) {
                 l.push(l1[j]);
                 ++j;
@@ -307,7 +311,12 @@ class LiquidGauge extends React.Component {
 
     render() {
         return (
-            <svg id='stress' width='70' height='70' style={style}></svg>
+            <div className='stressDiv' style={style}>
+            <div id='stressText'>
+            Stress Level
+            </div>
+            <svg id='stress' width='70' height='70'></svg>
+            </div>
         )
     }
 }

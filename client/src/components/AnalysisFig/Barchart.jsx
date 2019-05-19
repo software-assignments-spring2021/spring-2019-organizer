@@ -7,9 +7,18 @@ require('echarts/lib/component/title');
 require('echarts/lib/chart/bar');
 require('echarts/lib/component/legend');
 
-const barStyle = {
+const style = {
     width: '100%',
     height: '100%'
+}
+
+const barStyle = {
+    height: '90%'
+}
+
+const textStyle = {
+    fontFamily: 'Roboto Mono, monospace',
+    fontSize: '10pt'
 }
 
 //a bar chart component
@@ -138,7 +147,13 @@ class Barchart extends React.Component{
 
     render() {
         return (
+            <div style={style}>
             <div className="chartdiv" style={barStyle}>
+            </div>
+            <div className='textDiv' style={textStyle}>
+            This chart shows the differences between the user-predicted time and 
+            the actual time spent on different assignments.
+            </div>
             </div>
         )
     }

@@ -20,9 +20,18 @@ class BubbleObject {
 }
 
 
-const barStyle = {
+const style = {
     width: '100%',
     height: '100%'
+}
+
+const bubbleStyle = {
+    height: '85%'
+}
+
+const textStyle = {
+    fontFamily: 'Roboto Mono, monospace',
+    fontSize: '10pt'
 }
 
 //a bubble chart component to analyze the time stamps of 'done time'
@@ -158,7 +167,14 @@ class BubbleChart extends React.Component{
 
     render() {
         return (
-            <div className="bubblediv" style={barStyle}>
+            <div style={style}>
+            <div className="bubblediv" style={bubbleStyle}>
+            </div>
+            <div className='textDiv' style={textStyle}>
+            This chart shows the a user's habit of doing different tasks at different 
+            days and different time of a week. A bubble means the time a user finishes a task at some point (0 am - 24 am) 
+            in a day. The bigger a bubble is, the larger the task is.
+            </div>
             </div>
         )
     }
