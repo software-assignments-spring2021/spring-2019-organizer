@@ -6,10 +6,18 @@ require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 require('echarts/lib/chart/line');
 
-//simple style
-const linestyle = {
+const style = {
     width: '100%',
     height: '100%'
+}
+
+const lineStyle = {
+    height: '90%'
+}
+
+const textStyle = {
+    fontFamily: 'Roboto Mono, monospace',
+    fontSize: '10pt'
 }
 
 //a line chart component to analyze the students predicted time vs. actual time
@@ -192,7 +200,13 @@ class LineChart extends React.Component{
     }
     render() {
         return (
-            <div className="linediv" style={linestyle}>
+            <div style={style}>
+            <div className="linediv" style={lineStyle}>
+            </div>
+            <div className='textDiv' style={textStyle}>
+            This chart shows the differences between the user-predicted time and 
+            the actual time spent in the most recent week.
+            </div>
             </div>
         )
     }

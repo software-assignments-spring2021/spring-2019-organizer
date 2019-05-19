@@ -11,9 +11,18 @@ require('echarts/lib/chart/pie/labelLayout');
 require('echarts/lib/chart/helper/labelHelper');
 
 //simple style
-const piestyle = {
+const style = {
     width: '100%',
     height: '100%'
+}
+
+const piestyle = {
+    height: '85%'
+}
+
+const textStyle = {
+    fontFamily: 'Roboto Mono, monospace',
+    fontSize: '10pt'
 }
 
 
@@ -75,7 +84,6 @@ class PieChart extends React.Component{
                 //actual time should be non-zero if in past
                 const dif = hw.difficulty;
                 if(date > past && date < today) {
-                    console.log(last[course]);
                     last[course] = last[course] !== undefined ? 
                         last[course] + hw.actualtime / dif : hw.actualtime / dif;
                 } else if (date >= today && date < future){
@@ -188,7 +196,13 @@ class PieChart extends React.Component{
     }
     render() {
         return (
+            <div style={style}>
             <div className="piediv" style={piestyle}>
+            </div>
+            <div className='textDiv' style={textStyle}>
+            This chart shows our prediction on the intensity of different
+            subjects in the coming week.
+            </div>
             </div>
         )
     }
