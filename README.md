@@ -67,8 +67,9 @@
       </pre>
    4. First run our server: 
       1. from commandline, do `cd server`
-      2. install dependencies by `npm install` and then `pip install -r requirements.txt`.
-      3. run the server: go to src directory (`cd src`) and run `node app.js`.
+      2. install dependencies by `npm install`.
+      3. if you want to use our crawler function, you need to install google chrome and follow the [answer to the stackoverflow question](https://stackoverflow.com/questions/40555930/selenium-chromedriver-executable-needs-to-be-in-path) to add the driver path and then do `pip install -r requirements.txt`
+      4. run the server: go to src directory (`cd src`) and run `node app.js`.
    5. Open another terminal to run the front-end react application:
       1. go to the client directory (path/to/organizer/client)
       2. install or dependencies by running `npm install`
