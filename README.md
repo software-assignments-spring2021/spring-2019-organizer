@@ -67,7 +67,7 @@
       </pre>
    4. First run our server: 
       1. from commandline, do `cd server`
-      2. install dependencies by `npm install` and then `python3 install -r requirements.txt`.
+      2. install dependencies by `npm install` and then `pip install -r requirements.txt`.
       3. run the server: go to src directory (`cd src`) and run `node app.js`.
    5. Open another terminal to run the front-end react application:
       1. go to the client directory (path/to/organizer/client)
