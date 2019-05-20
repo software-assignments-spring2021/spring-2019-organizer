@@ -1,12 +1,5 @@
 # Organizer
-<style
-  type="text/css">
-code {padding: 2px 4px;
-    font-size: 90%;
-    color: #c7254e;
-    background-color: #f9f2f4;
-    border-radius: 4px}
-</style>
+
 
 ![build](https://travis-ci.com/nyu-software-engineering/organizer.svg?branch=master)
 
