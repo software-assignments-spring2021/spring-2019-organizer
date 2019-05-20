@@ -43,7 +43,7 @@
 
 ### 4.1 Development Code Building
 
-   > **Important: Please make sure you turn on the 'automatically-push' function on DUO and respond to the push within 30s**.
+   > **Important: Please make sure you turn on the 'automatically-push' function on DUO and respond to the push within 30s. Alternatively you can click the push button by yourself when the chrome popup window shows up and respond to it within 30s**.
    
    1. Clone our repository
    2. Enter the directory by `cd organizer`
@@ -68,8 +68,10 @@
    4. First run our server: 
       1. from commandline, do `cd server`
       2. install dependencies by `npm install`.
-      3. if you want to use our crawler function, you need to install google chrome and follow the [answer to the stackoverflow question](https://stackoverflow.com/questions/40555930/selenium-chromedriver-executable-needs-to-be-in-path) to add the driver path and then do `pip install -r requirements.txt`
-      4. run the server: go to src directory (`cd src`) and run `node app.js`.
+      3. **if you want to use our crawler function, you need to install Google Chrome and [chrome driver](https://sites.google.com/a/chromium.org/chromedriver/downloads). Once you have download the chrome driver you have to set the path for execution by doing the following things**:
+         1. Find your python script path by typing `which python` and then you might get an output like `/usr/local/bin/python3`
+         2. Unzip your chrome driver and put this file under `/usr/local/bin/` and then go to your project directory `your-path/organizer/server` do `pip install -r requirements.txt`
+         3. run the server: go to src directory (`cd src`) and run `node app.js`.
    5. Open another terminal to run the front-end react application:
       1. go to the client directory (path/to/organizer/client)
       2. install or dependencies by running `npm install`
@@ -79,9 +81,9 @@
 <a name="use"></a>
 
 ### 4.2 How To Use
-1. Open a broswer and go to `http://localhost:3000`, this will lead you to a google sign-in page. Please choose one of your google account to continue.
-2. Go to the setting page (`http://localhost:3000/setting`) enter your prefered username and NetID and Password. This will open a new Chrome window to crawl your upcoming assignments where due date is larger than the current date.
-3. The schedules page (`http://localhost:3000/schedules`) contains the information about all your upcoming assignments. Please refresh the page if there has been an css error (sometimes happens). Here is a list of what you could do:
+1. Open a broswer and go to `http://localhost:3000`, this might take around 30s to load and please wait patiently. Once it is successfully loaded it will lead you to a google sign-in page. Please choose one of your google account to continue.
+2. Go to the setting page (`http://localhost:3000/setting`), enter your preferred username and NetID and Password. This will open a new Chrome window to crawl your upcoming assignments where their due date is larger than the current date.
+3. The schedules page (`http://localhost:3000/schedules`) contains the information about all your upcoming assignments. **Please refresh the page if there has been an css error** (sometimes happens). Here is a list of what you could do:
    1. view all tasks in the next two weeks in the timeline
    2. check your stress level
    3. to create a new task, click 'add new task' and input task information. The 'predicted time' is the amount of time you plans to spend on the task.
