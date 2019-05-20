@@ -68,9 +68,9 @@
    4. First run our server: 
       1. from commandline, do `cd server`
       2. install dependencies by `npm install`.
-      3. **if you want to use our crawler function, you need to install Google Chrome and [chrome driver](https://sites.google.com/a/chromium.org/chromedriver/downloads). Once you have download the chrome driver you have to set the path for execution by doing the following things**:
-         1. Find your python script path by typing `which python` and then you might get an output like `/usr/local/bin/python3`
-         2. Unzip your chrome driver and put this file under `/usr/local/bin/` and then go to your project directory `your-path/organizer/server` do `pip install -r requirements.txt`
+      3. **To use our crawler function, you need to install Google Chrome and [chrome driver](https://sites.google.com/a/chromium.org/chromedriver/downloads). Please find the appropriate version of driver to download (find by Chrome -> About Google Chrome) for your own Chrome. Unzip the downloaded file to get an executable and move the executable under the same directory as where your python is installed by doing the following**:
+         1. Find your path to where your python is installed by typing in your shell `which python`. You might get an output like `/usr/local/bin/python3` or `/anaconda3/bin/python`.
+         2. Put the executable under the same directory as python (e.g. `/usr/local/bin/`) and then go to your project directory `your-path/organizer/server` do `pip install -r requirements.txt`
          3. run the server: go to src directory (`cd src`) and run `node app.js`.
    5. Open another terminal to run the front-end react application:
       1. go to the client directory (path/to/organizer/client)
