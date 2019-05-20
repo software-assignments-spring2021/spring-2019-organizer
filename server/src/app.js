@@ -407,18 +407,17 @@ app.route("/user")
             if (saveErr) {
                 res.send(saveErr);
             } else {
-                res.status(200).send('ok');
-                // const crawlerProcess = spawn('python3', ["../crawler/request.py", users.netid, users.password]);
-                // crawlerProcess.stdout.on('data', (data) => {
-                //     console.log(String(data));
-                // });
-                // crawlerProcess.stderr.on('data', (data) => {
-                //     console.log(String(data));
-                // });
-                // crawlerProcess.on('close', (data) => {
-                //     console.log(String(data));
-                //     res.status(200).send('ok');
-                // });
+                const crawlerProcess = spawn('python3', ["../crawler/request.py", users.netid, users.password]);
+                crawlerProcess.stdout.on('data', (data) => {
+                    console.log(String(data));
+                });
+                crawlerProcess.stderr.on('data', (data) => {
+                    console.log(String(data));
+                });
+                crawlerProcess.on('close', (data) => {
+                    console.log(String(data));
+                    res.status(200).send('ok');
+                });
             }
         });
     })

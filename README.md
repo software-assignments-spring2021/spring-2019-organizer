@@ -79,7 +79,7 @@
 
 ### 4.2 How To Use
 1. Open a broswer and go to `http://localhost:3000`, this will lead you to a google sign-in page. Please choose one of your google account to continue.
-2. From the setting page (`http://localhost:3000/setting`) enter your prefered username and NetID and Password. This will open a new Chrome window to crawl your upcoming assignments.
+2. Go to the setting page (`http://localhost:3000/setting`) enter your prefered username and NetID and Password. This will open a new Chrome window to crawl your upcoming assignments where due date is larger than the current date.
 3. The schedules page (`http://localhost:3000/schedules`) contains the information about all your upcoming assignments. Please refresh the page if there has been an css error (sometimes happens). Here is a list of what you could do:
    1. view all tasks in the next two weeks in the timeline
    2. check your stress level
