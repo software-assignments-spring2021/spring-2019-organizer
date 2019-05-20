@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Row, Col} from 'react-bootstrap';
 import '../css/Setting.css';
 import SideBar from './Sidebar';
+require('flickity');
 // import loginstate from './Settingpage';
 
 

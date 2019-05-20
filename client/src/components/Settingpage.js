@@ -60,7 +60,11 @@ class Settingpage extends Component {
           
         />
       </div>
-      : <Redirect to='/schedules' />
+      : <Redirect to={{
+        pathname: '/schedules',
+        state: { reload: false }
+      }}
+      />
       );
       
       }

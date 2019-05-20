@@ -14,65 +14,72 @@ class Timeline extends React.Component{
         for(let i = 0; i < 14; ++i) {
             this.dots.push(React.createRef());
         }
+        this.load = this.load.bind(this);
     }
 
     componentDidMount() {
-    const urls = ['/schedule', '/class'];
-    Promise.all(urls.map(u=>fetch(u)))
-    .then(responses =>
-      Promise.all(responses.map(res => res.json()))
-    )
-    .then(texts => {
-      let newSchedules = {};
-      for (const obj of texts[0]) {
-        const due = obj.duetime.slice(0,10);
-        let class_name;
-        for (const class_obj of texts[1]) {
-          if (class_obj._id === obj.class)
-            class_name = class_obj.name;
-        }
-        obj.classname = class_name;
-        if (newSchedules.hasOwnProperty(due)) {
-          newSchedules[due].push(obj);
-        } else {
-          newSchedules[due] = [obj];
-        }
-      }
-      this.setState({ schedules: this.sortByDate(newSchedules)});
-      console.log(this.state.schedules);
-      const l1 = [];
-      const l2 = [];
-      for(const key of Object.keys(this.state.schedules)){
-          console.log(key + 'T00:00:00.000-04:00');
-          l2.push(new Date(key + 'T00:00:00.000-04:00'));
-          l1.push(key);
-      }
-      const today = new Date();
-      let f = new Date();
-      f.setDate(f.getDate() - 1);
-      let j = 0;
-      while(l2[j] < f && j < l2.length) {
-        j += 1;
-      }
-    for(let i = 0; i < 14; ++i) {
-        console.log(l2[j].toDateString());
-        console.log(f.toDateString());
-        if(l2[j].toDateString() === f.toDateString()) {
-            this.dots[i].current.update(l2[j].toDateString(), 
-                this.gethwtext(this.state.schedules[l1[j]]));
-            ++j;
-        } else {
-          if(f.toDateString() === today.toDateString()) {
-            this.dots[i].current.update(today.toDateString(), 'enjoy your day off');
-          } else {
-            this.dots[i].current.update('', 'enjoy your day off');
-          }
-        }
-        f.setDate(f.getDate() + 1);
+      setTimeout(() => {
+          this.load();
+      }, 1000);
     }
-    }).catch((err) => {
-      console.log(err);
-    });
+
+    load() {
+      const urls = ['/schedule', '/class'];
+          Promise.all(urls.map(u=>fetch(u)))
+          .then(responses =>
+            Promise.all(responses.map(res => res.json()))
+          )
+          .then(texts => {
+            let newSchedules = {};
+            for (const obj of texts[0]) {
+              const due = obj.duetime.slice(0,10);
+              let class_name;
+              for (const class_obj of texts[1]) {
+                if (class_obj._id === obj.class)
+                  class_name = class_obj.name;
+              }
+              obj.classname = class_name;
+              if (newSchedules.hasOwnProperty(due)) {
+                newSchedules[due].push(obj);
+              } else {
+                newSchedules[due] = [obj];
+              }
+            }
+            this.setState({ schedules: this.sortByDate(newSchedules)});
+            console.log(this.state.schedules);
+            const l1 = [];
+            const l2 = [];
+            for(const key of Object.keys(this.state.schedules)){
+                console.log(key + 'T00:00:00.000-04:00');
+                l2.push(new Date(key + 'T00:00:00.000-04:00'));
+                l1.push(key);
+            }
+            const today = new Date();
+            let f = new Date();
+            f.setDate(f.getDate() - 1);
+            let j = 0;
+            while(l2[j] < f && j < l2.length) {
+              j += 1;
+            }
+          for(let i = 0; i < 14; ++i) {
+              console.log(l2[j].toDateString());
+              console.log(f.toDateString());
+              if(l2[j].toDateString() === f.toDateString()) {
+                  this.dots[i].current.update(l2[j].toDateString(), 
+                      this.gethwtext(this.state.schedules[l1[j]]));
+                  ++j;
+              } else {
+                if(f.toDateString() === today.toDateString()) {
+                  this.dots[i].current.update(today.toDateString(), 'enjoy your day off');
+                } else {
+                  this.dots[i].current.update('', 'enjoy your day off');
+                }
+              }
+              f.setDate(f.getDate() + 1);
+          }
+          }).catch((err) => {
+            console.log(err);
+          });
     }
 
     gethwtext(hwarr) {
@@ -101,7 +108,7 @@ class Timeline extends React.Component{
         <div className="Timeline">
         <div className='View' data-flickity='{ 
          "groupCells": 2, "cellAlign": "left", "setGallerySize": false,
-         "fade": true }'>
+         "fade": true}' >
             <Dot ref={this.dots[0]}/>
             <Dot ref={this.dots[1]}/>
             <Dot ref={this.dots[2]}/>
