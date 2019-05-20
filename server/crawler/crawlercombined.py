@@ -5,10 +5,11 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
 import time
 import datetime
-import requests
+
 
 url = 'http://newclasses.nyu.edu'
 month_table = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
+
 
 # n represents netid
 # p represents password
@@ -73,6 +74,7 @@ def find_class_names(page):
 # One version is to let user choose a class name
 # Another version is to give the function a chosen name by adding a new parameter
 def chooselink(namelst):
+    print(namelst)
     classtouse = input("choose the class name from list ")
     shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classtouse +'"]')
     actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
@@ -106,6 +108,7 @@ def find_tag_names(page):
 # One version is to let user choose a tag name
 # Another version is to give the function a chosen tag name by adding a new parameter
 def choosetag(taglst,driver):
+    print(taglst)
     tagtouse = input("choose the tag name from list ")
     shadowHostnew = driver.find_element_by_css_selector('.Mrphs-toolsNav__menuitem--link[title="'+ tagtouse +'"]')
     actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
@@ -127,6 +130,7 @@ def find_all_quizs(page):
             title = page[start_name: end_name + 1]
             # find the time
             start_time = page.find('<span class="currentSort">',end_name) + 24
+            #print(page[start_time:start_time+26])
             start_time = page.find('>',start_time) + 1
             end_time = page.find('<',start_time) - 1
             time = page[start_time:end_time + 1]
@@ -173,7 +177,10 @@ def select_assignments(r):
     if (due_date_string != ''):
         due_date = time_transform(assignments_columns[4].text)
         if (status == 'Not Started' and due_date > datetime.datetime.now()):
+            # attachmant = assignments_columns[0]
+            # open_date = assignments_columns[3]
             title = assignments_columns[1].find_element_by_css_selector('a[name="asnActionLink"]').text
+            print(title, due_date)
             count += 1
     return count
 
@@ -189,7 +196,10 @@ def save_select_assignments(r):
     if (due_date_string != ''):
         due_date = time_transform(assignments_columns[4].text)
         if (status == 'Not Started' and due_date > datetime.datetime.now()):
+            # attachmant = assignments_columns[0]
+            # open_date = assignments_columns[3]
             title = assignments_columns[1].find_element_by_css_selector('a[name="asnActionLink"]').text
+            # print(title, due_date)
             count += 1
     return [count,[title,due_date]]
 
@@ -208,6 +218,7 @@ def save_get_assigments(page,driver):
     all_assignments = []
     for r in assignments_rows:
         if save_select_assignments(r)[1][0] != "nothing":
+            # print(save_select_assignments(r))
             newcount += save_select_assignments(r)[0]
             all_assignments.append(save_select_assignments(r)[1])
     if newcount == 0:
@@ -241,7 +252,9 @@ def time_transform(time):
 def show_all_lists_of_quizs(originalsource,driver):
     namelst = find_class_names(originalsource,driver)
     namelst.pop(0)
+    print(["Title", "Time limit","Due Date"])
     for classname in namelst:
+        print(classname)
         shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
         actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
         actionChain1.perform()
@@ -285,6 +298,7 @@ def show_all_quizs_assignments(originalsource):
     namelst = find_class_names(originalsource)
     namelst.pop(0)
     for classname in namelst:
+        print(classname)
         print("Quiz")
         shadowHostnew = driver.find_element_by_css_selector('.link-container[title="'+ classname +'"]')
         actionChain1 = webdriver.ActionChains(driver).move_to_element(shadowHostnew).click()
@@ -344,7 +358,7 @@ def save_all_quizs_assignments(originalsource,driver):
     namelst.pop(0)
     classlist = {}
     for classname in namelst:
-        classlist[classname] = {}
+        classlist[classname] = {};
         cur_class = []
         cur_class.append(classname)
         quiz = []
@@ -358,6 +372,7 @@ def save_all_quizs_assignments(originalsource,driver):
         except:
             print("meet error in assignments")
             assignment.append(["No assignments"])
+            # print("No assignments for this class")
 
         try:
             shadowHostnew = driver.find_element_by_css_selector(
@@ -375,6 +390,11 @@ def save_all_quizs_assignments(originalsource,driver):
         except:
             quiz.append(["No quizs"])
         classlist[classname] = quiz + assignment
+        # classlist[classname]["Quiz"] = quiz;
+        # classlist[classname]["Assignment"] = assignment;
+        # cur_class.append(quiz)
+        # cur_class.append(assignment)
+        # classlist.append(cur_class)
     return classlist
 
 def transfer_time(dic):
@@ -388,6 +408,7 @@ def transfer_time(dic):
                        if timelist[0] != "n/a" and len(timelist) > 1:
                           newtime = []
                           newtime.append(dic[clss][info_index][0])
+                          # newtime.append(dic[clss][sec][info_index][1])
                           if timelist[2] == "PM":
                               newhour = timelist[1][0] + timelist[1][1]
                               newhour = int(newhour)
@@ -405,23 +426,29 @@ def transfer_time(dic):
                         timelist = timelist.split('/')
                         newtime = []
                         newtime.append(dic[clss][info_index][0])
+                        # newtime.append(dic[clss][sec][info_index][1])
                         newtime.append(timelist[0] + "-" + timelist[1] + "-" + timelist[2] + "T" +timelist[3] +":"+ timelist[4] + ":00")
                         dic[clss][info_index] = newtime
     return dic
 
 def postTask(createTaskURL, taskSchema):
     response = requests.post(createTaskURL, taskSchema)
+    print(response.json())
 
 
 def postClass(createClassURL, classnew):
     response = requests.post(createClassURL, classnew)
+    print(response.json())
     return response.json()['_id']
 
+
+import requests
 global dic_class
 global dic_task
 dic_class = {}
 dic_task = []
 def main(n, p):
+    print('he')
     createTaskURL = 'http://localhost:5000/task'
     createClassURL = 'http://localhost:5000/class'
     netid = n
@@ -429,13 +456,20 @@ def main(n, p):
     driver = webdriver.Chrome()
     driver.get(url)
     login(netid, password,driver)
+    # click_Push()
     if wait_for(passDUO,driver):
+        # originalsource = driver.page_source
         homepage = driver.page_source
         all_lists = (save_all_quizs_assignments(homepage,driver))
         my_dic = transfer_time(all_lists)
+        # for key in my_dic:
+        #     print(key)
+        #     print(my_dic[key])
+        # get_classes(homepage)
         driver.close()
         driver.quit()
     print(my_dic)
+    # my_dic = {'Artificial Intelligence, Section 001': [['No quizs'], ['Problem set 5', '2019-05-13T05:00:00']], 'AIT - 008 SP19': [['Quiz 06 MongoDB', '2019-05-07T23:00']], 'Spring 2019 Pre-Orientation Modules': [['Budgets', '2019-10-04T1:45']]}
     for class_name in my_dic.keys():
         if class_name in dic_class.keys():
             class_id = dic_class[class_name]

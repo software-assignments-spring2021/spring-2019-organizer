@@ -4,6 +4,7 @@ import '../css/Schedule.css';
 import Timeline from './Timeline';
 import LiquidGauge from './Gauge/LiquidGauge';
 import SideBar from './Sidebar';
+require('flickity');
 
 class Schedule extends Component {
   constructor(props){
@@ -20,7 +21,6 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
-   
     const urls = ['/schedule', '/class'];
     Promise.all(urls.map(u=>fetch(u)))
     .then(responses =>

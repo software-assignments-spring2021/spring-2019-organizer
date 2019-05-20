@@ -42,7 +42,9 @@
 <a name="build"></a>
 
 ### 4.1 Development Code Building
-  
+
+   > **Important: Please make sure you turn on the 'automatically-push' function on DUO and respond to the push within 30s**.
+   
    1. Clone our repository
    2. Enter the directory by `cd organizer`
    3. Please be aware of our directory structure:
